@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /* ======================== Admin page ==========================*/
-Route::get('/', function () {
-    return view('adminpage.ad_home');
-});
 
 Route::get('userpage', function () {
     return view('adminpage.ad_userpage');
@@ -55,4 +52,50 @@ Route::get('orderpage', function () {
 
 Route::get('orderdetailpage', function () {
     return view('adminpage.ad_orderdetailpage');
+});
+
+// ============================ User page ===========================
+
+Route::get('/', function () {
+    return view('userpage.user_home');
+});
+
+Route::get('index', function () {
+    return view('userpage.user_home');
+});
+
+Route::get('login', function () {
+    return view('userpage.user_login');
+});
+
+Route::get('register', function () {
+    return view('userpage.user_register');
+});
+
+Route::get('shop', function () {
+    return view('userpage.user_shop');
+});
+
+Route::get('blog', function () {
+    return view('userpage.user_blog');
+});
+
+Route::get('blog_details', function () {
+    return view('userpage.user_blog_details');
+});
+
+Route::get('checkout', function () {
+    return view('userpage.user_checkout');
+});
+
+Route::get('contact', function () {
+    return view('userpage.user_contact');
+});
+
+Route::get('product', function () {
+    return view('userpage.user_product');
+});
+
+Route::get('cart', function () {
+    return view('userpage.user_cart');
 });

@@ -14,43 +14,43 @@ use Illuminate\Support\Facades\Route;
 */
 /* ======================== Admin page ==========================*/
 
-Route::get('userpage', function () {
+Route::get('ad_userpage', function () {
     return view('adminpage.ad_userpage');
 });
 
-Route::get('usereditpage', function () {
+Route::get('ad_usereditpage', function () {
     return view('adminpage.ad_usereditpage');
 });
 
-Route::get('categorypage', function () {
+Route::get('ad_categorypage', function () {
     return view('adminpage.ad_categorypage');
 });
 
-Route::get('categoryeditpage', function () {
+Route::get('ad_categoryeditpage', function () {
     return view('adminpage.ad_categoryeditpage');
 });
 
-Route::get('blogpage', function () {
+Route::get('ad_blogpage', function () {
     return view('adminpage.ad_blogpage');
 });
 
-Route::get('blogeditpage', function () {
+Route::get('ad_blogeditpage', function () {
     return view('adminpage.ad_blogeditpage');
 });
 
-Route::get('productpage', function () {
+Route::get('ad_productpage', function () {
     return view('adminpage.ad_productpage');
 });
 
-Route::get('producteditpage', function () {
+Route::get('ad_producteditpage', function () {
     return view('adminpage.ad_producteditpage');
 });
 
-Route::get('orderpage', function () {
+Route::get('ad_orderpage', function () {
     return view('adminpage.ad_orderpage');
 });
 
-Route::get('orderdetailpage', function () {
+Route::get('ad_orderdetailpage', function () {
     return view('adminpage.ad_orderdetailpage');
 });
 
@@ -71,6 +71,11 @@ Route::get('login', function () {
 Route::get('register', function () {
     return view('userpage.user_register');
 });
+
+Route::post('register', [
+    'as' => 'dang-ky',
+    'uses' => 'App\Http\Controllers\UserController@postRegister'
+]);
 
 Route::get('shop', function () {
     return view('userpage.user_shop');

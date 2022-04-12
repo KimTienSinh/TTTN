@@ -68,6 +68,10 @@ Route::get('login', function () {
     return view('userpage.user_login');
 });
 
+Route::post('postLogin', 'App\Http\Controllers\LoginController@postLogin');
+
+Route::post('postLogout', 'App\Http\Controllers\LoginController@postLogout');
+
 Route::get('register', function () {
     return view('userpage.user_register');
 });

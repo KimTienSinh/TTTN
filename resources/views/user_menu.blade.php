@@ -18,8 +18,11 @@
                 </div>
             </div>
             <div class="ht-right">
-                <a href="#" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                @if (Auth::check())
 
+                @else
+                <a href="./login" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                @endif
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
                     <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -34,7 +37,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
-                        <a href="./index.html">
+                        <a href="./index">
                             <img src="user/img/logo.png" alt="">
                         </a>
                     </div>
@@ -109,9 +112,9 @@
         <div class="container">
             <div class="d-flex justify-content-center">
                 <nav class="nav-menu mobile-menu">
-                    <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
-                        <li><a href="./shop.html">Shop</a></li>
+                    <ul id="user-menu">
+                        <li><a href="./index">Home</a></li>
+                        <li><a href="./shop">Shop</a></li>
                         <li><a href="#">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>
@@ -119,18 +122,23 @@
                                 <li><a href="#">Kid's</a></li>
                             </ul>
                         </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
-                        <li><a href="#">Pages</a>
+                        <li><a href="./blog">Blog</a></li>
+                        <li><a href="./contact">Contact</a></li>
+                        @if (Auth::check())
+                        <li><a href="#"><i class="fa fa-user"></i>&emsp;{{Auth::user()->user_name}}</a>
                             <ul class="dropdown">
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                                <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                <li><a href="./check-out.html">Checkout</a></li>
-                                <li><a href="./faq.html">Faq</a></li>
-                                <li><a href="{{url('register')}}">Register</a></li>
-                                <li><a href="{{url('login')}}">Login</a></li>
+                                @if(Auth::user()->role=='admin')
+                                <li><a href="{{url('ad_userpage')}}">Admin page</a></li>
+                                @endif
+                                <li>
+                                    <form action="postLogout" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-danger btn-block">Log out</button>
+                                    </form>
+                                </li>
                             </ul>
                         </li>
+                        @endif
                     </ul>
                 </nav>
             </div>
@@ -139,4 +147,5 @@
 
     </div>
 </header>
+
 <!-- Header End -->

@@ -9,3 +9,25 @@
 <script src="user/js/jquery.slicknav.js"></script>
 <script src="user/js/owl.carousel.min.js"></script>
 <script src="user/js/main.js"></script>
+<script>
+    // $(document).ready(function(){
+    //     $('ul#user-menu li:first-child').addClass('active');
+    //     $('ul#user-menu li').each(function(){
+    //         $(this).click(function(){
+    //             $('ul#user-menu li').removeClass('active');
+    //             $(this).addClass('active');
+    //         });
+    //     });
+    // });
+
+    $(document).ready(function() {
+		var path = this.location.href.toLowerCase();
+		$("ul#user-menu li:first-child").addClass("active");
+		$("ul#user-menu li a").each(function() {
+			if (path.indexOf((this).href.toLowerCase()) >= 0) {
+				$("ul#user-menu li").removeClass("active")
+				$(this).parent().addClass("active");
+			}
+		})
+	});
+</script>

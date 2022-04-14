@@ -36,7 +36,7 @@ class UserController extends Controller
         );
 
         $u = new User();
-        
+
         $u->user_name = $req->name;
         $u->address = $req->address;
         $u->phone = $req->phone;
@@ -48,7 +48,7 @@ class UserController extends Controller
         $u->status = 1;
         dd($req->input());
         $u->save();
-        
+
 
         // DB::table('users')->insert(
         //     [
@@ -63,7 +63,7 @@ class UserController extends Controller
         //         'status' => 1
         //     ]
         // );
-        
+
 
 
         return redirect()->back()->with('register_status', 'Register Success');
@@ -118,7 +118,8 @@ class UserController extends Controller
     }
 
     /////////////////////////Thêm User bên admin//////////////////
-    public function postInsertUser(Request $req){
+    public function postInsertUser(Request $req)
+    {
         $this->validate(
             $req,
             [
@@ -139,7 +140,7 @@ class UserController extends Controller
                 're_password.same' => 'Re Password not match !'
             ]
         );
-       
+
         $u = new User();
 
         $u->user_name = $req->name;
@@ -152,17 +153,20 @@ class UserController extends Controller
         $u->role = $req->cbx_role;
         $u->status = 1;
 
-        
+
         $u->save();
-        return redirect()->back()->with('ad_userpage');
+        return redirect('/ad_userpage');
+        
     }
 
     /////////////////////////Xóa User bên admin//////////////////
-    public function getDeleteUser($id){
+    public function getDeleteUser($id)
+    {
         // DB::table('users')->where('id_user', $req->id)->delete();
         $u = User::findOrFail($id);
         $u->delete();
         return redirect()->back()->with('ad_userpage', 'Data Deleted');
-        
-    }   
+    }
+
+    
 }

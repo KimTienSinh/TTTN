@@ -40,7 +40,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        //'remember_token',
     ];
 
     /**
@@ -51,4 +51,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function register($user_name, $address, $phone, $email , $password, $avatar, $gender, $role, $status){
+        $user = new User();
+        
+    }
 }

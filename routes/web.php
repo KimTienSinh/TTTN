@@ -68,9 +68,10 @@ Route::get('login', function () {
     return view('userpage.user_login');
 });
 
-Route::post('postLogin', 'App\Http\Controllers\LoginController@postLogin');
+/////////////////LOGIN REGISTER LOGOUT////////////////////////////////////////////
+Route::post('postLogin', 'App\Http\Controllers\UserController@postLogin');
 
-Route::post('postLogout', 'App\Http\Controllers\LoginController@postLogout');
+Route::post('postLogout', 'App\Http\Controllers\UserController@postLogout');
 
 Route::get('register', function () {
     return view('userpage.user_register');
@@ -80,6 +81,7 @@ Route::post('register', [
     'as' => 'dang-ky',
     'uses' => 'App\Http\Controllers\UserController@postRegister'
 ]);
+////////////////////////////////////////////////////////////////////////////////
 
 Route::get('shop', function () {
     return view('userpage.user_shop');

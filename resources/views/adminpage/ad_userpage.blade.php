@@ -5,7 +5,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <a href="../view/usercreatepage.php"> <button type="button" class="btn btn-outline-primary">
+                    <a href="{{url('ad_usereditpage')}}"> <button type="button" class="btn btn-outline-primary">
                             <i class="fa fa-plus-square-o"></i>&nbsp; New User</button></a>
                 </div>
             </div>
@@ -40,15 +40,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($list as $user)
                                     <tr>
-                                        <th>ID1</th>
-                                        <th>USERNAM1E</th>
-                                        <th>EMAI1L</th>
-                                        <th>ADDR1ESS</th>
-                                        <th>PHO1NE</th>
-                                        <th>STAT1US</th>
-                                        <th>ACT1ION</th>
+                                        <td>{{$user->id_user}}</td>
+                                        <td>{{$user->user_name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->address}}</td>
+                                        <td>{{$user->phone}}</td>
+                                        <td>{{$user->status}}</td>
+                                        <td>
+                                            <span>
+                                                <button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit </button>&nbsp;&nbsp;
+                                                <a href="{{url('delete_user', $user->id_user)}}"><button type="button" class="btn btn-outline-danger" >&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; </a> 
+                                            </span>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                     <?php
 
 

@@ -52,8 +52,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function register($user_name, $address, $phone, $email , $password, $avatar, $gender, $role, $status){
-        $user = new User();
-        
-    }
+    /// khi insert vô db với hàm save() thì migration nó báo lỗi với created_at, thêm dòng sau để tắt nó đi
+    public $timestamps = false;
+
 }

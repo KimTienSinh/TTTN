@@ -5,7 +5,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <a href="userpagelist.php"><button type="button" class="btn btn-outline-primary">
+                    <a href="{{url('ad_userpage')}}"><button type="button" class="btn btn-outline-primary">
                             <i class="fa fa-undo"></i>&nbsp; Back</button></a>
                 </div>
             </div>
@@ -27,43 +27,52 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="../controller/UserController.php" method="post">
+                            
+                            <form action="{{route('them-user')}}" method="POST">
+                                @csrf
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">User name</label>
                                     <div class="col-sm-10">
-                                        <input type="username" name="txt_name" class="form-control" placeholder="User name">
+                                        <input type="username" name="name" class="form-control" placeholder="User name" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="email" name="txt_email" class="form-control" placeholder="Email">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-10">
-                                        <input type="password" name="txt_password" class="form-control" placeholder="Password">
+                                        <input type="password" name="password" class="form-control" placeholder="Password" required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Confirm Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" name="re_password" class="form-control" placeholder="Password" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Address</label>
                                     <div class="col-sm-10">
-                                        <input name="txt_address" class="form-control" placeholder="Address">
+                                        <input name="address" class="form-control" placeholder="Address" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Phone</label>
                                     <div class="col-sm-10">
-                                        <input name="txt_phone" class="form-control" placeholder="Phone">
+                                        <input name="phone" class="form-control" placeholder="Phone" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Role</label>
                                     <div class="col-sm-10">
                                         <select class="form-control" name="cbx_role">
-
-                                            <option value="0" disabled hidden>Chọn quyền</option>
+                                            <option value="user" >User</option>
+                                            <option value="admin" >Admin</option>
+                                            <option value="admin_super" >Admin Super</option>
                                             <?php
                                             // $arrQuyen = array(false => "User", true => "Admin");
                                             // foreach ($arrQuyen as $key => $value) {
@@ -80,12 +89,12 @@
 
                                 <fieldset class="form-group">
                                     <div class="row">
-                                        <label class="col-form-label col-sm-2 pt-0">Sex</label>
+                                        <label class="col-form-label col-sm-2 pt-0">Gender</label>
                                         <div class="col-sm-10">
 
                                             <div class="form-group">
                                                 <label class="lbsRadio">
-                                                    <input type="radio" name="rd_gioitinh" value="male"> Male</label>
+                                                    <input type="radio" name="rd_gioitinh" value="male" checked> Male</label>
                                                 <label class="lbsRadio">
                                                     <input type="radio" name="rd_gioitinh" value="female"> Female</label>
                                             </div>
@@ -93,7 +102,7 @@
 
                                     </div>
                                 </fieldset>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <div class="col-sm-2">Preference</div>
                                     <div class="col-sm-10">
 
@@ -112,7 +121,7 @@
                                             ?>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row form-group">
                                     <div class="col col-md-3 fileinputpadding">
                                         <label for="file-input" class=" form-control-label ">Avatar</label>

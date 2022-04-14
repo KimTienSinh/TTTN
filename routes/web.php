@@ -14,13 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 /* ======================== Admin page ==========================*/
 
-Route::get('ad_userpage', function () {
-    return view('adminpage.ad_userpage');
-});
+Route::get('ad_userpage',[
+    'as' => 'danh-sach-user',
+    'uses' => 'App\Http\Controllers\PageController@getUserList'
+]);
 
 Route::get('ad_usereditpage', function () {
     return view('adminpage.ad_usereditpage');
 });
+
+Route::get('delete_user/{id_user}', [
+    'as' => 'xoa-user',
+    'uses' => 'App\Http\Controllers\UserController@getDeleteUser'
+]);
+
+Route::post('insert_user', [
+    'as' => 'them-user',
+    'uses' => 'App\Http\Controllers\UserController@postInsertUser'
+]);
 
 Route::get('ad_categorypage', function () {
     return view('adminpage.ad_categorypage');

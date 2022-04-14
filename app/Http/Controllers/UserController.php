@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    ///////////// Đăng ký ///////////////////////
     public function postRegister(Request $req)
     {
         $this->validate(
@@ -34,20 +35,35 @@ class UserController extends Controller
             ]
         );
 
-        DB::table('users')->insert(
-            [
-                'user_name' =>  $req->name,
-                'address' =>  $req->address,
-                'phone' =>  $req->phone,
-                'email' =>  $req->email,
-                'password' =>  Hash::make($req->password),
-                'avatar' =>  'UNDONE',
-                'gender' => $req->rd_gioitinh,
-                'role' =>  'user',
-                'status' => 1
-            ]
-        );
-        //$u = new User();
+        $u = new User();
+        
+        $u->user_name = $req->name;
+        $u->address = $req->address;
+        $u->phone = $req->phone;
+        $u->email = $req->email;
+        $u->password = Hash::make($req->password);
+        $u->avatar = 'UNDONE';
+        $u->gender = $req->rd_gioitinh;
+        $u->role = 'user';
+        $u->status = 1;
+        dd($req->input());
+        $u->save();
+        
+
+        // DB::table('users')->insert(
+        //     [
+        //         'user_name' =>  $req->name,
+        //         'address' =>  $req->address,
+        //         'phone' =>  $req->phone,
+        //         'email' =>  $req->email,
+        //         'password' =>  Hash::make($req->password),
+        //         'avatar' =>  'UNDONE',
+        //         'gender' => $req->rd_gioitinh,
+        //         'role' =>  'user',
+        //         'status' => 1
+        //     ]
+        // );
+        
 
 
         return redirect()->back()->with('register_status', 'Register Success');
@@ -59,6 +75,8 @@ class UserController extends Controller
 
 
     }
+
+    /////////////// Đăng nhập //////////////////////////
     public function getLogin()
     {
         return view('userpage.user_login');
@@ -92,9 +110,59 @@ class UserController extends Controller
         return redirect()->back()->with('login_status', 'Wrong email or password!');
     }
 
+    //////////////////////////Đăng xuất///////////////////////////
     public function postLogout()
     {
         Auth::logout();
         return redirect('/index');
     }
+
+    /////////////////////////Thêm User bên admin//////////////////
+    public function postInsertUser(Request $req){
+        $this->validate(
+            $req,
+            [
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required',
+                'name' => 'required',
+                'address' => 'required',
+                'phone' => 'required',
+                're_password' => 'required|same:password'
+            ],
+            [
+                'email.required' => 'Please type your email !',
+                'address.required' => 'Please type your address !',
+                'phone.required' => 'Please type your phone number !',
+                'email.email' => 'Incorrect email format !',
+                'email.unique' => 'Email already in use !',
+                'password.required' => 'Please type your password !',
+                're_password.same' => 'Re Password not match !'
+            ]
+        );
+       
+        $u = new User();
+
+        $u->user_name = $req->name;
+        $u->address = $req->address;
+        $u->phone = $req->phone;
+        $u->email = $req->email;
+        $u->password = Hash::make($req->password);
+        $u->avatar = $req->file_avatar;
+        $u->gender = $req->rd_gioitinh;
+        $u->role = $req->cbx_role;
+        $u->status = 1;
+
+        
+        $u->save();
+        return redirect()->back()->with('ad_userpage');
+    }
+
+    /////////////////////////Xóa User bên admin//////////////////
+    public function getDeleteUser($id){
+        // DB::table('users')->where('id_user', $req->id)->delete();
+        $u = User::findOrFail($id);
+        $u->delete();
+        return redirect()->back()->with('ad_userpage', 'Data Deleted');
+        
+    }   
 }

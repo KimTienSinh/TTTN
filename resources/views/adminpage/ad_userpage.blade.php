@@ -50,10 +50,18 @@
                                         <td>{{$user->status}}</td>
                                         <td>
                                             <span>
-                                                <button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit </button>&nbsp;&nbsp;
+                                                <a href="{{Route('chinh-User',$user->id_user)}}"><button
+                                                        type="button" class="btn btn-outline-primary">&nbsp;<i
+                                                            class="fa fa-pencil color-muted"></i>&nbsp; Edit
+                                                    </button>&nbsp;&nbsp; </a>
                                                 <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
                                                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                <a href="{{url('delete_user', $user->id_user)}}"><button data-toggle="modal" data-id='{{$user->id}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> </a>
+                                                <a href="{{url('delete_user', $user->id_user)}}"><button
+                                                        data-toggle="modal" data-id='{{$user->id}}'
+                                                        data-target="#myModal" type="button"
+                                                        class="btn btn-outline-danger">&nbsp;<i
+                                                            class="fa fa-close color-danger"></i>&nbsp; Delete </button>
+                                                </a>
                                                 <!-- <button data-toggle="modal" data-id='{{$user->id}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
                                             </span>
                                         </td>
@@ -73,13 +81,16 @@
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Bạn có muốn xóa</h4>
                                                         <input type=hidden id="id_user" name=id_user>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <button type="submit" class="btn btn-outline-danger">Yes ! Delete it</button>
+                                                        <button type="submit" class="btn btn-outline-danger">Yes !
+                                                            Delete it</button>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </form>

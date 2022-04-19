@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 /* ======================== Admin page ==========================*/
 
-Route::get('ad_userpage',[
+Route::get('ad_userpage', [
     'as' => 'danh-sach-user',
     'uses' => 'App\Http\Controllers\PageController@getUserList'
 ]);
@@ -29,6 +29,15 @@ Route::get('delete_user/{id_user}', [
     'uses' => 'App\Http\Controllers\UserController@getDeleteUser'
 ]);
 
+Route::get('ad_usereditpage{id}', [
+    'as' => 'chinh-User',
+    'uses' => 'App\Http\Controllers\UserController@editUser'
+]);
+
+Route::post('updateUser/{id}', [
+    'as' => 'ad_updateUser',
+    'uses' => 'App\Http\Controllers\UserController@updateUser'
+]);
 
 
 Route::post('insert_user', [
@@ -81,6 +90,15 @@ Route::get('index', function () {
 Route::get('login', function () {
     return view('userpage.user_login');
 });
+
+Route::get('userEdit', function () {
+    return view('userpage.user_edit');
+});
+
+Route::post('userEdit/{id}', [
+    'as' => 'userEdit',
+    'uses' => 'App\Http\Controllers\UserController@userEdit'
+]);
 
 /////////////////LOGIN REGISTER LOGOUT////////////////////////////////////////////
 Route::post('postLogin', 'App\Http\Controllers\UserController@postLogin');

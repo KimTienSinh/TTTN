@@ -46,7 +46,6 @@ class UserController extends Controller
         $u->gender = $req->rd_gioitinh;
         $u->role = 'user';
         $u->status = 1;
-        dd($req->input());
         $u->save();
 
 
@@ -156,7 +155,6 @@ class UserController extends Controller
 
         $u->save();
         return redirect('/ad_userpage');
-        
     }
 
     /////////////////////////Xóa User bên admin//////////////////
@@ -168,5 +166,55 @@ class UserController extends Controller
         return redirect()->back()->with('ad_userpage', 'Data Deleted');
     }
 
-    
+    public function editUser(Request $request)
+    {
+        $user = User::where('id_user', $request->id)->first();
+        return view('adminpage.ad_usereditpage', compact('user'));
+    }
+
+    public function updateUser(Request $req)
+    {
+        $avatar = $req->file_avatar;
+        if ($avatar == '') {
+            $avatar = 'UNDONE';
+        }
+
+        $user = [
+            'user_name' => $req->name,
+            'address' => $req->address,
+            'phone' => $req->phone,
+            'avatar' => $avatar,
+            'gender' => $req->rd_gioitinh,
+            'role' => $req->cbx_role,
+        ];
+        User::where('id_user', $req->id)->update($user);
+        return redirect('/ad_userpage');
+    }
+
+    public function userEdit(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                'name' => 'required',
+                'address' => 'required',
+                'phone' => 'required',
+            ],
+            [
+                'address.required' => 'Please type your address !',
+                'phone.required' => 'Please type your phone number !',
+                'name' => 'Please type your UserName!',
+            ]
+        );
+
+        $user = [
+            'user_name' => $req->name,
+            'address' => $req->address,
+            'phone' => $req->phone,
+            'gender' => $req->rd_gioitinh,
+        ];
+        User::where('id_user', $req->id)->update($user);
+
+        return redirect()->back()->with('userEdit_status', 'Data Update');
+    }
 }

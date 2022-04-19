@@ -127,7 +127,8 @@
                         @if (Auth::check())
                         <li><a href="#"><i class="fa fa-user"></i>&emsp;{{Auth::user()->user_name}}</a>
                             <ul class="dropdown">
-                                @if(Auth::user()->role=='admin')
+                                <li><a href="{{url('userEdit')}}">Edit profile</a></li>
+                                @if(Auth::user()->role!='user')
                                 <li><a href="{{url('ad_userpage')}}">Admin page</a></li>
                                 @endif
                                 <li>

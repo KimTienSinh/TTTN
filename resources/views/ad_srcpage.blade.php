@@ -1,3 +1,4 @@
+<base href="{{asset('')}}">
 <!-- Required vendors -->
 <script src="./admin/vendor/global/global.min.js"></script>
 <script src="./admin/js/quixnav-init.js"></script>
@@ -31,7 +32,8 @@
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 
 <script>
-    CKEDITOR.replace('mota');
+    CKEDITOR.replace('description');
+    CKEDITOR.config.autoParagraph = false;
 </script>
 <!-- <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> -->
 

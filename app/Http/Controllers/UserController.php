@@ -147,7 +147,11 @@ class UserController extends Controller
         $u->phone = $req->phone;
         $u->email = $req->email;
         $u->password = Hash::make($req->password);
-        $u->avatar = $req->file_avatar;
+        $avatar = $req->file_avatar;
+        if ($avatar == '') {
+            $avatar = 'UNDONE';
+        }
+        $u->avatar = $avatar;
         $u->gender = $req->rd_gioitinh;
         $u->role = $req->cbx_role;
         $u->status = 1;
@@ -168,7 +172,7 @@ class UserController extends Controller
 
     public function editUser(Request $request)
     {
-        $user = User::where('id_user', $request->id)->first();
+        $user = User::where('id_user', $request->id_user)->first();
         return view('adminpage.ad_usereditpage', compact('user'));
     }
 

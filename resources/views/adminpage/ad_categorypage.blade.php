@@ -5,7 +5,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <a href="../view/catalogycreatepage.php"><button type="button" class="btn btn-outline-primary">
+                    <a href="{{url('ad_categoryeditpage')}}"><button type="button" class="btn btn-outline-primary">
                             <i class="fa fa-plus-square-o"></i>&nbsp; New Catalogy</button></a>
                 </div>
             </div>
@@ -31,13 +31,57 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
+                                        <th scope="col">ID PARENT</th>
                                         <th scope="col">NAME</th>
-                                        <th scope="col">URL</th>
                                         <th scope="col">STATUS</th>
                                         <th scope="col">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($list_cat as $cat)
+                                    <tr>
+                                        <td>{{$cat->id_categories}}</td>
+                                        <td>{{$cat->id_parent}}</td>
+                                        <td>{{$cat->category_name}}</td>
+                                        <td>{{$cat->status}}</td>
+                                        <td>
+                                            <span>
+                                                <a href="{{route('chinh-danh-muc', $cat->id_categories)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
+                                                    </button>&nbsp;&nbsp; </a>
+                                                <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
+                                                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                                                <a href="{{url('delete_categories', $cat->id_categories)}}"><button data-toggle="modal" data-id='{{$cat->id}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>
+                                                </a>
+                                                <!-- <button data-toggle="modal" data-id='{{$cat->id}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <!-- Modal -->
+
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <form action="" method="post">
+                                                {{method_field('delete')}}
+                                                {{csrf_field()}}
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Bạn có muốn xóa</h4>
+                                                        <input type=hidden id="id_categories" name=id_categories>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <button type="submit" class="btn btn-outline-danger">Yes !
+                                                            Delete it</button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    @endforeach
                                     <?php
                                     // include_once '../utils/MySQLUtils.php';
                                     // $dbCon = new MySQLUtils();

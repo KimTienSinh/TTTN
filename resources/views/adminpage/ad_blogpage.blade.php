@@ -5,7 +5,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <a href="Blogcreatepage.php"> <button type="button" class="btn btn-outline-primary">
+                    <a href="{{url('ad_blogeditpage')}}"> <button type="button" class="btn btn-outline-primary">
                             <i class="fa fa-plus-square-o"></i>&nbsp; New Blog</button></a>
                 </div>
             </div>
@@ -30,10 +30,29 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">BlogNAME</th>
+                                        <th scope="col">BLOGNAME</th>
+                                        <th scope="col">IMAGE</th>
                                         <th scope="col">ACTION</th>
                                 </thead>
                                 <tbody>
+                                    @foreach($list_blog as $blog)
+                                    <tr>
+                                        <td>{{$blog->id_blog}}</td>
+                                        <td>{{$blog->blog_name}}</td>
+                                        <td><img width="100%" src = "admin/img/blog/{{$blog->image}}" alt = ""></td>
+                                        <td>
+                                            <span>
+                                                <a href="{{url('ad_blogeditpage', $blog->id_blog)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
+                                                    </button>&nbsp;&nbsp; </a>
+                                                <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
+                                                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                                                <a href="{{url('delete_blog', $blog->id_blog)}}"><button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>
+                                                </a>
+                                                <!-- <button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                     <?php
                                     // include_once '../utils/MySQLUtils.php';
                                     // $dbCon = new MySQLUtils();

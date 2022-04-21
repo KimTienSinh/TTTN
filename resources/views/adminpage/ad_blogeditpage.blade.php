@@ -5,7 +5,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <a href="Blogpage.php"><button type="button" class="btn btn-outline-primary">
+                    <a href="{{url('ad_blogpage')}}"><button type="button" class="btn btn-outline-primary">
                             <i class="fa fa-undo"></i>&nbsp; Back</button></a>
                 </div>
             </div>
@@ -28,38 +28,93 @@
 
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="../controller/BlogController.php" method="post">
+                            @if(isset($blog_edit))
+                            <form action="{{route('update-bai-viet', $blog_edit->id_blog)}}" method="post">
+                                @csrf
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Title</label>
+                                    <label class="col-sm-2 col-form-label">Blog Name</label>
                                     <div class="col-sm-10">
-                                        <input name="txt_title" class="form-control" required="true">
+                                        <input name="blog_name" value="{{$blog_edit->blog_name}}" class="form-control" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Catalogy</label>
+                                    <label class="col-sm-2 col-form-label">Catalogy Parent</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" name="txt_catalogy">
-                                            <?php
-                                            // include_once '../utils/MySQLUtils.php';
-                                            // $dbCon = new MySQLUtils();
-                                            // $query = "select * from danhmuc";
-                                            // $danhmucs =  $dbCon->getALLData($query);
-                                            // foreach ($danhmucs as $danhmuc) {
-                                            //     echo '   <option value="' . $danhmuc['madanhmuc'] . '" selected>' . $danhmuc['catname'] . '</option> ';
-                                            // }
-
-                                            ?>
-
+                                        <select class="form-control" name="cbx_parent_id">
+                                        @foreach($list_dropdown_e as $b)
+                                        <option @if($b->id_parent==2) selected value="{{$b->id_categories}}">{{$b->category_name}}
+                                                    @else hidden
+                                                @endif
+                                            </option>
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <textarea name="mota" id="mota">Description</textarea>
+                                <div class="row form-group">
+                                    <div class="col col-md-3 fileinputpadding">
+                                        <label  for="file-input" class=" form-control-label ">Image</label>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <img width="100%" src = "admin/img/blog/{{$blog_edit->image}}" alt = "">
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <input  type="file" id="image" name="image" class="form-control-file">
+                                    </div>
+                                    
+                                </div>
+                                <textarea name="description" id="description">{{$blog_edit->description}}</textarea>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="submit" name="blog_action" value="blog_create" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                            @else
+                            <form action="{{route('them-bai-viet')}}" method="post">
+                                @csrf
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Blog Name</label>
+                                    <div class="col-sm-10">
+                                        <input name="blog_name" class="form-control" required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Catalogy Parent</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="cbx_parent_id">
+                                            @foreach($list_dropdown_b as $parent)
+                                            <option @if($parent->id_parent==2) selected value="{{$parent->id_categories}}">{{$parent->category_name}}
+                                                @else hidden
+                                                @endif
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3 fileinputpadding">
+                                        <label for="file-input" class=" form-control-label ">Image</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" id="image" name="image" class="form-control-file">
+                                    </div>
+                                </div>
+                                <textarea name="description" id="description">Description</textarea>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <div class="col-sm-10">
                                         <button type="submit" name="blog_action" value="blog_create" class="btn btn-primary">Create</button>
                                     </div>
                                 </div>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>

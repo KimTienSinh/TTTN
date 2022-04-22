@@ -172,7 +172,7 @@ class UserController extends Controller
 
     public function editUser(Request $request)
     {
-        $user = User::where('id_user', $request->id_user)->first();
+        $user = User::where('id_user', $request->id)->first();
         return view('adminpage.ad_usereditpage', compact('user'));
     }
 

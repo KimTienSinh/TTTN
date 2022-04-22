@@ -50,14 +50,20 @@
                                         <td>{{$user->status}}</td>
                                         <td>
                                             <span>
-                                                <a href="{{Route('chinh-User',$user->id_user)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
+                                                <a href="{{Route('chinh-User',$user->id_user)}}"><button type="button"
+                                                        class="btn btn-outline-primary">&nbsp;<i
+                                                            class="fa fa-pencil color-muted"></i>&nbsp; Edit
                                                     </button>&nbsp;&nbsp; </a>
                                                 <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
                                                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                <a href="{{url('delete_user', $user->id_user)}}"><button data-toggle="modal" data-id='{{$user->id}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>
-                                                </a>
+
+                                                <button id="user_id" data-toggle="modal" data-id='{{$user->id_user}}'
+                                                    data-target="#myModal" type="button"
+                                                    class="btn btn-outline-danger">&nbsp;<i
+                                                        class="fa fa-close color-danger"></i>&nbsp; Delete </button>
                                                 <!-- <button data-toggle="modal" data-id='{{$user->id}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
                                             </span>
+
                                         </td>
                                     </tr>
                                     <!-- Delete Warning Modal -->
@@ -68,21 +74,21 @@
 
                                     <div class="modal fade" id="myModal" role="dialog">
                                         <div class="modal-dialog modal-sm">
-                                            <form action="" method="post">
-                                                {{method_field('delete')}}
-                                                {{csrf_field()}}
+                                            <form action="{{Route('xoa-user')}}" method="get">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Bạn có muốn xóa</h4>
-                                                        <input type=hidden id="id_user" name=id_user>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <input type=hidden id="id_user" name="id_user" value="">
+                                                        <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <button type="submit" class="btn btn-outline-danger">Yes !
                                                             Delete it</button>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -98,12 +104,7 @@
 
                 </div>
             </div>
-            <script>
-                $(document).on('click', '.delete', function() {
-                    let id = $(this).attr('data-id');
-                    $('#id').val(id);
-                });
-            </script>
+
 
             <!-- end row -->
         </div>
@@ -122,5 +123,13 @@
                 </div> -->
     </div>
 </div>
+
+<script>
+    $('[data-id]').each(function(){
+            $(this).click(function(){
+                $('#id_user').val($(this).data('id'));
+            });
+        });                                             
+</script>
 
 @endsection()

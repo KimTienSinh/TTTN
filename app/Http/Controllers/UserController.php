@@ -162,10 +162,10 @@ class UserController extends Controller
     }
 
     /////////////////////////Xóa User bên admin//////////////////
-    public function getDeleteUser($id)
+    public function getDeleteUser(Request $req)
     {
-        // DB::table('users')->where('id_user', $req->id)->delete();
-        $u = User::findOrFail($id);
+        // DB::table('users')->where('id_user', $req->id_user)->delete();
+        $u = User::findOrFail($req->id_user);
         $u->delete();
         return redirect()->back()->with('ad_userpage', 'Data Deleted');
     }

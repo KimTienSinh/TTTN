@@ -32,8 +32,12 @@
                     <span class="nav-text">Order</span></a>
             </li>
             <li>
-                <a href="./admin/orderpage.php"><i class="fa fa-dropbox"></i></i>
-                    <span class="nav-text">Order</span></a>
+                <a href="{{url('ad_voucherpage')}}"><i class="fa fa-money"></i></i>
+                    <span class="nav-text">Voucher</span></a>
+            </li>
+            <li>
+                <a href="{{url('ad_slidepage')}}"><i class="fa fa-sliders"></i></i>
+                    <span class="nav-text">Slider</span></a>
             </li>
 
             <!-- <li>

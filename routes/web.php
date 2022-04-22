@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /* ======================== Admin page ==========================*/
+Route::get('ad_home', function () {
+    return view('adminpage.ad_home');
+});
 
 Route::get('ad_userpage', [
     'as' => 'danh-sach-user',
@@ -45,21 +48,125 @@ Route::post('insert_user', [
     'uses' => 'App\Http\Controllers\UserController@postInsertUser'
 ]);
 
-Route::get('ad_categorypage', function () {
-    return view('adminpage.ad_categorypage');
+//------------------------------- START Category------------------//
+Route::get('ad_categorypage', [
+    'as' => 'danh-sach-danh-muc',
+    'uses' => 'App\Http\Controllers\PageController@getCategoryList'
+]);
+Route::get('ad_categoryeditpage', [
+    'as' => 'parent-danh-muc',
+    'uses' => 'App\Http\Controllers\CategoryController@getCategoryDropdown'
+]);
+Route::get('ad_categoryeditpage/{id_categories}', [
+    'as' => 'chinh-danh-muc',
+    'uses' => 'App\Http\Controllers\CategoryController@getEditCategory'
+]);
+Route::post('insert_category', [
+    'as' => 'them-danh-muc',
+    'uses' => 'App\Http\Controllers\CategoryController@postInsertCategory'
+]);
+Route::post('update_category/{id_categories}', [
+    'as' => 'update-danh-muc',
+    'uses' => 'App\Http\Controllers\CategoryController@postUpdateCategory'
+]);
+Route::get('delete_categories/{id_categories}', [
+    'as' => 'xoa-danh-muc',
+    'uses' => 'App\Http\Controllers\CategoryController@getDeleteCategory'
+]);
+//-------------------------------END Category----------------------//
+
+//-------------------------------START Blog----------------------//
+
+Route::get('ad_blogpage', [
+    'as' => 'danh-sach-bai-viet',
+    'uses' => 'App\Http\Controllers\PageController@getBlogList'
+]);
+
+Route::get('ad_blogeditpage', [
+    'as' => 'lay-category-bai-viet',
+    'uses' => 'App\Http\Controllers\BlogController@getDropdownBlog'
+]);
+Route::post('insert_blog', [
+    'as' => 'them-bai-viet',
+    'uses' => 'App\Http\Controllers\BlogController@postInsertBlog'
+]);
+Route::get('ad_blogeditpage/{id_blog}', [
+    'as' => 'chi-trang-danh-muc',
+    'uses' => 'App\Http\Controllers\BlogController@getEditBlog'
+]);
+Route::post('update_blog/{id_blog}', [
+    'as' => 'update-bai-viet',
+    'uses' => 'App\Http\Controllers\BlogController@postUpdateBlog'
+]);
+Route::get('delete_blog/{id_blog}', [
+    'as' => 'xoa-bai-viet',
+    'uses' => 'App\Http\Controllers\BlogController@getDeleteBlog'
+]);
+//-------------------------------END Blog----------------------//
+
+//-------------------------------START Voucher----------------------//
+
+Route::get('ad_voucherpage', [
+    'as' => 'danh-sach-giam-gia',
+    'uses' => 'App\Http\Controllers\PageController@getVoucherList'
+]);
+
+Route::get('ad_vouchereditpage', function () {
+    return view('adminpage.ad_vouchereditpage');
 });
 
-Route::get('ad_categoryeditpage', function () {
-    return view('adminpage.ad_categoryeditpage');
+Route::post('ad_vouchereditpage', [
+    'as' => 'them-voucher',
+    'uses' => 'App\Http\Controllers\VoucherController@postInsertVoucher'
+]);
+
+Route::get('ad_vouchereditpage/{id_voucher}', [
+    'as' => 'chi-trang-voucher-edit',
+    'uses' => 'App\Http\Controllers\VoucherController@getEditVoucher'
+]);
+
+Route::post('update_voucher/{id_voucher}', [
+    'as' => 'chinh-voucher',
+    'uses' => 'App\Http\Controllers\VoucherController@postUpdateVoucher'
+]);
+
+Route::get('delete_voucher/{id_voucher}', [
+    'as' => 'xoa-voucher',
+    'uses' => 'App\Http\Controllers\VoucherController@getDeleteVoucher'
+]);
+//-------------------------------END Voucher----------------------//
+
+//-------------------------------START Slider----------------------//
+Route::get('ad_slidepage', [
+    'as' => 'danh-sach-slide',
+    'uses' => 'App\Http\Controllers\PageController@getSlideList'
+]);
+
+Route::get('ad_slideeditpage', function () {
+    return view('adminpage.ad_slideeditpage');
 });
 
-Route::get('ad_blogpage', function () {
-    return view('adminpage.ad_blogpage');
-});
+Route::post('ad_slideeditpage', [
+    'as' => 'them-slide',
+    'uses' => 'App\Http\Controllers\SlideController@postInsertSlide'
+]);
 
-Route::get('ad_blogeditpage', function () {
-    return view('adminpage.ad_blogeditpage');
-});
+Route::get('ad_slideeditpage/{id_slide}', [
+    'as' => 'chi-trang-edit-slide',
+    'uses' => 'App\Http\Controllers\SlideController@getEditSlide'
+]);
+
+Route::post('update_slide/{id_slide}', [
+    'as' => 'sua-slide',
+    'uses' => 'App\Http\Controllers\SlideController@postUpdateSlide'
+]);
+
+Route::get('delete_slide/{id_slide}', [
+    'as' => 'xoa-slide',
+    'uses' => 'App\Http\Controllers\SlideController@getDeleteSlide'
+]);
+
+//-------------------------------END Slider----------------------//
 
 Route::get('ad_productpage', function () {
     return view('adminpage.ad_productpage');
@@ -79,13 +186,14 @@ Route::get('ad_orderdetailpage', function () {
 
 // ============================ User page ===========================
 
-Route::get('/', function () {
-    return view('userpage.user_home');
-});
-
-Route::get('index', function () {
-    return view('userpage.user_home');
-});
+Route::get('/', [
+    'as' => 'danh-sach-slide-user-page',
+    'uses' => 'App\Http\Controllers\PageController@getSlideListUserPage'
+]);
+Route::get('index', [
+    'as' => 'danh-sach-slide-user-page-index',
+    'uses' => 'App\Http\Controllers\PageController@getSlideListUserPage'
+]);
 
 Route::get('login', function () {
     return view('userpage.user_login');
@@ -119,13 +227,20 @@ Route::get('shop', function () {
     return view('userpage.user_shop');
 });
 
-Route::get('blog', function () {
-    return view('userpage.user_blog');
-});
+//-------------------------------START Blog----------------------//
+Route::get('blog', [
+    'as' => 'danh-sach-bai-viet-userpage',
+    'uses' => 'App\Http\Controllers\PageController@getBlogListUserPage'
+]);
 
 Route::get('blog_details', function () {
     return view('userpage.user_blog_details');
 });
+Route::get('blog_details/{id_blog}', [
+    'as' => 'chi-bai-viet-userpage',
+    'uses' => 'App\Http\Controllers\BlogController@getBlogDetailUserPage'
+]);
+//-------------------------------END Blog----------------------//
 
 Route::get('checkout', function () {
     return view('userpage.user_checkout');

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <a href="{{url('/')}}"><i class="fa fa-home"></i> Home</a>
                         <a href="./shop.html">Shop</a>
                         <span>Check Out</span>
                     </div>

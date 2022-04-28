@@ -46,12 +46,40 @@
                                                     </button>&nbsp;&nbsp; </a>
                                                 <!--{{url('ad_blogeditpage', $voucher->id_blog)}} <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
                                                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                <a href="{{url('delete_voucher', $voucher->id_voucher)}}"><button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>
-                                                </a>
+                                                <button data-toggle="modal" data-id='{{$voucher->id_voucher}}'
+                                                    data-target="#myModal" type="button"
+                                                    class="btn btn-outline-danger">&nbsp;<i
+                                                        class="fa fa-close color-danger"></i>&nbsp; Delete </button>
                                                 <!-- {{url('delete_blog', $voucher->id_blog)}} <button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
                                             </span>
                                         </td>
                                     </tr>
+                                    <!-- Modal -->
+
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <form action="{{Route('xoa-voucher')}}" method="get">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Do you want to delete?</h4>
+                                                        <input type=hidden id="id_voucher" name="id_voucher" value="">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <button type="submit" class="btn btn-outline-danger">Yes !
+                                                            Delete it</button>
+                                                        <button type="button" data-dismiss="modal" class="btn btn-outline-success">No !
+                                                            </button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <!-- End Delete Modal -->
                                     @endforeach
 
                                 </tbody>
@@ -65,4 +93,11 @@
         </div>
     </div>
 </div>
+<script>
+    $('[data-id]').each(function(){
+            $(this).click(function(){
+                $('#id_voucher').val($(this).data('id'));
+            });
+        });                                             
+</script>
 @endsection()

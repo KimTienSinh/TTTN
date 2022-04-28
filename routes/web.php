@@ -69,7 +69,7 @@ Route::post('update_category/{id_categories}', [
     'as' => 'update-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@postUpdateCategory'
 ]);
-Route::get('delete_categories/{id_categories}', [
+Route::get('delete_categories', [
     'as' => 'xoa-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@getDeleteCategory'
 ]);
@@ -98,7 +98,7 @@ Route::post('update_blog/{id_blog}', [
     'as' => 'update-bai-viet',
     'uses' => 'App\Http\Controllers\BlogController@postUpdateBlog'
 ]);
-Route::get('delete_blog/{id_blog}', [
+Route::get('delete_blog', [
     'as' => 'xoa-bai-viet',
     'uses' => 'App\Http\Controllers\BlogController@getDeleteBlog'
 ]);
@@ -130,7 +130,7 @@ Route::post('update_voucher/{id_voucher}', [
     'uses' => 'App\Http\Controllers\VoucherController@postUpdateVoucher'
 ]);
 
-Route::get('delete_voucher/{id_voucher}', [
+Route::get('delete_voucher', [
     'as' => 'xoa-voucher',
     'uses' => 'App\Http\Controllers\VoucherController@getDeleteVoucher'
 ]);
@@ -161,7 +161,7 @@ Route::post('update_slide/{id_slide}', [
     'uses' => 'App\Http\Controllers\SlideController@postUpdateSlide'
 ]);
 
-Route::get('delete_slide/{id_slide}', [
+Route::get('delete_slide', [
     'as' => 'xoa-slide',
     'uses' => 'App\Http\Controllers\SlideController@getDeleteSlide'
 ]);

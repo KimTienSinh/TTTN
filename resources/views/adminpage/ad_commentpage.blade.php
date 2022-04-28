@@ -5,56 +5,52 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <a href="{{url('ad_categoryeditpage')}}"><button type="button" class="btn btn-outline-primary">
-                            <i class="fa fa-plus-square-o"></i>&nbsp; New Catalogy</button></a>
+                    <a href="{{url('ad_vouchereditpage')}}"> <button type="button" class="btn btn-outline-primary">
+                            <i class="fa fa-plus-square-o"></i>&nbsp; New Comment</button></a>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Menu</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Catalogy</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Comment</a></li>
                 </ol>
             </div>
         </div>
         <!-- row -->
 
         <div class="row">
-
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Catalogy Infomation</h4>
+                        <h4 class="card-title">Comment Infomation</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered verticle-middle table-responsive-sm basic-form">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">ID PARENT</th>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">STATUS</th>
-                                        <th scope="col">ACTION</th>
-                                    </tr>
+                                        <th scope="col">ID COMMENT</th>
+                                        <th scope="col">VOUCHER CODE</th>
+                                        <th scope="col">ID PRODUCT DETAIL</th>
+                                        <th scope="col">COMMENT</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($list_cat as $cat)
+                                    @foreach($list_comment as $comment)
                                     <tr>
-                                        <td>{{$cat->id_categories}}</td>
-                                        <td>{{$cat->id_parent}}</td>
-                                        <td>{{$cat->category_name}}</td>
-                                        <td>{{$cat->status}}</td>
+                                        <td>{{$comment->id_comment}}</td>
+                                        <td>{{$comment->comment_code}}</td>
+                                        <td>{{$comment->price_sale}}</td>
                                         <td>
                                             <span>
-                                                <a href="{{route('chinh-danh-muc', $cat->id_categories)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
+                                                <a href="{{url('ad_vouchereditpage', $voucher->id_voucher)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
                                                     </button>&nbsp;&nbsp; </a>
-                                                <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
+                                                <!--{{url('ad_blogeditpage', $voucher->id_blog)}} <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
                                                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                <button data-toggle="modal" data-id='{{$cat->id_categories}}'
+                                                <button data-toggle="modal" data-id='{{$voucher->id_voucher}}'
                                                     data-target="#myModal" type="button"
                                                     class="btn btn-outline-danger">&nbsp;<i
                                                         class="fa fa-close color-danger"></i>&nbsp; Delete </button>
-                                                <!-- <button data-toggle="modal" data-id='{{$cat->id}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
+                                                <!-- {{url('delete_blog', $voucher->id_blog)}} <button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
                                             </span>
                                         </td>
                                     </tr>
@@ -62,11 +58,11 @@
 
                                     <div class="modal fade" id="myModal" role="dialog">
                                         <div class="modal-dialog modal-sm">
-                                            <form action="{{Route('xoa-danh-muc')}}" method="get">
+                                            <form action="{{Route('xoa-voucher')}}" method="get">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Do you want to delete?</h4>
-                                                        <input type=hidden id="id_categories" name="id_categories" value="">
+                                                        <input type=hidden id="id_voucher" name="id_voucher" value="">
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
@@ -85,27 +81,6 @@
                                     <!-- Modal -->
                                     <!-- End Delete Modal -->
                                     @endforeach
-                                    <?php
-                                    // include_once '../utils/MySQLUtils.php';
-                                    // $dbCon = new MySQLUtils();
-                                    // $query = "select * from danhmuc";
-                                    // $Cats = $dbCon->getALLData($query);
-                                    // foreach($Cats as $cat){
-                                    //     echo' <tr>';
-                                    //     echo'    <td>'.$cat['madanhmuc'].'</td>';
-                                    //     echo'    <td>'.$cat['catname'].'</td>';
-                                    //     echo'    <td>'.$cat['caturl'].'</td>';
-                                    //     echo'    <td> '.$cat['status'].'<td>';          
-                                    //     echo'           <span>';
-                                    //     echo' <a href="catalogyeditpage.php?id='.$cat['madanhmuc'].'"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit </button>&nbsp;&nbsp; </a>';
-                                    //     echo' <a href="../controller/DeleteCatalogyController.php?id='.$cat['madanhmuc'].'"<button type="button" class="btn btn-outline-danger" >&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; </a>';
-                                    //     echo'            </span>';  
-                                    //     echo'        </td> ';
-                                    //     echo' </tr>';
-                                    // }
-
-                                    // $dbCon->disconnectDB();
-                                    ?>
 
                                 </tbody>
                             </table>
@@ -113,7 +88,7 @@
                     </div>
                 </div>
             </div>
-
+            </form>
             <!-- end row -->
         </div>
     </div>
@@ -121,7 +96,7 @@
 <script>
     $('[data-id]').each(function(){
             $(this).click(function(){
-                $('#id_categories').val($(this).data('id'));
+                $('#id_voucher').val($(this).data('id'));
             });
         });                                             
 </script>

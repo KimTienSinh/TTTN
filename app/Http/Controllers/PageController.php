@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Slide;
 use App\Models\User;
 use App\Models\Voucher;
@@ -35,6 +36,8 @@ class PageController extends Controller
         $list_slide = Slide::all();
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }
+    
+    
 
     //----------------USERPAGE--------------------------------------------
     

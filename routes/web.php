@@ -176,13 +176,20 @@ Route::get('ad_producteditpage', function () {
     return view('adminpage.ad_producteditpage');
 });
 
-Route::get('ad_orderpage', function () {
-    return view('adminpage.ad_orderpage');
-});
 
-Route::get('ad_orderdetailpage', function () {
-    return view('adminpage.ad_orderdetailpage');
-});
+//-------------------------------STASRT ORDER----------------------//
+Route::get('ad_orderpage', [
+    'as' => 'danh-sach-order',
+    'uses' => 'App\Http\Controllers\OrderController@getOrderList'
+]);
+
+Route::get('ad_orderdetailpage/{id_order}', [
+    'as' => 'chi-trang-chi-tiet-order',
+    'uses' => 'App\Http\Controllers\OrderController@getOrderDetailView'
+]);
+//-------------------------------END ORDER----------------------//
+
+
 
 // ============================ User page ===========================
 

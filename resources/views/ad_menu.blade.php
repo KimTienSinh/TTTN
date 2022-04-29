@@ -28,7 +28,7 @@
             </li>
 
             <li>
-                <a href="./admin/orderpage.php"><i class="fa fa-dropbox"></i></i>
+                <a href="{{url('ad_orderpage')}}"><i class="fa fa-dropbox"></i></i>
                     <span class="nav-text">Order</span></a>
             </li>
             <li>

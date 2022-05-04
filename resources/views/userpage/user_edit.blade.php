@@ -18,14 +18,36 @@
 
 <!-- Register Section Begin -->
 <div class="register-login-section spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3">
+    <div>
+        <h1 class="text-center">Edit Profile</h1>
+        <br>
+    </div>
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col col-lg-4">
+                <style>
+                    .center-cropped {
+                        width: 300px;
+                        height: 300px;
+                        object-fit: cover;
+                    }
+                </style>
+               <div class="row justify-content-center">
+                    <img src="user/img/{{Auth::user()->avatar}}"
+                        class="center-cropped img-fluid img-thumbnail" alt="Avatar image">
+                    </div>
+                <div class="row justify-content-center mt-1">
+                    <label for="avatar" class="btn btn-outline-info btn-sm text-center">
+                        <i class="fa fa-image"></i>&ensp; Upload image
+                        <input type="file" name="avatar" form="formUser" id="avatar" style="display: none">
+                    </label>
+                </div>
+            </div>
+            <div class="col col-lg-6">
                 <div class="register-form">
-
-                    <h2>Edit Profile</h2>
                     @if (Session::has('userEdit_status'))
-                    <div class="alert alert-success" style="text-align: center">{{ Session::get('userEdit_status') }}</div>
+                    <div class="alert alert-success" style="text-align: center">{{ Session::get('userEdit_status') }}
+                    </div>
                     @endif
                     @if (count($errors) > 0)
                     <div class="alert alert-danger" style="text-align: center">
@@ -36,7 +58,7 @@
                     </div>
                     @endif
                     @if(Auth::check())
-                    <form action="{{route('userEdit',Auth::user()->id_user)}}" method="post">
+                    <form action="{{route('userEdit',Auth::user()->id_user)}}" id="formUser" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="group-input">
                             <label for="username">Username</label>
@@ -69,6 +91,7 @@
                     </form>
                     @endif
                 </div>
+
             </div>
         </div>
     </div>

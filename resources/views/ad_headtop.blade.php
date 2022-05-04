@@ -69,7 +69,19 @@
                     </li>
                     <li class="nav-item dropdown header-profile">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                            <i class="mdi mdi-account">&ensp;{{Auth::user()->user_name}}</i>
+                            <i class="mdi mdi-account">&ensp;
+                                @if (Auth::check()&&Auth::user()->role!='user')
+                                {{Auth::user()->user_name}}
+                                @else
+                                @php
+                                echo'
+                                <script>
+                                    window.location = "index"; 
+                                </script>';
+                                @endphp
+
+                                @endif
+                            </i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
 

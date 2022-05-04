@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /* ======================== Admin page ==========================*/
+
 Route::get('ad_home', function () {
     return view('adminpage.ad_home');
 });
@@ -103,6 +105,40 @@ Route::get('delete_blog/{id_blog}', [
     'uses' => 'App\Http\Controllers\BlogController@getDeleteBlog'
 ]);
 //-------------------------------END Blog----------------------//
+
+Route::get('ad_Product', 
+[
+    'as'=>'ad_getAllProduct',
+    'uses' => 'App\Http\Controllers\PageController@ad_getAllProduct'
+]
+);
+
+Route::get('ad_ProductEditPage', 
+[
+    'as'=>'ad_getProductEditPage',
+    'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
+]
+);
+
+Route::post('ad_ProductEditPage', 
+[
+    'as'=>'ad_getProductEditPage',
+    'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
+]
+);
+
+Route::post('insertProduct',
+[
+    'as'=>'ad_insertProduct',
+    'uses' => 'App\Http\Controllers\ProductController@insertProduct'
+]
+);
+
+//-------------------------------START PRODUCT----------------------//
+
+//-------------------------------END PRODUCT----------------------//
+
+
 
 //-------------------------------START Voucher----------------------//
 

@@ -22,7 +22,18 @@ class Category extends Model
     public $timestamps = false;
 
     // 1 Category có nhiều blog dùng hasMany( class, 'khoa ngoai', 'khoa chinh')
-    public function blogs(){
+    public function blogs()
+    {
         return $this->hasMany('App\Models\Blog', 'id_categories', 'id_categories');
+    }
+
+    public function product()
+    {
+        return $this->hasMany('App\Models\Blog', 'id_categories', 'id_categories');
+    }
+
+    public function categories()
+    {
+        return $this->hasOne(Category::class);
     }
 }

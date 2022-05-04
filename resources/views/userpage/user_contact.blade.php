@@ -20,9 +20,7 @@
 <div class="map spad">
     <div class="container">
         <div class="map-inner">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.305462977965!2d-74.13283844036356!3d41.02757295168286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sbd!4v1575917275626!5m2!1sen!2sbd"
-                height="610" style="border:0" allowfullscreen="">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.9544103877597!2d106.67564341480043!3d10.737997192347624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f62a90e5dbd%3A0x674d5126513db295!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBDw7RuZyBOZ2jhu4cgU8OgaSBHw7Ju!5e0!3m2!1svi!2s!4v1638182847795!5m2!1svi!2s" height="610" width="100%" style="border:0" allowfullscreen="">
             </iframe>
             <div class="icon">
                 <i class="fa fa-map-marker"></i>
@@ -49,7 +47,7 @@
                         </div>
                         <div class="ci-text">
                             <span>Address:</span>
-                            <p>60-49 Road 11378 New York</p>
+                            <p>180 Cao Lo Street, Ward 4, District 8, Ho Chi Minh City</p>
                         </div>
                     </div>
                     <div class="cw-item">
@@ -58,7 +56,7 @@
                         </div>
                         <div class="ci-text">
                             <span>Phone:</span>
-                            <p>+65 11.188.888</p>
+                            <p>028 3850 5520</p>
                         </div>
                     </div>
                     <div class="cw-item">
@@ -67,7 +65,7 @@
                         </div>
                         <div class="ci-text">
                             <span>Email:</span>
-                            <p>hellocolorlib@gmail.com</p>
+                            <p>contact@stu.eu.vn</p>
                         </div>
                     </div>
                 </div>

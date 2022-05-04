@@ -42,6 +42,8 @@ class PageController extends Controller
         $list_slide = Slide::all();
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }
+    
+    
 
     public function ad_getAllProduct()
     {

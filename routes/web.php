@@ -71,7 +71,7 @@ Route::post('update_category/{id_categories}', [
     'as' => 'update-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@postUpdateCategory'
 ]);
-Route::get('delete_categories/{id_categories}', [
+Route::get('delete_categories', [
     'as' => 'xoa-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@getDeleteCategory'
 ]);
@@ -100,7 +100,7 @@ Route::post('update_blog/{id_blog}', [
     'as' => 'update-bai-viet',
     'uses' => 'App\Http\Controllers\BlogController@postUpdateBlog'
 ]);
-Route::get('delete_blog/{id_blog}', [
+Route::get('delete_blog', [
     'as' => 'xoa-bai-viet',
     'uses' => 'App\Http\Controllers\BlogController@getDeleteBlog'
 ]);
@@ -166,7 +166,7 @@ Route::post('update_voucher/{id_voucher}', [
     'uses' => 'App\Http\Controllers\VoucherController@postUpdateVoucher'
 ]);
 
-Route::get('delete_voucher/{id_voucher}', [
+Route::get('delete_voucher', [
     'as' => 'xoa-voucher',
     'uses' => 'App\Http\Controllers\VoucherController@getDeleteVoucher'
 ]);
@@ -197,7 +197,7 @@ Route::post('update_slide/{id_slide}', [
     'uses' => 'App\Http\Controllers\SlideController@postUpdateSlide'
 ]);
 
-Route::get('delete_slide/{id_slide}', [
+Route::get('delete_slide', [
     'as' => 'xoa-slide',
     'uses' => 'App\Http\Controllers\SlideController@getDeleteSlide'
 ]);
@@ -212,13 +212,20 @@ Route::get('ad_producteditpage', function () {
     return view('adminpage.ad_producteditpage');
 });
 
-Route::get('ad_orderpage', function () {
-    return view('adminpage.ad_orderpage');
-});
 
-Route::get('ad_orderdetailpage', function () {
-    return view('adminpage.ad_orderdetailpage');
-});
+//-------------------------------STASRT ORDER----------------------//
+Route::get('ad_orderpage', [
+    'as' => 'danh-sach-order',
+    'uses' => 'App\Http\Controllers\OrderController@getOrderList'
+]);
+
+Route::get('ad_orderdetailpage/{id_order}', [
+    'as' => 'chi-trang-chi-tiet-order',
+    'uses' => 'App\Http\Controllers\OrderController@getOrderDetailView'
+]);
+//-------------------------------END ORDER----------------------//
+
+
 
 // ============================ User page ===========================
 

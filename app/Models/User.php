@@ -55,4 +55,9 @@ class User extends Authenticatable
     /// khi insert vô db với hàm save() thì migration nó báo lỗi với created_at, thêm dòng sau để tắt nó đi
     public $timestamps = false;
 
+    // 1 User có nhiều Comment dùng hasMany( class, 'khoa ngoai', 'khoa chinh')
+    public function comment(){
+        return $this->hasMany('App\Models\Comment', 'id_user', 'id_user');
+    }
+
 }

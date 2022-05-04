@@ -31,4 +31,13 @@ class ProductDetail extends Model
         return $this->belongsTo('App\Models\Product', 'id_product', 'id_product');
     }
     
+    // 1 ProductDetail có nhiều Comment dùng hasMany( class, 'khoa ngoai', 'khoa chinh')
+    public function comment(){
+        return $this->hasMany('App\Models\Comment', 'id_product_detail', 'id_product_detail');
+    }
+    // 1 ProductDetail có nhiều OrderDetail dùng hasMany( class, 'khoa ngoai', 'khoa chinh')
+    public function orderdetails(){
+        return $this->hasMany('App\Models\OrderDetail', 'id_product','id_product_detail');
+    }
+
 }

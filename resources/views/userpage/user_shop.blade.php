@@ -223,13 +223,13 @@
                                         </div>
                                         <ul>
                                             <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                            <li class="quick-view"><a href="{{url('product')}}">+ Quick View</a></li>
                                             <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="pi-text">
                                         <div class="catagory-name">Shoes</div>
-                                        <a href="#">
+                                        <a href="{{url('product')}}">
                                             <h5>Guangzhou sweater</h5>
                                         </a>
                                         <div class="product-price">

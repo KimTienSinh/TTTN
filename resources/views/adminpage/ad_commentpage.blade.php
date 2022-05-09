@@ -29,30 +29,37 @@
                             <table class="table table-bordered verticle-middle table-responsive-sm basic-form">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID COMMENT</th>
-                                        <th scope="col">VOUCHER CODE</th>
-                                        <th scope="col">ID PRODUCT DETAIL</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">USER</th>
+                                        <th scope="col">PRODUCT</th>
                                         <th scope="col">COMMENT</th>
+                                        <th scope="col">REPLY COMMENT</th>
+                                        <th scope="col">ACTIVE</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($list_comment as $comment)
+                                    @foreach($data as $comment)
                                     <tr>
                                         <td>{{$comment->id_comment}}</td>
-                                        <td>{{$comment->comment_code}}</td>
-                                        <td>{{$comment->price_sale}}</td>
-                                        <td>
-                                            <span>
-                                                <a href="{{url('ad_vouchereditpage', $voucher->id_voucher)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
-                                                    </button>&nbsp;&nbsp; </a>
-                                                <!--{{url('ad_blogeditpage', $voucher->id_blog)}} <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
-                                                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                <button data-toggle="modal" data-id='{{$voucher->id_voucher}}'
-                                                    data-target="#myModal" type="button"
-                                                    class="btn btn-outline-danger">&nbsp;<i
-                                                        class="fa fa-close color-danger"></i>&nbsp; Delete </button>
-                                                <!-- {{url('delete_blog', $voucher->id_blog)}} <button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
-                                            </span>
-                                        </td>
+                                        <td>{{$comment->user_name}}</td>
+                                        <td>{{$comment->product_name}}</td>
+                                        <td>{{$comment->comment}}</td>
+                                        <form method="POST" action="{{url('reply_comment', $comment->id_comment)}}">
+                                        <input type="text" hidden value="{{$comment->id_comment}}" name="id_comment" id="">
+                                        @csrf
+                                            <td>
+                                                <textarea rows="5" cols="40" name="reply_comment">{{$comment->reply_comment}}</textarea>
+                                            </td>
+                                            <td>
+                                                <span>
+
+                                                <button type="submit" class="btn btn-outline-primary">&nbsp;<i class="fa fa-paper-plane-o"></i>&nbsp;
+                                                        Comment
+                                                    </button>
+                                                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                                                    <button data-toggle="modal" data-id='{{$comment->id_comment}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>
+                                                </span>
+                                            </td>
+                                        </form>
                                     </tr>
                                     <!-- Modal -->
 
@@ -69,7 +76,7 @@
                                                         <button type="submit" class="btn btn-outline-danger">Yes !
                                                             Delete it</button>
                                                         <button type="button" data-dismiss="modal" class="btn btn-outline-success">No !
-                                                            </button>
+                                                        </button>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -94,10 +101,10 @@
     </div>
 </div>
 <script>
-    $('[data-id]').each(function(){
-            $(this).click(function(){
-                $('#id_voucher').val($(this).data('id'));
-            });
-        });                                             
+    $('[data-id]').each(function() {
+        $(this).click(function() {
+            $('#id_voucher').val($(this).data('id'));
+        });
+    });
 </script>
 @endsection()

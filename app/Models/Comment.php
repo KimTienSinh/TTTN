@@ -29,4 +29,7 @@ class Comment extends Model
     public function product_detail(){
         return $this->belongsTo('App\Models\ProductDetail', 'id_product_detail', 'id_comment');
     }
+
+    /// khi insert vô db với hàm save() thì migration nó báo lỗi với created_at, thêm dòng sau để tắt nó đi
+    public $timestamps = false;
 }

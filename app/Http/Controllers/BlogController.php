@@ -49,8 +49,8 @@ class BlogController extends Controller
         Blog::where('id_blog', $req->id_blog)->update($blog);
         return redirect('ad_blogpage');
     }
-    public function getDeleteBlog($id_blog){
-        $b = Blog::findOrFail($id_blog);
+    public function getDeleteBlog(Request $req){
+        $b = Blog::findOrFail($req->id_blog);
         $b->delete();
         return redirect('ad_blogpage');
     }

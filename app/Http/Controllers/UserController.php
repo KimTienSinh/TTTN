@@ -162,17 +162,17 @@ class UserController extends Controller
     }
 
     /////////////////////////Xóa User bên admin//////////////////
-    public function getDeleteUser($id)
+    public function getDeleteUser(Request $req)
     {
-        // DB::table('users')->where('id_user', $req->id)->delete();
-        $u = User::findOrFail($id);
+        // DB::table('users')->where('id_user', $req->id_user)->delete();
+        $u = User::findOrFail($req->id_user);
         $u->delete();
         return redirect()->back()->with('ad_userpage', 'Data Deleted');
     }
 
     public function editUser(Request $request)
     {
-        $user = User::where('id_user', $request->id_user)->first();
+        $user = User::where('id_user', $request->id)->first();
         return view('adminpage.ad_usereditpage', compact('user'));
     }
 
@@ -189,7 +189,7 @@ class UserController extends Controller
             'phone' => $req->phone,
             'avatar' => $avatar,
             'gender' => $req->rd_gioitinh,
-            'role' => $req->cbx_role,
+            //'role' => $req->cbx_role,
         ];
         User::where('id_user', $req->id)->update($user);
         return redirect('/ad_userpage');
@@ -197,12 +197,17 @@ class UserController extends Controller
 
     public function userEdit(Request $req)
     {
+        $avatar = $req->avatar;
+        if ($avatar == '') {
+            $avatar = 'UNDONE';
+        }
         $this->validate(
             $req,
             [
                 'name' => 'required',
                 'address' => 'required',
                 'phone' => 'required',
+                
             ],
             [
                 'address.required' => 'Please type your address !',
@@ -216,6 +221,7 @@ class UserController extends Controller
             'address' => $req->address,
             'phone' => $req->phone,
             'gender' => $req->rd_gioitinh,
+            'avatar' => $avatar
         ];
         User::where('id_user', $req->id)->update($user);
 

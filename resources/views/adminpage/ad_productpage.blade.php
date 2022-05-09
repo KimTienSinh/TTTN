@@ -5,7 +5,7 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <a href="productcreatepage.php"><button type="button" class="btn btn-outline-primary">
+                    <a href="{{url('ad_ProductEditPage')}}"><button type="button" class="btn btn-outline-primary">
                             <i class="fa fa-plus-square-o"></i>&nbsp; New Product</button></a>
                 </div>
             </div>
@@ -31,72 +31,36 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">TITLE</th>
                                         <th scope="col">IMAGE</th>
-                                        <th scope="col">PRICE</th>
+                                        <th scope="col">PRODUCT NAME</th>
+                                        <th scope="col">DESCRIPTION</th>
                                         <th scope="col">STATUS</th>
-                                        <th scope="col">CATALOGY</th>
                                         <th scope="col">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    // include_once '../utils/MySQLUtils.php';
-                                    // $dbCon = new MySQLUtils();
-                                    // $item_in_page = !empty($_GET['item_inpage']) ? $_GET['item_inpage'] : 4;
-                                    // $page = !empty($_GET['page']) ? $_GET['page'] : 1;
-                                    // $offset = ($page - 1) * $item_in_page;
-
-                                    // $query = "SELECT masanpham,title,image,price,sanpham.status,catname FROM sanpham
-                                    //              inner join danhmuc on sanpham.madanhmuc =danhmuc.madanhmuc order by sanpham.masanpham LIMIT " . $item_in_page . " OFFSET " . $offset . " ";
-
-                                    // $query1 = "SELECT * from sanpham ";
-                                    // $pr = $dbCon->getALLData($query1);
-                                    // $totalsp = count($pr);
-                                    // $totalpage = ceil($totalsp / $item_in_page);
-                                    // $sanphams = $dbCon->getALLData($query);
-                                    // try {
-                                    //     if ($sanphams) {
-                                    //         foreach ($sanphams as $sanpham) {
-                                    //             echo '    <tr>';
-                                    //             echo '        <td>' . $sanpham['masanpham'] . '</td> ';
-                                    //             echo '        <td> ' . $sanpham['title'] . '</td>';
-                                    //             echo '        <td><img src = "img/products/' . $sanpham['image'] . '" alt = ""> </td>';
-                                    //             echo '        <td> ' . $sanpham['price'] . "$" . ' </td>';
-                                    //             echo '        <td> ' . $sanpham['status'] . ' </td>';
-                                    //             echo '        <td> ' . $sanpham['catname'] . ' </td>';
-                                    //             echo '        <td>';
-                                    //             echo '           <span>';
-                                    //             echo ' <a href="producteditpage.php?id=' . $sanpham['masanpham'] . '"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit </button>&nbsp;&nbsp; </a>';
-                                    //             echo ' <a href="../controller/DeleteProductController.php?id=' . $sanpham['masanpham'] . '"><button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; </a>';
-                                    //             echo '            </span>';
-                                    //             echo '        </td> ';
-                                    //             echo '    </tr>';
-
-                                    //             echo '   <div class="modal fade" id="myModal" role="dialog">';
-                                    //             echo '            <div class="modal-dialog modal-sm">';
-                                    //             echo '              <div class="modal-content">';
-                                    //             echo '                    <div class="modal-header">';
-                                    //             echo '                      <h4 class="modal-title">Bạn có muốn xóa</h4>';
-                                    //             echo '                      <button type="button" class="close" data-dismiss="modal">&times;</button>';
-                                    //             echo '                    </div>';
-                                    //             echo '                    <div class="modal-body">';
-                                    //             echo '                      <a href="../controller/DeleteProductController.php?id=' . $sanpham['masanpham'] . '"><button type="button" class="btn btn-outline-danger">có</button></a>';
-                                    //             echo '                    </div>';
-                                    //             echo '                    <div class="modal-footer">';
-                                    //             echo '                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
-                                    //             echo '                    </div>';
-                                    //             echo '              </div>';
-                                    //             echo '            </div>';
-                                    //             echo '        </div>';
-                                    //         }
-                                    //     }
-                                    // } catch (PDOException $e) {
-                                    //     echo "Error: " . $e->getMessage();
-                                    // }
-                                    // $conn = null;
-                                    ?>
-
+                                    @foreach ($product_list as $product)
+                                    <tr>
+                                        <th>{{$product->id_product}}</th>
+                                        <td>{{$product->image}}</td>
+                                        <td>{{$product->product_name}}</td>
+                                        <td>{{$product->description}}</td>
+                                        <td>{{$product->status}}</td>
+                                        <td>
+                                            <span class="form-inline">
+                                                <form action="{{url('ad_ProductEditPage')}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" name="id_product"
+                                                        value="{{$product->id_product}}"
+                                                        class="btn btn-outline-primary"><i
+                                                            class="fa fa-pencil color-muted"></i>&nbsp; Edit</button>
+                                                </form>
+                                                &emsp;<button class="btn btn-outline-danger"><i
+                                                        class="fa fa-close color-danger"></i>&nbsp; Delete </button>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -106,19 +70,7 @@
 
             <!-- end row -->
         </div>
-        <div id="app" class="container">
-            <ul class="page">
-                <li class="page__btn"><span class="material-icons">chevron_left</span></li>
-                <?php
-                // for ($numpage = 1; $numpage <= $totalpage; $numpage++) {
-                //     echo ' <li class="page__numbers"><a class="boiden" href="../view/productpage.php?item_inpage=' . $item_in_page . '&page=' . $numpage . '">' . $numpage . '</a></li>';
-                // }
-                ?>
-                <li class="page__dots">...</li>
-                <li class="page__numbers"> 10</li>
-                <li class="page__btn"><span class="material-icons">chevron_right</span></li>
-            </ul>
-        </div>
+
     </div>
 </div>
 @endsection()

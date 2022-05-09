@@ -11,7 +11,7 @@ class CategoryController extends Controller
         $this->validate(
             $req,
             [
-                'category_name' => 'required'
+                'category_name' => 'required',
             ]
         );
 
@@ -19,6 +19,11 @@ class CategoryController extends Controller
        // dd($req->input());
         $c->id_parent = $req->cbx_parent_id;
         $c->category_name = $req->category_name;
+        if($req->cbx_parent_id==1){
+            $c->type = 0;
+        }else{
+            $c->type = 1;
+        }
         $c->status = 1;
         $c->save();
         return redirect('ad_categorypage');
@@ -40,12 +45,17 @@ class CategoryController extends Controller
             'id_parent' => $req->cbx_parent_id,
             'category_name' =>$req->category_name
         ];
-        //dd($req->input());
-        Category::where('id_categories', $req->id_categories)->update($category);
+        if($req->cbx_parent_id==1){
+            $req->type = 0;
+        }else{
+            $req->type = 1;
+        }
+       // dd($req->input());
+        Category::where('id_categories', $req->id_categories)->update($category,$req->type);
         return redirect('ad_categorypage');
     }
-    public function getDeleteCategory($id_categories){
-        $u = Category::findOrFail($id_categories);
+    public function getDeleteCategory(Request $req){
+        $u = Category::findOrFail($req->id_categories);
         $u->delete();
         return redirect('ad_categorypage');
     }

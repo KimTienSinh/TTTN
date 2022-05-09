@@ -46,34 +46,42 @@
                                                     </button>&nbsp;&nbsp; </a>
                                                 <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
                                                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                <a href="{{url('delete_blog', $blog->id_blog)}}"><button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>
-                                                </a>
+                                                <button id="user_id" data-toggle="modal" data-id='{{$blog->id_blog}}'
+                                                    data-target="#myModal" type="button"
+                                                    class="btn btn-outline-danger">&nbsp;<i
+                                                        class="fa fa-close color-danger"></i>&nbsp; Delete </button>
                                                 <!-- <button data-toggle="modal" data-id='' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button> -->
                                             </span>
                                         </td>
                                     </tr>
-                                    @endforeach
-                                    <?php
-                                    // include_once '../utils/MySQLUtils.php';
-                                    // $dbCon = new MySQLUtils();
+                                    <!-- Modal -->
 
-                                    // $query = "select * from baiviet";
-                                    // $baiviets = $dbCon->getALLData($query);
-                                    // foreach ($baiviets as $baiviet) {
-                                    //     echo '   <tr>';
-                                    //     echo '        <td>' . $baiviet['mabaiviet'] . '</td>';
-                                    //     echo '        <td>' . $baiviet['Blogname'] . '</td>';
-                                    //     echo '        <td> ';
-                                    //     echo '           <span>';
-                                    //     echo'         <a href="Blogeditpage.php?action=edit&id=' . $baiviet['mabaiviet'] . '" > <button type="button" class="btn btn-outline-success"><i class="fa fa-magic"></i>&nbsp;View</button> </a>';
-                                    //     echo ' <a href="Blogeditpage.php?action=edit&id=' . $baiviet['mabaiviet'] . '"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit </button>&nbsp;&nbsp; </a>';
-                                    //     echo ' <a href="../controller/DeleteBlogController.php?action=delete&id=' . $baiviet['mabaiviet'] . '"<button type="button" name="Blog_action" value="Blog_delete" class="btn btn-outline-danger" >&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; </a>';
-                                    //     echo '            </span>';
-                                    //     echo '         </td';
-                                    //     echo '   </tr>';
-                                    // }
-                                    // $dbCon->disconnectDB();
-                                    ?>
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <form action="{{Route('xoa-bai-viet')}}" method="get">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Do you want to delete?</h4>
+                                                        <input type=hidden id="id_blog" name="id_blog" value="">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <button type="submit" class="btn btn-outline-danger">Yes !
+                                                            Delete it</button>
+                                                        <button type="button" data-dismiss="modal" class="btn btn-outline-success">No !
+                                                            </button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <!-- End Delete Modal -->
+                                    @endforeach
+                                    
 
                                 </tbody>
                             </table>
@@ -86,4 +94,11 @@
         </div>
     </div>
 </div>
+<script>
+    $('[data-id]').each(function(){
+            $(this).click(function(){
+                $('#id_blog').val($(this).data('id'));
+            });
+        });                                             
+</script>
 @endsection()

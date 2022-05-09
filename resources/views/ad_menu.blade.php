@@ -21,14 +21,14 @@
                             <span class="nav-text">Blog</span></a>
                     </li>
                     <li>
-                        <a href="{{url('')}}"><i class="fa fa-product-hunt"></i></i>
+                        <a href="{{url('ad_Product')}}"><i class="fa fa-product-hunt"></i></i>
                             <span class="nav-text">Product</span></a>
                     </li>
                 </ul>
             </li>
 
             <li>
-                <a href="./admin/orderpage.php"><i class="fa fa-dropbox"></i></i>
+                <a href="{{url('ad_orderpage')}}"><i class="fa fa-dropbox"></i></i>
                     <span class="nav-text">Order</span></a>
             </li>
             <li>

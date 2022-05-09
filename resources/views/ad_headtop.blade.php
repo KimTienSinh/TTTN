@@ -1,5 +1,3 @@
-
-
 <?php
 // session_start();
 
@@ -35,7 +33,7 @@
 
 
 <div class="nav-header">
-    <a href="index.php" class="brand-logo">
+    <a href="index" class="brand-logo">
         <img class="logo-abbr" src="./admin/images/logo.png" alt="">
         <img class="logo-compact" src="./admin/images/logo-text.png" alt="">
         <img class="brand-title" src="./admin/images/logo-text.png" alt="">
@@ -71,32 +69,31 @@
                     </li>
                     <li class="nav-item dropdown header-profile">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                            <i class="mdi mdi-account"></i>
+                            <i class="mdi mdi-account">&ensp;
+                                @if (Auth::check()&&Auth::user()->role!='user')
+                                {{Auth::user()->user_name}}
+                                @else
+                                @php
+                                echo'
+                                <script>
+                                    window.location = "index"; 
+                                </script>';
+                                @endphp
+
+                                @endif
+                            </i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <?php
-                            if (isset($_SESSION["email"])) {
-                                echo'   <a href="./app-profile.html" class="dropdown-item">';
-                                echo'   <i class="icon-user"></i> ';
-                                echo'   <span class="ml-2"> '.$_SESSION["email"].' </span>';
-                                echo'   </a>';
 
-                                echo'   <a href="./email-inbox.html" class="dropdown-item">';
-                                echo'   <i class="icon-envelope-open"></i>';
-                                echo'   <span class="ml-2">Inbox </span>';
-                                echo'   </a>';
 
-                                echo'   <a href="../controller/UserController.php?action=logout" class="dropdown-item">';
-                                echo'   <i class="icon-key"></i>';
-                                echo'   <span class="ml-2">Logout </span>';
-                                echo'   </a>';
-                            } else {
-                                echo'   <a href="../../userpage/view/login.php" class="dropdown-item">';
-                                echo'   <i class="icon-user"></i> ';
-                                echo'   <span class="ml-2">Login </span>';
-                                echo'   </a>';
-                            }
-                            ?>
+                            <form action="{{url('/postLogout')}}" method="post">
+                                @csrf
+
+                                <button type="submit" class="btn btn-block "><i class="icon-user"><span
+                                            class="ml-2">Logout</span></i></button>
+                            </form>
+
+
                         </div>
                     </li>
                 </ul>
@@ -104,4 +101,3 @@
         </nav>
     </div>
 </div>
-

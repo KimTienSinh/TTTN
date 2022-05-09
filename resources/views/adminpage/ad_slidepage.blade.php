@@ -65,4 +65,11 @@
         </div>
     </div>
 </div>
+<script>
+    $('[data-id]').each(function(){
+            $(this).click(function(){
+                $('#id_slide').val($(this).data('id'));
+            });
+        });                                             
+</script>
 @endsection()

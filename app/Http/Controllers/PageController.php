@@ -12,16 +12,19 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     //----------------ADMINPAGE--------------------------------------------
-    public function getUserList(){
+    public function getUserList()
+    {
         $list = User::all();
         return view('adminpage.ad_userpage', compact('list'));
     }
-    public function getCategoryList(){
+    public function getCategoryList()
+    {
         $list_cat = Category::all();
         return view('adminpage.ad_categorypage', compact('list_cat'));
     }
-   
-    public function getBlogList(){
+
+    public function getBlogList()
+    {
         $list_blog = Blog::all();
         return view('adminpage.ad_blogpage', compact('list_blog'));
     }
@@ -36,15 +39,19 @@ class PageController extends Controller
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }
     //----------------USERPAGE--------------------------------------------
-    
-    public function getBlogListUserPage(){
+
+    public function getBlogListUserPage()
+    {
         $list_blog = Blog::all();
         $category = Category::all();
-        return view('userpage.user_blog', compact('list_blog','category'));
+        return view('userpage.user_blog', compact('list_blog', 'category'));
     }
 
-    public function getSlideListUserPage(){
+    public function getSlideListUserPage()
+    {
         $list_slide = Slide::all();
         return view('userpage.user_home', compact('list_slide'));
     }
+
+    
 }

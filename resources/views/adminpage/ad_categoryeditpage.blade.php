@@ -44,6 +44,7 @@
                                     <label class="col-sm-2 col-form-label">Catalogy Name</label>
                                     <div class="col-sm-10">
                                         <input name="category_name" value="{{$category_edit->category_name}}" class="form-control" placeholder="Catalogy Name" required="true">
+
                                     </div>
                                 </div>
                                 <div class="form-group row">

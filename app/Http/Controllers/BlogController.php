@@ -45,7 +45,7 @@ class BlogController extends Controller
             'image' => $req->image,
             'description' => $req->description
         ];
-        //dd($req->input());
+        dd($req->input());
         Blog::where('id_blog', $req->id_blog)->update($blog);
         return redirect('ad_blogpage');
     }

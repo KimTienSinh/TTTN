@@ -283,11 +283,27 @@ Route::get('ad_orderpage', [
     'uses' => 'App\Http\Controllers\OrderController@getOrderList'
 ]);
 
+Route::post('change_status/{id_order}',[
+    'as' => 'thay-doi-trang-thai',
+    'uses' => 'App\Http\Controllers\OrderController@postChangeStatus'
+]);
+
 Route::get('ad_orderdetailpage/{id_order}', [
     'as' => 'chi-trang-chi-tiet-order',
     'uses' => 'App\Http\Controllers\OrderController@getOrderDetailView'
 ]);
 //-------------------------------END ORDER----------------------//
+
+//-------------------------------START COMMENT----------------------//
+Route::get('ad_commentpage', [
+    'as' => 'danh-sach-binh-luan',
+    'uses' => 'App\Http\Controllers\CommentController@getCommentList'
+]);
+Route::post('reply_comment/{id_comment}', [
+    'as' => 'tra-loi-binh-luan',
+    'uses' => 'App\Http\Controllers\CommentController@postReplyComment'
+]);
+//-------------------------------END COMMENT----------------------//
 
 
 

@@ -39,6 +39,10 @@
                 <a href="{{url('ad_slidepage')}}"><i class="fa fa-sliders"></i></i>
                     <span class="nav-text">Slider</span></a>
             </li>
+            <li>
+                <a href="{{url('ad_commentpage')}}"><i class="fa fa-commenting-o"></i></i>
+                    <span class="nav-text">Comment</span></a>
+            </li>
 
             <!-- <li>
                 <a href="articlelistpage.php"><i class="fa fa-list"></i>

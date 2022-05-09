@@ -358,7 +358,7 @@
                                                 <div class="at-reply">Nice !</div>
                                             </div>
                                         </div>
-                                        <div class="co-item">
+                                        <!-- <div class="co-item">
                                             <div class="avatar-pic">
                                                 <img src="user/img/product-single/avatar-2.png" alt="">
                                             </div>
@@ -373,7 +373,7 @@
                                                 <h5>Roy Banks <span>27 Aug 2019</span></h5>
                                                 <div class="at-reply">Nice !</div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="personal-rating">
                                         <h6>Your Ratind</h6>
@@ -389,12 +389,12 @@
                                         <h4>Leave A Comment</h4>
                                         <form action="#" class="comment-form">
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <!-- <div class="col-lg-6">
                                                     <input type="text" placeholder="Name">
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <input type="text" placeholder="Email">
-                                                </div>
+                                                </div> -->
                                                 <div class="col-lg-12">
                                                     <textarea placeholder="Messages"></textarea>
                                                     <button type="submit" class="site-btn">Send message</button>

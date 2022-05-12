@@ -45,4 +45,37 @@ class ProductController extends Controller
     public function getProductEditPage()
     {
     }
+
+    public function editProduct(Request $request)
+    {
+        //$color_key là id_product_detail
+        foreach ($request->color as  $color) {
+            foreach ($request->size as $size) {
+                $color_key = array_search($color, $request->color);
+                $size_key = array_search($size, $request->size);
+                $key = $color_key . $size_key;
+                $product_detail = ProductDetail::firstOrNew([
+                    'id_product' => $request->id,
+                    'size' => $size,
+                    'color' => $color
+                ]);
+
+
+                $product_detail->image = 'none';
+                $product_detail->price = $request->price[$key];
+                $product_detail->remaining = $request->remaining[$key];
+                $product_detail->status = '1';
+                $product_detail->voucher_code = 'none';
+
+
+                $product_detail->save();
+            }
+        }
+        return redirect('ad_Product');
+    }
+    public function deletedProduct(Request $request)
+    {
+        Product::find($request->id_product)->update(['status' => '0']);
+        return redirect('ad_Product');
+    }
 }

@@ -42,8 +42,8 @@ class PageController extends Controller
         $list_slide = Slide::all();
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }
-    
-    
+
+
 
     public function ad_getAllProduct()
     {
@@ -54,13 +54,12 @@ class PageController extends Controller
 
     public function getProductEditPage(Request $request)
     {
+        $list_dropdown = Category::where(['type' => 0])->get();
         if ($request->isMethod('post')) {
             $product = Product::find($request->id_product);
             $product_detail = Product::find($request->id_product)->product_detail;
-            $list_dropdown = Category::all();
-            return view('adminpage.ad_producteditpage', compact('list_dropdown','product','product_detail'));
+            return view('adminpage.ad_producteditpage', compact('list_dropdown', 'product', 'product_detail'));
         }
-        $list_dropdown = Category::all();
         return view('adminpage.ad_producteditpage', compact('list_dropdown'));
     }
 
@@ -77,5 +76,11 @@ class PageController extends Controller
     {
         $list_slide = Slide::all();
         return view('userpage.user_home', compact('list_slide'));
+    }
+
+    public function getShop()
+    {
+        $list_product = Product::all();
+        return view('userpage.user_shop', compact('list_product'));
     }
 }

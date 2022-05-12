@@ -1,4 +1,4 @@
-6@extends('ad_master')
+@extends('ad_master')
 @section('ad_content')
 <div class="content-body">
     <div class="container-fluid">
@@ -28,7 +28,7 @@
                     @if(isset($product))
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="{{url('insertProduct')}}" method="post">
+                            <form action="{{url('editProduct/'.$product->id_product)}}" method="post">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Name</label>
@@ -44,7 +44,8 @@
                                     <div class="col-sm-5">
                                         <select class="form-control" name="category">
                                             @foreach($list_dropdown as $cat)
-                                            <option value="{{$cat->id_categories}}" @if ($product->id_categories==$cat->id_categories) selected @endif>
+                                            <option value="{{$cat->id_categories}}" @if ($product->
+                                                id_categories==$cat->id_categories) selected @endif>
                                                 {{$cat->category_name}} </option>
                                             @endforeach
                                         </select>
@@ -54,7 +55,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Description</label>
                                     <div class="col-sm-5">
-                                        <input name="descrip" value="{{$product->description}}" class="form-control" required="true">
+                                        <input name="descrip" value="{{$product->description}}" class="form-control"
+                                            required="true">
                                     </div>
                                 </div>
 
@@ -63,11 +65,27 @@
                                     <div class="col-sm-5">
                                         <div class="row">
                                             <div class="col-sm-8">
-                                                <input name="color[0]" placeholder="red, blue, ..." class="form-control"
-                                                    required="true">
+                                                @php
+                                                $list_color = [];
+                                                $list_size = [];
+                                                foreach ($product_detail as $prd){
+                                                if(!in_array($prd->size,$list_size)){
+                                                $list_size[] = $prd->size;
+                                                }
+                                                if(!in_array($prd->color,$list_color)){
+                                                $list_color[$prd->id_product_detail] = $prd->color;
+                                                }
+                                                }
+                                                @endphp
+                                                @foreach ($list_color as $id_detail => $color)
+                                                <input name="color[{{$id_detail}}]" value="{{$color}}"
+                                                    placeholder="red, blue, ..." class="form-control" required="true">
+                                                @endforeach
+
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="row" id="rowColor">
+
 
                                                     {{-- <div class="col-sm-8"><input name="color" class="form-control"
                                                             class="trashItem" required="true">
@@ -90,36 +108,43 @@
                                     <div class="col-sm-2 col-form-label">Size</div>
                                     <div class="col-sm-5">
                                         <div class="row ml-2">
+                                            @foreach ($list_size as $size)
+                                            <input type="hidden" name="size[{{$size}}]" value="{{$size}}">
+                                            @endforeach
                                             <div class="col">
-                                                <input class="form-check-input" type="checkbox" name="size[S]" value="S"
-                                                    id="S">
+                                                <input class="form-check-input" @if (in_array("S",$list_size)) checked
+                                                    disabled @endif type="checkbox" name="size[S]" value="S" id="S">
                                                 <label class="form-check-label" for="S">S</label>
                                             </div>
                                             <div class="col">
-                                                <input class="form-check-input" type="checkbox" name="size[M]" value="M"
-                                                    id="M">
+                                                <input class="form-check-input" @if (in_array("M",$list_size)) checked
+                                                    disabled @endif type="checkbox" name="size[M]" value="M" id="M">
                                                 <label class="form-check-label" for="M">M</label>
                                             </div>
                                             <div class="col">
-                                                <input class="form-check-input" type="checkbox" name="size[L]" value="L"
-                                                    id="L">
+                                                <input class="form-check-input" @if (in_array("L",$list_size)) checked
+                                                    disabled @endif type="checkbox" name="size[L]" value="L" id="L">
                                                 <label class="form-check-label" for="L">L</label>
                                             </div>
                                             <div class="col">
-                                                <input class="form-check-input" type="checkbox" name="size[XL]"
-                                                    value="XL" id="XL">
+                                                <input class="form-check-input" @if (in_array("XL",$list_size)) checked
+                                                    disabled @endif type="checkbox" name="size[XL]" value="XL" id="XL">
                                                 <label class="form-check-label" for="XL">XL</label>
                                             </div>
                                             <div class="col">
-                                                <input class="form-check-input" type="checkbox" name="size[XXL]"
-                                                    value="XXL" id="XXL">
+                                                <input class="form-check-input" @if (in_array("XXL",$list_size)) checked
+                                                    disabled @endif type="checkbox" name="size[XXL]" value="XXL"
+                                                    id="XXL">
                                                 <label class="form-check-label" for="XXL">XXL</label>
                                             </div>
                                             <div class="col">
-                                                <input class="form-check-input" type="checkbox" name="size[3XL]"
-                                                    value="3XL" id="3XL">
+                                                <input class="form-check-input" @if (in_array("3XL",$list_size)) checked
+                                                    disabled @endif type="checkbox" name="size[3XL]" value="3XL"
+                                                    id="3XL">
                                                 <label class="form-check-label" for="3XL">3XL</label>
                                             </div>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -128,21 +153,37 @@
                                 <div class="form-group row">
                                     <div class="col-sm-2 col-form-label">Product list</div>
                                     <div class="col">
+                                        @foreach ($list_color as $id_detail => $color)
                                         <table class="table table-bordered" id="0">
-                                            <tbody data-table="0">
-                                                <tr class="productList" id="0">
-                                                    <th rowspan="" data-color="color[0]" class="colorTable col-sm-2">
-                                                        Color</th>
-                                                    {{-- <td class="firstRowColor"></td>
-                                                    <td><input type="number" required min="0" class="form-control">
-                                                    </td>
-                                                    <td><input required type="number" min="0" class="form-control">
-                                                    </td>
-                                                    --}}
+                                            <tbody data-table="{{$id_detail}}">
 
+                                                <tr class="productList" id="{{$id_detail}}">
+                                                    <th rowspan="{{count($list_color)+1}}"
+                                                        data-color="color[{{$id_detail}}]" class="colorTable col-sm-2">
+                                                        {{$color}}</th>
                                                 </tr>
+                                                @foreach ($list_size as $size)
+                                                @foreach ($product_detail as $prd)
+                                                @if($prd->color==$color && $prd->size==$size)
+                                                <tr class="row{{$id_detail}}">
+                                                    <td scope="">{{$size}}
+                                                        </th>
+                                                    <td id="{{$size}}"><input type="number"
+                                                            name="price[{{$id_detail.$size}}]"
+                                                            placeholder="Price" value="{{$prd->price}}" required min="0"
+                                                            class="form-control"></td>
+                                                    <td id="{{$size}}"><input placeholder="Remaining"
+                                                            name="remaining[{{$id_detail.$size}}]" required
+                                                            type="number" min="0" value="{{$prd->remaining}}"
+                                                            class="form-control"></td>
+                                                </tr>
+                                                @endif
+                                                @endforeach
+                                                @endforeach
+
                                             </tbody>
                                         </table>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -166,7 +207,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-10">
                                         <button type="submit" name="product_action" value="product_create"
-                                            class="btn btn-primary">Create</button>
+                                            class="btn btn-primary">Edit</button>
 
                                     </div>
 
@@ -341,7 +382,7 @@
                         Footer end
                     ***********************************-->
     <script>
-        var id = 1;
+        var id = @if (isset($list_color)) {{array_key_last($list_color)+20}} @else 1 @endif;
                         $('#addColor').click(function(){
                             var html = '<div id="1trash' + id + '" class="col-sm-8"><input name="color[' + id + ']" class="form-control" class="trashItem" required="true"></div><div class="col"><button id="trash' + id + '" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button></div>';
                             $('#rowColor').append(html);
@@ -354,6 +395,10 @@
                             tableHtml.find('[name^=price]').each(function(){
                                var size = $(this).parent().prop('id');
                                $(this).attr('name','price['+id+size+']')
+                            })
+                            tableHtml.find('[name^=remaining]').each(function(){
+                               var size = $(this).parent().prop('id');
+                               $(this).attr('name','remaining['+id+size+']')
                             })
                             $('.table.table-bordered').parent().append(tableHtml);
                             
@@ -378,7 +423,7 @@
                             })
                             id++;
                         });                
-        var rowSpan = 1;
+        var rowSpan = @if (isset($list_color)) {{count($list_color)+1}} @else 1 @endif;
         $('[name^="size"]').click(function(){                               
             if($(this).prop('checked')){
                 $('.colorTable').attr('rowSpan', ++rowSpan);
@@ -387,7 +432,7 @@
                 var colorId = $(this).attr('id');               
                 $('.productList').each(function(){
                     var colorId = $(this).attr('id');
-                    var html = '<tr class="row'+ rowValue +'"> <td scope="">'+ rowValue +'</th><td id="'+ rowValue +'"><input type="number" name="price['+colorId+sizeId+']" placeholder="Price" required min="0" class="form-control"></td><td><input placeholder="Remaining" name="remaining['+colorId+sizeId+']" required type="number" min="0" class="form-control"></td></tr>';
+                    var html = '<tr class="row'+ rowValue +'"> <td scope="">'+ rowValue +'</th><td id="'+ rowValue +'"><input type="number" name="price['+colorId+sizeId+']" placeholder="Price" required min="0" class="form-control"></td><td id="'+ rowValue +'"><input placeholder="Remaining" name="remaining['+colorId+sizeId+']" required type="number" min="0" class="form-control"></td></tr>';
                     $(this).parent().append(html);
                 })
             }

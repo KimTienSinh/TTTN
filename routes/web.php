@@ -106,35 +106,57 @@ Route::get('delete_blog', [
 ]);
 //-------------------------------END Blog----------------------//
 
-Route::get('ad_Product', 
-[
-    'as'=>'ad_getAllProduct',
-    'uses' => 'App\Http\Controllers\PageController@ad_getAllProduct'
-]
-);
-
-Route::get('ad_ProductEditPage', 
-[
-    'as'=>'ad_getProductEditPage',
-    'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
-]
-);
-
-Route::post('ad_ProductEditPage', 
-[
-    'as'=>'ad_getProductEditPage',
-    'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
-]
-);
-
-Route::post('insertProduct',
-[
-    'as'=>'ad_insertProduct',
-    'uses' => 'App\Http\Controllers\ProductController@insertProduct'
-]
-);
 
 //-------------------------------START PRODUCT----------------------//
+
+
+Route::get(
+    'ad_Product',
+    [
+        'as' => 'ad_getAllProduct',
+        'uses' => 'App\Http\Controllers\PageController@ad_getAllProduct'
+    ]
+);
+
+Route::get(
+    'ad_ProductEditPage',
+    [
+        'as' => 'ad_getProductEditPage',
+        'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
+    ]
+);
+
+Route::post(
+    'ad_ProductEditPage',
+    [
+        'as' => 'ad_getProductEditPage',
+        'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
+    ]
+);
+
+Route::post(
+    'insertProduct',
+    [
+        'as' => 'ad_insertProduct',
+        'uses' => 'App\Http\Controllers\ProductController@insertProduct'
+    ]
+);
+
+Route::post(
+    'editProduct/{id}',
+    [
+        'as' => 'ad_insertProduct',
+        'uses' => 'App\Http\Controllers\ProductController@editProduct'
+    ]
+);
+
+Route::post(
+    'deletedProduct',
+    [
+        'as' => 'xoa-product',
+        'uses' => 'App\Http\Controllers\ProductController@deletedProduct'
+    ]
+);
 
 //-------------------------------END PRODUCT----------------------//
 
@@ -266,9 +288,10 @@ Route::post('register', [
 ]);
 ////////////////////////////////////////////////////////////////////////////////
 
-Route::get('shop', function () {
-    return view('userpage.user_shop');
-});
+Route::get('shop',  [
+    'as' => 'shop',
+    'uses' => 'App\Http\Controllers\PageController@getShop'
+]);
 
 //-------------------------------START Blog----------------------//
 Route::get('blog', [

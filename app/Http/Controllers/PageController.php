@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
 use App\Models\Voucher;
@@ -38,6 +40,31 @@ class PageController extends Controller
         $list_slide = Slide::all();
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }
+
+    public function getCommentList()
+    {
+        $list_comment = Comment::all();
+        return view('adminpage.ad_commentpage', compact('list_comment'));
+    }
+
+    public function ad_getAllProduct()
+    {
+        $product_list = Product::all();
+        //dd($product_list);
+        return view('adminpage.ad_productpage', compact('product_list'));
+    }
+
+    public function getProductEditPage(Request $request)
+    {
+        $list_dropdown = Category::where(['type' => 0])->get();
+        if ($request->isMethod('post')) {
+            $product = Product::find($request->id_product);
+            $product_detail = Product::find($request->id_product)->product_detail;
+            return view('adminpage.ad_producteditpage', compact('list_dropdown', 'product', 'product_detail'));
+        }
+        return view('adminpage.ad_producteditpage', compact('list_dropdown'));
+    }
+
     //----------------USERPAGE--------------------------------------------
 
     public function getBlogListUserPage()
@@ -53,5 +80,16 @@ class PageController extends Controller
         return view('userpage.user_home', compact('list_slide'));
     }
 
-    
+    public function getShop()
+    {
+        $list_product = Product::all();
+        return view('userpage.user_shop', compact('list_product'));
+    }
+
+    public function getProductDetail($id)
+    {
+        $product = Product::find($id);
+        $product_detail = Product::find($id)->product_detail->first();
+        return view('userpage.user_product', compact('product','product_detail'));
+    }
 }

@@ -106,35 +106,57 @@ Route::get('delete_blog', [
 ]);
 //-------------------------------END Blog----------------------//
 
-Route::get('ad_Product', 
-[
-    'as'=>'ad_getAllProduct',
-    'uses' => 'App\Http\Controllers\PageController@ad_getAllProduct'
-]
-);
-
-Route::get('ad_ProductEditPage', 
-[
-    'as'=>'ad_getProductEditPage',
-    'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
-]
-);
-
-Route::post('ad_ProductEditPage', 
-[
-    'as'=>'ad_getProductEditPage',
-    'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
-]
-);
-
-Route::post('insertProduct',
-[
-    'as'=>'ad_insertProduct',
-    'uses' => 'App\Http\Controllers\ProductController@insertProduct'
-]
-);
 
 //-------------------------------START PRODUCT----------------------//
+
+
+Route::get(
+    'ad_Product',
+    [
+        'as' => 'ad_getAllProduct',
+        'uses' => 'App\Http\Controllers\PageController@ad_getAllProduct'
+    ]
+);
+
+Route::get(
+    'ad_ProductEditPage',
+    [
+        'as' => 'ad_getProductEditPage',
+        'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
+    ]
+);
+
+Route::post(
+    'ad_ProductEditPage',
+    [
+        'as' => 'ad_getProductEditPage',
+        'uses' => 'App\Http\Controllers\PageController@getProductEditPage'
+    ]
+);
+
+Route::post(
+    'insertProduct',
+    [
+        'as' => 'ad_insertProduct',
+        'uses' => 'App\Http\Controllers\ProductController@insertProduct'
+    ]
+);
+
+Route::post(
+    'editProduct/{id}',
+    [
+        'as' => 'ad_insertProduct',
+        'uses' => 'App\Http\Controllers\ProductController@editProduct'
+    ]
+);
+
+Route::post(
+    'deletedProduct',
+    [
+        'as' => 'xoa-product',
+        'uses' => 'App\Http\Controllers\ProductController@deletedProduct'
+    ]
+);
 
 //-------------------------------END PRODUCT----------------------//
 
@@ -283,7 +305,7 @@ Route::get('ad_orderpage', [
     'uses' => 'App\Http\Controllers\OrderController@getOrderList'
 ]);
 
-Route::post('change_status/{id_order}',[
+Route::post('change_status/{id_order}', [
     'as' => 'thay-doi-trang-thai',
     'uses' => 'App\Http\Controllers\OrderController@postChangeStatus'
 ]);
@@ -348,9 +370,10 @@ Route::post('register', [
 ]);
 ////////////////////////////////////////////////////////////////////////////////
 
-Route::get('shop', function () {
-    return view('userpage.user_shop');
-});
+Route::get('shop',  [
+    'as' => 'shop',
+    'uses' => 'App\Http\Controllers\PageController@getShop'
+]);
 
 //-------------------------------START Blog----------------------//
 Route::get('blog', [
@@ -367,17 +390,21 @@ Route::get('blog_details/{id_blog}', [
 ]);
 //-------------------------------END Blog----------------------//
 
-Route::get('checkout', function () {
-    return view('userpage.user_checkout');
-});
+//-------------------------------START Checkout----------------------//
+Route::post('checkout', [
+    'as' => 'cart-checkout-userpage',
+    'uses' => 'App\Http\Controllers\CartController@getCheckoutListUserPage'
+]);
+//-------------------------------END Checkout----------------------//
 
 Route::get('contact', function () {
     return view('userpage.user_contact');
 });
 
-Route::get('product', function () {
-    return view('userpage.user_product');
-});
+Route::get('product/{id}', [
+    'as' => 'chi-tiet-san-pham',
+    'uses' => 'App\Http\Controllers\PageController@getProductDetail'
+]);
 
 Route::get('cart', function () {
     return view('userpage.user_cart');

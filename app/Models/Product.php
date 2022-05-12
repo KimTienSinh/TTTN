@@ -10,9 +10,11 @@ class Product extends Model
     use HasFactory;
     protected $table = "products";
     protected $primaryKey = "id_product";
+    public $timestamps = false;
+
 
     protected $fillable = [
-       // 'id_product',
+        // 'id_product',
         'id_categories',
         'product_name',
         'description',
@@ -23,14 +25,15 @@ class Product extends Model
     protected $hidden = [
         //'remember_token',
     ];
-    
-    
-    public function categories(){
+
+
+    public function categories()
+    {
         return $this->belongsTo('App\Models\Category', 'id_categories', 'id_blog');
     }
 
-    public function product_detail(){
+    public function product_detail()
+    {
         return $this->hasMany('App\Models\ProductDetail', 'id_product', 'id_product');
     }
-    
 }

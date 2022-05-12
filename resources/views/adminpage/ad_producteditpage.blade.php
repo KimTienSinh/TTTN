@@ -158,7 +158,7 @@
                                             <tbody data-table="{{$id_detail}}">
 
                                                 <tr class="productList" id="{{$id_detail}}">
-                                                    <th rowspan="{{count($list_color)+1}}"
+                                                    <th rowspan="{{count($list_size)+1}}"
                                                         data-color="color[{{$id_detail}}]" class="colorTable col-sm-2">
                                                         {{$color}}</th>
                                                 </tr>
@@ -169,8 +169,8 @@
                                                     <td scope="">{{$size}}
                                                         </th>
                                                     <td id="{{$size}}"><input type="number"
-                                                            name="price[{{$id_detail.$size}}]"
-                                                            placeholder="Price" value="{{$prd->price}}" required min="0"
+                                                            name="price[{{$id_detail.$size}}]" placeholder="Price"
+                                                            value="{{$prd->price}}" required min="0"
                                                             class="form-control"></td>
                                                     <td id="{{$size}}"><input placeholder="Remaining"
                                                             name="remaining[{{$id_detail.$size}}]" required
@@ -423,7 +423,7 @@
                             })
                             id++;
                         });                
-        var rowSpan = @if (isset($list_color)) {{count($list_color)+1}} @else 1 @endif;
+        var rowSpan = @if (isset($list_size)) {{count($list_size)+1}} @else 1 @endif;
         $('[name^="size"]').click(function(){                               
             if($(this).prop('checked')){
                 $('.colorTable').attr('rowSpan', ++rowSpan);

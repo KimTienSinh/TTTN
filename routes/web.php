@@ -241,7 +241,7 @@ Route::get('ad_orderpage', [
     'uses' => 'App\Http\Controllers\OrderController@getOrderList'
 ]);
 
-Route::post('change_status/{id_order}',[
+Route::post('change_status/{id_order}', [
     'as' => 'thay-doi-trang-thai',
     'uses' => 'App\Http\Controllers\OrderController@postChangeStatus'
 ]);
@@ -332,9 +332,10 @@ Route::get('contact', function () {
     return view('userpage.user_contact');
 });
 
-Route::get('product', function () {
-    return view('userpage.user_product');
-});
+Route::get('product/{id}', [
+    'as' => 'chi-tiet-san-pham',
+    'uses' => 'App\Http\Controllers\PageController@getProductDetail'
+]);
 
 Route::get('cart', function () {
     return view('userpage.user_cart');

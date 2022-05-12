@@ -88,4 +88,11 @@ class PageController extends Controller
         $list_product = Product::all();
         return view('userpage.user_shop', compact('list_product'));
     }
+
+    public function getProductDetail($id)
+    {
+        $product = Product::find($id);
+        $product_detail = Product::find($id)->product_detail->first();
+        return view('userpage.user_product', compact('product','product_detail'));
+    }
 }

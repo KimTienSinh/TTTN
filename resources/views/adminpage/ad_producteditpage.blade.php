@@ -1,4 +1,4 @@
-6@extends('ad_master')
+@extends('ad_master')
 @section('ad_content')
 <div class="content-body">
     <div class="container-fluid">

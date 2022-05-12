@@ -42,4 +42,13 @@ class OrderController extends Controller
         $order_info = Order::where('id_order', $id_order)->first();
         return view('adminpage.ad_orderdetailpage', compact('order_view_detail', 'order_info', 'data'));
     }
+    public function postChangeStatus(Request $req){
+        $order_status = [
+            'id_order' => $req->id_order,
+            'status'   => $req->cbx_order
+        ];
+        //dd($req->input());
+        Order::where('id_order',$req->id_order)->update($order_status);
+        return redirect('ad_orderpage');
+    }
 }

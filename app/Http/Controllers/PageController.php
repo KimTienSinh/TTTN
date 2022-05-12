@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\Slide;
@@ -43,7 +44,11 @@ class PageController extends Controller
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }
 
-
+    public function getCommentList()
+    {
+        $list_comment = Comment::all();
+        return view('adminpage.ad_commentpage', compact('list_comment'));
+    }
 
     public function ad_getAllProduct()
     {

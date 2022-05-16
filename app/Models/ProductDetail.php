@@ -43,4 +43,9 @@ class ProductDetail extends Model
     {
         return $this->hasMany('App\Models\OrderDetail', 'id_product', 'id_product_detail');
     }
+
+    public function cart()
+    {
+       // return $this->belongsToMany(User::class, 'cart', 'id_prodcut_detail', 'id_user');
+    }
 }

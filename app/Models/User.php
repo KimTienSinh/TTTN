@@ -56,8 +56,13 @@ class User extends Authenticatable
     public $timestamps = false;
 
     // 1 User có nhiều Comment dùng hasMany( class, 'khoa ngoai', 'khoa chinh')
-    public function comment(){
+    public function comment()
+    {
         return $this->hasMany('App\Models\Comment', 'id_user', 'id_user');
     }
 
+    public function cart()
+    {
+        return $this->belongsToMany(ProductDetail::class, 'cart', 'id_user', 'id_product_detail')->withPivot('quantity');
+    }
 }

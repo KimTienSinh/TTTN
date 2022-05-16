@@ -68,57 +68,53 @@
                             <div class="pd-color">
                                 <h6>Color</h6>
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <input type="radio" name="color" value="S" class="btn-check" id="S" checked
-                                            hidden>
-                                        <label for="S" class="btn btn-outline-secondary active">S</label>
+                                    @foreach ($color_size_price as $color => $size_price)
+                                    <div class="col-md-auto">
+                                        <input type="radio" name="color" value="{{$color}}"
+                                            @if($color==array_key_first($color_size_price)) checked @endif
+                                            class="btn-check" id="{{$color}}" hidden>
+                                        <label for="{{$color}}"
+                                            class="btn btn-outline-secondary @if($color == array_key_first($color_size_price)) active @endif">{{$color}}</label>
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="radio" name="color" class="btn-check" id="M" hidden>
-                                        <label for="M" class="btn btn-outline-secondary">M</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="radio" name="color" class="btn-check" id="L" hidden>
-                                        <label for="L" class="btn btn-outline-secondary">L</label>
-                                    </div>
-
+                                    @endforeach
                                 </div>
                             </div>
 
                             <div class="pd-color">
                                 <h6>Size</h6>
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <input type="radio" name="size" id="ss" checked hidden>
-                                        <label class="btn btn-outline-dark active" for="ss">S</label>
+                                    @php
+                                    $size_price = current($color_size_price);
+                                    $default_price = array_key_first(current($size_price));
+                                    @endphp
+                                    @foreach ($size_price as $size => $price)
+                                    <div class="col-md-auto">
+                                        <input type="radio" name="size" id="{{$size}}-size" value="{{$size}}"
+                                            @if($size==array_key_first($size_price)) checked @endif hidden>
+                                        <label
+                                            class="btn btn-outline-dark @if ($size == array_key_first($size_price)) active @endif"
+                                            for="{{$size}}-size">{{$size}}</label>
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="radio" name="size" id="md-size" hidden>
-                                        <label class="btn btn-outline-dark" for="md-size">M</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="radio" name="size" id="lg-size" hidden>
-                                        <label class="btn btn-outline-dark" for="lg-size">L</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="radio" name="size" id="xl-size" hidden>
-                                        <label class="btn btn-outline-dark" for="xl-size">xs</label>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="product-details">
-                                <div class="pd-desc text-md-">
-                                    <h4>{{number_format($product_detail->price)}}&ensp;$<span></span></h4>
+                                <div class="pd-desc p-3 pl-5 d-flex">
+                                    <div>
+                                        <h4 id="price_detail">
+                                            {{number_format(floatval($default_price))}}<span></span></h4>
+                                    </div>
+                                    <div>
+                                        <h4>&ensp;$</h4>
+                                    </div>
                                 </div>
                             </div>
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" value="1" id="product_quantity">
                                 </div>
-                                <label for="add2Cart" class="btn btn-outline-info" data-toggle="modal"
-                                    data-target="#add2Carrt">Add To Cart</label>
-                                <input type="submit" id="add2Cart" hidden>
-                                {{-- <a href="#" class="primary-btn pd-cart">Add To Cart</a> --}}
+                                <button id="add2cart" class="btn btn-outline-info" data-toggle="modal"
+                                    data-target="#add2Carrt">Add To Cart</button>
                                 <div class="modal fade" id="add2Carrt" tabindex="-1" role="dialog"
                                     aria-labelledby="add2Carrt" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -234,6 +230,7 @@
 </section>
 <!-- Product Shop Section End -->
 
+{{--
 <!-- Related Products Section End -->
 <div class="related-products spad">
     <div class="container">
@@ -346,13 +343,23 @@
         </div>
     </div>
 </div>
-<!-- Related Products Section End -->
+<!-- Related Products Section End --> --}}
 <script>
     $('[name="color"]').on('change',function(){
         $('.btn-outline-secondary').each(function(){
             $(this).removeClass('active');
         });
         $('label[for="'+$(this).prop('id')+'"]').addClass('active');
+        color = ($(this).val());
+        size = $('[name="size"]:checked').val();
+        $.ajax({
+            type: 'POST',
+            url: '{{Request::url()}}',
+            data: {"_token": "{{ csrf_token() }}",color,size},
+            success: function(data){
+                $("#price_detail").html(data);
+            }
+        })
     });
 
     $('[name="size"]').on('change',function(){
@@ -360,6 +367,32 @@
             $(this).removeClass('active');
         });
         $('label[for="'+$(this).prop('id')+'"]').addClass('active');
+        size = ($(this).val());
+        color = $('[name="color"]:checked').val();
+        $.ajax({
+            type: 'POST',
+            url: '{{Request::url()}}',
+            data: {"_token": "{{ csrf_token() }}",color,size},
+            success: function(data){
+                $("#price_detail").html(data);
+            }
+        })
     });
+
+    $('#add2cart').click(function(){
+        quantity = $('#product_quantity').val();
+        color = $('[name="color"]:checked').val();
+        size = $('[name="size"]:checked').val();
+        id_product = '{{$product->id_product}}';
+        $.ajax({
+            type: 'POST',   
+            url: '{{route('them-gio-hang')}}',
+            data: {"_token": "{{ csrf_token() }}",id_product,color,size,quantity},
+            success: function(data){
+                $("span#cartItem").html(data);
+            }
+        })
+    });
+
 </script>
 @endsection

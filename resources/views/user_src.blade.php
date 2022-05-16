@@ -10,7 +10,7 @@
 <script src="user/js/owl.carousel.min.js"></script>
 <script src="user/js/main.js"></script>
 <script>
-    // $(document).ready(function(){
+  // $(document).ready(function(){
     //     $('ul#user-menu li:first-child').addClass('active');
     //     $('ul#user-menu li').each(function(){
     //         $(this).click(function(){

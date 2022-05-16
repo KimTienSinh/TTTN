@@ -337,6 +337,35 @@ Route::get('product/{id}', [
     'uses' => 'App\Http\Controllers\PageController@getProductDetail'
 ]);
 
-Route::get('cart', function () {
-    return view('userpage.user_cart');
-});
+Route::post('product/{id}', 'App\Http\Controllers\ProductDetailController@getPrice');
+
+
+
+/////////////////////////////USER_CART START/////////////////////
+Route::get('cart', 'App\Http\Controllers\CartController@getCart');
+
+Route::post(
+    'add2cart',
+    [
+        'as' => 'them-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@add2Cart',
+    ]
+);
+
+Route::post(
+    'updateCart/{id}',
+    [
+        'as' => 'sua-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@updateCart',
+    ]
+);
+
+Route::post(
+    'delFromCart/{id}',
+    [
+        'as' => 'xoa-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@delFromCart',
+    ]
+);
+
+/////////////////////////////USER_CART END//////////////////////////

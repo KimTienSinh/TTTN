@@ -104,6 +104,17 @@ class UserController extends Controller
         if (Auth::attempt($data)) {
             $user = User::where('email', $request->email)->first();
             Auth::login($user);
+
+            //Lấy giỏ hàng của user
+            $cart_list = json_decode(User::find(Auth::user()->id_user)->cart);
+            if ($cart_list != null) {
+                foreach ($cart_list as $cart_item) {
+                    $cart[$cart_item->id_product_detail] = $cart_item->pivot->quantity;
+                }
+            }
+            session()->put('cart', $cart);
+            //end getUserCart
+
             return redirect('/index');
         }
         return redirect()->back()->with('login_status', 'Wrong email or password!');
@@ -207,7 +218,7 @@ class UserController extends Controller
                 'name' => 'required',
                 'address' => 'required',
                 'phone' => 'required',
-                
+
             ],
             [
                 'address.required' => 'Please type your address !',

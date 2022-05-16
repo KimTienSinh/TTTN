@@ -43,8 +43,8 @@ class VoucherController extends Controller
         return redirect('ad_voucherpage');
     }
 
-    public function getDeleteVoucher(Request $req){
-        $v = Voucher::findOrFail($req->id_voucher);
+    public function getDeleteVoucher($id_voucher){
+        $v = Voucher::findOrFail($id_voucher);
         $v->delete();
         return redirect('ad_voucherpage');
     }

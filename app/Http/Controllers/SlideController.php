@@ -42,8 +42,8 @@ class SlideController extends Controller
         Slide::where('id_slide', $req->id_slide)->update($slide);
         return redirect('ad_slidepage');
     }
-    public function getDeleteSlide(Request $req){
-        $s = Slide::findOrFail($req->id_slide);
+    public function getDeleteSlide($id_slide){
+        $s = Slide::findOrFail($id_slide);
         $s->delete();
         return redirect('ad_slidepage');
     }

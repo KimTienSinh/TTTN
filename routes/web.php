@@ -226,6 +226,70 @@ Route::get('delete_slide', [
 
 //-------------------------------END Slider----------------------//
 
+//-------------------------------START Voucher----------------------//
+
+Route::get('ad_voucherpage', [
+    'as' => 'danh-sach-giam-gia',
+    'uses' => 'App\Http\Controllers\PageController@getVoucherList'
+]);
+
+Route::get('ad_vouchereditpage', function () {
+    return view('adminpage.ad_vouchereditpage');
+});
+
+Route::post('ad_vouchereditpage', [
+    'as' => 'them-voucher',
+    'uses' => 'App\Http\Controllers\VoucherController@postInsertVoucher'
+]);
+
+Route::get('ad_vouchereditpage/{id_voucher}', [
+    'as' => 'chi-trang-voucher-edit',
+    'uses' => 'App\Http\Controllers\VoucherController@getEditVoucher'
+]);
+
+Route::post('update_voucher/{id_voucher}', [
+    'as' => 'chinh-voucher',
+    'uses' => 'App\Http\Controllers\VoucherController@postUpdateVoucher'
+]);
+
+Route::get('delete_voucher/{id_voucher}', [
+    'as' => 'xoa-voucher',
+    'uses' => 'App\Http\Controllers\VoucherController@getDeleteVoucher'
+]);
+//-------------------------------END Voucher----------------------//
+
+//-------------------------------START Slider----------------------//
+Route::get('ad_slidepage', [
+    'as' => 'danh-sach-slide',
+    'uses' => 'App\Http\Controllers\PageController@getSlideList'
+]);
+
+Route::get('ad_slideeditpage', function () {
+    return view('adminpage.ad_slideeditpage');
+});
+
+Route::post('ad_slideeditpage', [
+    'as' => 'them-slide',
+    'uses' => 'App\Http\Controllers\SlideController@postInsertSlide'
+]);
+
+Route::get('ad_slideeditpage/{id_slide}', [
+    'as' => 'chi-trang-edit-slide',
+    'uses' => 'App\Http\Controllers\SlideController@getEditSlide'
+]);
+
+Route::post('update_slide/{id_slide}', [
+    'as' => 'sua-slide',
+    'uses' => 'App\Http\Controllers\SlideController@postUpdateSlide'
+]);
+
+Route::get('delete_slide/{id_slide}', [
+    'as' => 'xoa-slide',
+    'uses' => 'App\Http\Controllers\SlideController@getDeleteSlide'
+]);
+
+//-------------------------------END Slider----------------------//
+
 Route::get('ad_productpage', function () {
     return view('adminpage.ad_productpage');
 });
@@ -271,10 +335,12 @@ Route::get('/', [
     'as' => 'danh-sach-slide-user-page',
     'uses' => 'App\Http\Controllers\PageController@getSlideListUserPage'
 ]);
+
 Route::get('index', [
     'as' => 'danh-sach-slide-user-page-index',
     'uses' => 'App\Http\Controllers\PageController@getSlideListUserPage'
 ]);
+
 
 Route::get('login', function () {
     return view('userpage.user_login');
@@ -324,9 +390,12 @@ Route::get('blog_details/{id_blog}', [
 ]);
 //-------------------------------END Blog----------------------//
 
-Route::get('checkout', function () {
-    return view('userpage.user_checkout');
-});
+//-------------------------------START Checkout----------------------//
+Route::post('checkout', [
+    'as' => 'cart-checkout-userpage',
+    'uses' => 'App\Http\Controllers\CartController@getCheckoutListUserPage'
+]);
+//-------------------------------END Checkout----------------------//
 
 Route::get('contact', function () {
     return view('userpage.user_contact');

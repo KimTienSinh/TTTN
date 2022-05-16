@@ -6,7 +6,6 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Product;
-use App\Models\ProductDetail;
 use App\Models\Slide;
 use App\Models\User;
 use App\Models\Voucher;
@@ -32,14 +31,12 @@ class PageController extends Controller
         return view('adminpage.ad_blogpage', compact('list_blog'));
     }
 
-    public function getVoucherList()
-    {
+    public function getVoucherList(){
         $list_voucher = Voucher::all();
         return view('adminpage.ad_voucherpage', compact('list_voucher'));
     }
 
-    public function getSlideList()
-    {
+    public function getSlideList(){
         $list_slide = Slide::all();
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }

@@ -60,7 +60,6 @@
                                     <div class="col-12 col-md-6">
                                         <input  type="file" id="image" name="image" class="form-control-file">
                                     </div>
-                                    
                                 </div>
                                 <textarea name="description" id="description">{{$blog_edit->description}}</textarea>
                                 <div class="form-group row">

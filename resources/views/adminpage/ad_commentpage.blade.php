@@ -65,11 +65,11 @@
 
                                     <div class="modal fade" id="myModal" role="dialog">
                                         <div class="modal-dialog modal-sm">
-                                            <form action="{{Route('xoa-voucher')}}" method="get">
+                                            <form action="#" method="get">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Do you want to delete?</h4>
-                                                        <input type=hidden id="id_voucher" name="id_voucher" value="">
+                                                        
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">

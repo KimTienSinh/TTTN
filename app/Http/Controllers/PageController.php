@@ -86,16 +86,4 @@ class PageController extends Controller
         return view('userpage.user_shop', compact('list_product'));
     }
 
-    public function getProductDetail($id)
-    {
-        $product = Product::find($id);
-        $product_detail = Product::find($id)->product_detail;
-        $color_size_price = []; //Tạo ra mảng 3 chiều với các tham số $varName[color][size][price]=remaing;
-        foreach ($product_detail as $detail) {
-            $color_size_price[$detail->color][$detail->size][$detail->price] = $detail->remaining;
-        }
-        $arr = array("Ford", "BMW", "Audi", "Fiat");
-        $data = json_encode($arr);
-        return view('userpage.user_product', compact('product', 'color_size_price', 'data'));
-    }
 }

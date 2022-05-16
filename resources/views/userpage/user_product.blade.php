@@ -160,20 +160,22 @@
                                     <h4>2 Comments</h4>
                                     <div class="comment-option">
                                         <div class="co-item">
-                                            <div class="avatar-pic">
-                                                <img src="user/img/product-single/avatar-1.png" alt="">
-                                            </div>
-                                            <div class="avatar-text">
-                                                <div class="at-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
+                                            @foreach($data as $comment)
+                                                <div class="avatar-pic">
+                                                    <img src="user/img/product-single/avatar-1.png" alt="">
                                                 </div>
-                                                <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
-                                                <div class="at-reply">Nice !</div>
-                                            </div>
+                                                <div class="avatar-text">
+                                                    <div class="at-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </div>
+                                                    <h5>{{$comment->user_name}} <span>27 Aug 2019</span></h5>
+                                                    <div class="at-reply">{{$comment->comment}}</div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                         <!-- <div class="co-item">
                                             <div class="avatar-pic">
@@ -204,7 +206,8 @@
                                     </div>
                                     <div class="leave-comment">
                                         <h4>Leave A Comment</h4>
-                                        <form action="#" class="comment-form">
+                                        <form action="{{Route('them-comment-user-page')}}" class="comment-form" method="POST">
+                                            @csrf
                                             <div class="row">
                                                 <!-- <div class="col-lg-6">
                                                     <input type="text" placeholder="Name">
@@ -212,8 +215,10 @@
                                                 <div class="col-lg-6">
                                                     <input type="text" placeholder="Email">
                                                 </div> -->
+                                                <input type="text" hidden name="id_user" value="{{Auth::user()->id_user}}">
+                                                <input type="text" hidden name="id" value="{{$product->id_product}}">
                                                 <div class="col-lg-12">
-                                                    <textarea placeholder="Messages"></textarea>
+                                                    <textarea name="comment" placeholder="Messages"></textarea>
                                                     <button type="submit" class="site-btn">Send message</button>
                                                 </div>
                                             </div>

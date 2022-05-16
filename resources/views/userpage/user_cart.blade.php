@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row" id="cart_list">
 
-            @include('userpage.cart_item');
+            @include('userpage.cart_item')
 
         </div>
     </div>
@@ -32,14 +32,16 @@
     $('input[name^="quantity"]').on('change',function(){
         var total = 0;
         var id_detail = $(this).prop('id');
-        var price = $('.p-price.first-row#'+id_detail).html();
+        var price = $('#price'+id_detail).html();
         var qty = $(this).val();
-        
-        html = $('#total'+id_detail).html(price*qty);
+        price = price.replace(/,/g,'');
+        $('.p-price.first-row.totalSingle,#'+id_detail).html((price*qty).toLocaleString('en-US'));
         $('.totalSingle').each(function(){
-            total = total + parseFloat($(this).html());    
+            var price_single =$(this).html();
+            price_single = price_single.replace(/,/g,'');
+            total = total + parseFloat(price_single);    
         })
-        $('#cart_total').html(total);
+        $('#cart_total').html(total.toLocaleString('en-US'));
 
         $.ajax({
             url: '{{url('updateCart')}}/'+id_detail,

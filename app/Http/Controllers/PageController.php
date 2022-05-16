@@ -95,7 +95,7 @@ class PageController extends Controller
             $color_size_price[$detail->color][$detail->size][$detail->price] = $detail->remaining;
         }
         $arr = array("Ford", "BMW", "Audi", "Fiat");
-        $data = json_encode($arr);
+        $data = json_encode($arr);  
         return view('userpage.user_product', compact('product', 'color_size_price', 'data'));
     }
 }

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class VoucherController extends Controller
 {
-    public function postInsertVoucher(Request $req){
+    public function postInsertVoucher(Request $req)
+    {
         $this->validate(
             $req,
             [
@@ -28,12 +29,14 @@ class VoucherController extends Controller
         return redirect('ad_voucherpage');
     }
 
-    public function getEditVoucher(Request $req){
+    public function getEditVoucher(Request $req)
+    {
         $voucher_edit = Voucher::where('id_voucher', $req->id_voucher)->first();
-        return view('adminpage.ad_vouchereditpage',compact('voucher_edit'));
+        return view('adminpage.ad_vouchereditpage', compact('voucher_edit'));
     }
 
-    public function postUpdateVoucher(Request $req){
+    public function postUpdateVoucher(Request $req)
+    {
         $voucher = [
             'voucher_code' => $req->voucher_code,
             'condition_price' => $req->condition_price,
@@ -43,7 +46,8 @@ class VoucherController extends Controller
         return redirect('ad_voucherpage');
     }
 
-    public function getDeleteVoucher($id_voucher){
+    public function getDeleteVoucher($id_voucher)
+    {
         $v = Voucher::findOrFail($id_voucher);
         $v->delete();
         return redirect('ad_voucherpage');

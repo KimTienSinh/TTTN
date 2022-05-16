@@ -438,3 +438,24 @@ Route::post(
 );
 
 /////////////////////////////USER_CART END//////////////////////////
+
+/////////////////////////////USER CHECKOUT//////////////////////
+Route::get('checkout', 'App\Http\Controllers\CartController@getCheckoutListUserPage');
+
+Route::post(
+    'checkVoucher',
+    [
+        'as' => 'kiem-tra-voucher',
+        'uses' => 'App\Http\Controllers\CheckoutController@checkVoucher',
+    ]
+);
+
+Route::post(
+    'order',
+    [
+        'as' => 'kiem-tra-voucher',
+        'uses' => 'App\Http\Controllers\CheckoutController@postOrder',
+    ]
+);
+
+/////////////////////////////END USER_CHECKOUT//////////////////////

@@ -23,7 +23,8 @@
                     </td>
                     <td class="total-price first-row">{{$item->color}}</td>
                     <td class="total-price first-row">{{$item->size}}</td>
-                    <td class="p-price first-row" id="{{$item->id_product_detail}}">{{$item->price}}</td>
+                    <td class="p-price first-row" id="price{{$item->id_product_detail}}">{{number_format($item->price)}}
+                    </td>
                     <td class="qua-col first-row">
                         <div class="quantity">
                             <div class="">
@@ -33,8 +34,8 @@
                             </div>
                         </div>
                     </td>
-                    <td class="total-price first-row totalSingle" id="total{{$item->id_product_detail}}">
-                        {{$item->price}}
+                    <td class="total-price first-row totalSingle" id="{{$item->id_product_detail}}">
+                        {{number_format($item->price * $cart_list[$item->id_product_detail])}}
                     </td>
                     <td class="close-td first-row"><button class="btn btn-outline-danger"
                             onclick="delFromCart({{$item->id_product_detail}})"><i class=" fa fa-trash"></i></button>
@@ -64,7 +65,7 @@
                     {{-- <li class="subtotal">Subtotal <span>$240.00</span></li> --}}
                     <li class="cart-total">Total <span id="cart_total">0</span></li>
                 </ul>
-                <a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                <a href="{{url('checkout')}}" class="proceed-btn">PROCEED TO CHECK OUT</a>
             </div>
         </div>
     </div>
@@ -73,9 +74,17 @@
     $(document).ready(function(){
         var total = 0;
         $('.totalSingle').each(function(){
-            total = total + parseFloat($(this).html());    
+            totalSingle = $(this).html();
+            totalSingle = totalSingle.replace(/,/g,'');
+            total = total + parseFloat(totalSingle);   
         })
-        $('#cart_total').html(total);
+        $('#cart_total').html(total.toLocaleString('en-US'));
     });
 </script>
+@else
+
+<div class="col text-center">
+    <a href="{{url('shop')}}" class="primary-btn continue-shop">Continue shopping</a>
+</div>
+
 @endif

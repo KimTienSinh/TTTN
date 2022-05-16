@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,5 +35,51 @@ class CommentController extends Controller
         //dd($req->input());
         Comment::where('id_comment', $req->id_comment)->update($comment);
         return redirect('ad_commentpage');
+    }
+
+    public function getDeteleComment(Request $req){
+        $c = Comment::findOrFail($req->id_comment);
+        $c->delete();
+        return redirect('ad_commentpage');
+    }
+
+    //------------------------ User page ------------------------------------------//
+
+
+    public function getProductDetailAndComment($id)
+    {
+        $product = Product::find($id);
+        $product_detail = Product::find($id)->product_detail;
+        $color_size_price = []; //Tạo ra mảng 3 chiều với các tham số $varName[color][size][price]=remaing;
+        foreach ($product_detail as $detail) {
+            $color_size_price[$detail->color][$detail->size][$detail->price] = $detail->remaining;
+        }
+
+        $data = DB::table('users')
+            ->join('comments', 'users.id_user' ,'=', 'comments.id_user')
+            ->join('products', 'comments.id_product', '=', 'products.id_product')
+            ->where('comments.id_product', $id)
+            ->select('comments.comment', 'users.user_name')
+            ->get();
+        
+        return view('userpage.user_product', compact('product', 'color_size_price', 'data'));
+    }
+
+    public function postInsertComment(Request $req){
+        $this->validate(
+            $req,
+            [
+                'comment' => 'required'
+            ]
+        );
+        $c = new Comment();
+        //dd($req->input());
+
+        $c->id_user = $req->id_user;
+        $c->rating = 4;
+        $c->id_product = $req->id;
+        $c->comment = $req->comment;
+        $c->save();
+        return redirect()->route('chi-tiet-san-pham-va-binh-luan', $req->id);
     }
 }

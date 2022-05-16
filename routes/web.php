@@ -325,6 +325,12 @@ Route::post('reply_comment/{id_comment}', [
     'as' => 'tra-loi-binh-luan',
     'uses' => 'App\Http\Controllers\CommentController@postReplyComment'
 ]);
+Route::get('delete-comment', [
+    'as' => 'xoa-comment',
+    'uses' => 'App\Http\Controllers\CommentController@getDeteleComment'
+]);
+
+
 //-------------------------------END COMMENT----------------------//
 
 
@@ -397,13 +403,20 @@ Route::post('checkout', [
 ]);
 //-------------------------------END Checkout----------------------//
 
+//-------------------------------START COMMENT----------------------//
+Route::post('comment_user', [
+    'as' => 'them-comment-user-page',
+    'uses' => 'App\Http\Controllers\CommentController@postInsertComment'
+]);
+//-------------------------------END COMMENT----------------------//
+
 Route::get('contact', function () {
     return view('userpage.user_contact');
 });
 
 Route::get('product/{id}', [
-    'as' => 'chi-tiet-san-pham',
-    'uses' => 'App\Http\Controllers\PageController@getProductDetail'
+    'as' => 'chi-tiet-san-pham-va-binh-luan',
+    'uses' => 'App\Http\Controllers\CommentController@getProductDetailAndComment'
 ]);
 
 Route::post('product/{id}', 'App\Http\Controllers\ProductDetailController@getPrice');

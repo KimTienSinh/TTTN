@@ -55,8 +55,10 @@
                                                 <button type="submit" class="btn btn-outline-primary">&nbsp;<i class="fa fa-paper-plane-o"></i>&nbsp;
                                                         Comment
                                                     </button>
-                                                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                    <button data-toggle="modal" data-id='{{$comment->id_comment}}' data-target="#myModal" type="button" class="btn btn-outline-danger">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>
+                                                <button data-toggle="modal" data-id='{{$comment->id_comment}}'
+                                                    data-target="#myModal" type="button"
+                                                    class="btn btn-outline-danger">&nbsp;<i
+                                                        class="fa fa-close color-danger"></i>&nbsp; Delete </button>
                                                 </span>
                                             </td>
                                         </form>
@@ -65,21 +67,23 @@
 
                                     <div class="modal fade" id="myModal" role="dialog">
                                         <div class="modal-dialog modal-sm">
-                                            <form action="#" method="get">
+                                            <form action="{{Route('xoa-comment')}}" method="get">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Do you want to delete?</h4>
-                                                        
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <input type=hidden id="id_comment" name="id_comment" value="">
+                                                        <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <button type="submit" class="btn btn-outline-danger">Yes !
                                                             Delete it</button>
                                                         <button type="button" data-dismiss="modal" class="btn btn-outline-success">No !
-                                                        </button>
+                                                            </button>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -87,6 +91,7 @@
                                     </div>
                                     <!-- Modal -->
                                     <!-- End Delete Modal -->
+
                                     @endforeach
 
                                 </tbody>
@@ -103,7 +108,7 @@
 <script>
     $('[data-id]').each(function() {
         $(this).click(function() {
-            $('#id_voucher').val($(this).data('id'));
+            $('#id_comment').val($(this).data('id'));
         });
     });
 </script>

@@ -107,8 +107,10 @@
                                     <form action="{{url('checkout')}}" method="POST">
                                         @csrf
                                         <a href="#" class="primary-btn view-card">VIEW CART</a>
-                                        <input type="text" hidden name="id_user" value="@if(Auth::check()) {{Auth::user()->id_user}} @endif">
-                                        <input type="submit" class="primary-btn checkout-btn btn-block" value="CHECK OUT">
+                                        <input type="text" hidden name="id_user"
+                                            value="@if(Auth::check()) {{Auth::user()->id_user}} @endif">
+                                        <input type="submit" class="primary-btn checkout-btn btn-block"
+                                            value="CHECK OUT">
                                         <!-- <a href="{{url('checkout')}}" class="primary-btn checkout-btn">CHECK OUT</a> -->
                                     </form>
                                 </div>

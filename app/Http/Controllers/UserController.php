@@ -107,7 +107,8 @@ class UserController extends Controller
 
             //Lấy giỏ hàng của user
             if (!session()->exists('cart')) {
-                session(['cart']);
+                $cart = [];
+                session()->put('cart', $cart);
             }
             $cart = session()->get('cart');
             $cart_list = json_decode(User::find(Auth::user()->id_user)->cart);
@@ -118,7 +119,6 @@ class UserController extends Controller
             }
             session()->put('cart', $cart);
             //end getUserCart
-
             return redirect('/index');
         }
         return redirect()->back()->with('login_status', 'Wrong email or password!');

@@ -349,6 +349,7 @@ Route::get('index', [
 
 
 Route::get('login', function () {
+   // session()->flush();
     return view('userpage.user_login');
 });
 

@@ -106,6 +106,10 @@ class UserController extends Controller
             Auth::login($user);
 
             //Lấy giỏ hàng của user
+            if (!session()->exists('cart')) {
+                session(['cart']);
+            }
+            $cart = session()->get('cart');
             $cart_list = json_decode(User::find(Auth::user()->id_user)->cart);
             if ($cart_list != null) {
                 foreach ($cart_list as $cart_item) {

@@ -28,7 +28,7 @@
                     @if(isset($product))
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="{{url('editProduct/'.$product->id_product)}}" method="post">
+                            <form action="{{url('editProduct/'.$product->id_product)}}" enctype="multipart/form-data" method="post">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Name</label>
@@ -219,7 +219,7 @@
                     @else
                     <div class="card-body">
                         <div class="basic-form">
-                            <form action="{{url('insertProduct')}}" method="post">
+                            <form action="{{url('insertProduct')}}" enctype="multipart/form-data" method="post">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Product Name</label>
@@ -402,8 +402,8 @@
                             })
                             $('.table.table-bordered').parent().append(tableHtml);
                             
-                            var imgHtml =  '<div class="col-sm-10" ><label for="img['+id+']" class="btn btn-outline-primary" ><i class="fa fa-picture-o" data-color="color['+id+']"></i></label><input hidden type="file" id="img['+id+']" name="img['+id+']" class="form-control-file"></div>'
-                            $('#imgList').append(imgHtml);
+                            // var imgHtml =  '<div class="col-sm-10" ><label for="img['+id+']" class="btn btn-outline-primary" ><i class="fa fa-picture-o" data-color="color['+id+']"></i></label><input hidden type="file" id="img['+id+']" name="img['+id+']" class="form-control-file"></div>'
+                            // $('#imgList').append(imgHtml);
 
                             var del = '#1trash'+id;
                             var tableId = id;

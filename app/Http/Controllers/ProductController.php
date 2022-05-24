@@ -11,11 +11,16 @@ class ProductController extends Controller
 {
     public function insertProduct(Request $request)
     {
+        $img = 'none';
+        if ($request->img[0]) {
+            $image = new ImageUploadController();
+            $img = $image->imageUploadPost($request->img[0]);
+        }
         $product = [
             'id_categories' => $request->category,
             'product_name' => $request->name,
             'description' => $request->descrip,
-            'image' => 'none',
+            'image' => $img,
             'status' => 1
         ];
         $prd_id = Product::insertGetId($product);
@@ -30,7 +35,7 @@ class ProductController extends Controller
                     'id_product' => $prd_id,
                     'size' => $size,
                     'color' => $color,
-                    'image' => 'none',
+                    'image' => $img,
                     'price' => $request->price[$key],
                     'remaining' => $request->remaining[$key],
                     'status' => '1',
@@ -49,6 +54,10 @@ class ProductController extends Controller
     public function editProduct(Request $request)
     {
         //$color_key là id_product_detail
+        if ($request->img[0]) {
+            $image = new ImageUploadController();
+            $img = $image->imageUploadPost($request->img[0]);
+        }
         foreach ($request->color as  $color) {
             foreach ($request->size as $size) {
                 $color_key = array_search($color, $request->color);
@@ -60,8 +69,12 @@ class ProductController extends Controller
                     'color' => $color
                 ]);
 
-
-                $product_detail->image = 'none';
+                if ($request->img[0]) {
+                    $product_detail->image = $img;
+                    $prd = Product::find($request->id);
+                    $prd->image = $img;
+                    $prd->save();
+                }
                 $product_detail->price = $request->price[$key];
                 $product_detail->remaining = $request->remaining[$key];
                 $product_detail->status = '1';

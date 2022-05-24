@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="product-pic-zoom">
-                            <img class="product-big-img" src="user/img/product-single/product-1.jpg" alt="">
+                            <img class="product-big-img" src="images/{{$product->image}}" alt="">
                             <div class="zoom-icon">
                                 <i class="fa fa-search-plus"></i>
                             </div>

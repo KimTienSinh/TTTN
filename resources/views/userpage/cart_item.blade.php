@@ -17,7 +17,7 @@
             <tbody>
                 @foreach ($cart_list_item as $item)
                 <tr>
-                    <td class="cart-pic first-row"><img src="user/img/cart-page/product-1.jpg" alt=""></td>
+                    <td class="cart-pic first-row"><img src="images/{{$item->image}}" width="150" height="150" alt=""></td>
                     <td class="cart-title first-row">
                         <h5>{{$item->product_name}}</h5>
                     </td>

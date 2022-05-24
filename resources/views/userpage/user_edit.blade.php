@@ -33,13 +33,13 @@
                     }
                 </style>
                <div class="row justify-content-center">
-                    <img src="user/img/{{Auth::user()->avatar}}"
+                    <img src="images/{{Auth::user()->avatar}}"
                         class="center-cropped img-fluid img-thumbnail" alt="Avatar image">
                     </div>
                 <div class="row justify-content-center mt-1">
                     <label for="avatar" class="btn btn-outline-info btn-sm text-center">
                         <i class="fa fa-image"></i>&ensp; Upload image
-                        <input type="file" name="avatar" form="formUser" id="avatar" style="display: none">
+                        <input type="file" name="image" form="formUser" id="avatar" style="display: none">
                     </label>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     </div>
                     @endif
                     @if(Auth::check())
-                    <form action="{{route('userEdit',Auth::user()->id_user)}}" id="formUser" method="post">
+                    <form action="{{route('userEdit',Auth::user()->id_user)}}" enctype="multipart/form-data" id="formUser" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="group-input">
                             <label for="username">Username</label>

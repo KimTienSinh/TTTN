@@ -212,9 +212,13 @@ class UserController extends Controller
 
     public function userEdit(Request $req)
     {
-        $avatar = $req->avatar;
-        if ($avatar == '') {
-            $avatar = 'UNDONE';
+        $image = $req->image;
+        if ($image == '') {
+            $image = 'UNDONE';
+        } else {
+            $img = new ImageUploadController();
+            // dd(gettype($avatar));
+            $image = $img->imageUploadPost($image);
         }
         $this->validate(
             $req,
@@ -236,7 +240,7 @@ class UserController extends Controller
             'address' => $req->address,
             'phone' => $req->phone,
             'gender' => $req->rd_gioitinh,
-            'avatar' => $avatar
+            'avatar' => $image
         ];
         User::where('id_user', $req->id)->update($user);
 

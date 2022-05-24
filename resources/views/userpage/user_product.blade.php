@@ -205,7 +205,7 @@
                                         </div>
                                     </div>
                                     <div class="leave-comment">
-                                        <h4>Leave A Comment</h4>
+                                        <h4>Leave A Comment With Login</h4>
                                         <form action="{{Route('them-comment-user-page')}}" class="comment-form" method="POST">
                                             @csrf
                                             <div class="row">
@@ -215,11 +215,14 @@
                                                 <div class="col-lg-6">
                                                     <input type="text" placeholder="Email">
                                                 </div> -->
-                                                <input type="text" hidden name="id_user" value="{{Auth::user()->id_user}}">
+                                                
+                                                <input type="text" hidden name="id_user" value="@if(Auth::check()) {{Auth::user()->id_user}}  @endif">
                                                 <input type="text" hidden name="id" value="{{$product->id_product}}">
                                                 <div class="col-lg-12">
+                                                    @if(Auth::check()) 
                                                     <textarea name="comment" placeholder="Messages"></textarea>
-                                                    <button type="submit" class="site-btn">Send message</button>
+                                                    <button type="submit" readonly class="site-btn">Send message</button>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </form>

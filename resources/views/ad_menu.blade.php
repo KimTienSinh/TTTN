@@ -10,7 +10,7 @@
                 <a href="{{url('ad_userpage')}}"><i class="icon icon-single-04"></i>
                     <span class="nav-text">User</span></a>
             </li>
-            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-list-alt"></i><span class="nav-text">Catalogy</span></a>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-list-alt"></i><span class="nav-text">Category</span></a>
                 <ul aria-expanded="false">
                     <li>
                         <a href="{{url('ad_categorypage')}}"><i class="fa fa-list-alt"></i>

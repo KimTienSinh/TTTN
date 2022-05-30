@@ -40,17 +40,17 @@
                                 <tbody>
                                     @foreach($list_cat as $cat)
                                     <tr>
-                                        <td>{{$cat->id_categories}}</td>
+                                        <td>{{$cat->id_category}}</td>
                                         <td>{{$cat->id_parent}}</td>
                                         <td>{{$cat->category_name}}</td>
                                         <td>{{$cat->status}}</td>
                                         <td>
                                             <span>
-                                                <a href="{{route('chinh-danh-muc', $cat->id_categories)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
+                                                <a href="{{route('chinh-danh-muc', $cat->id_category)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit
                                                     </button>&nbsp;&nbsp; </a>
                                                 <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; -->
                                                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                                                <button data-toggle="modal" data-id='{{$cat->id_categories}}'
+                                                <button data-toggle="modal" data-id='{{$cat->id_category}}'
                                                     data-target="#myModal" type="button"
                                                     class="btn btn-outline-danger">&nbsp;<i
                                                         class="fa fa-close color-danger"></i>&nbsp; Delete </button>
@@ -66,7 +66,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Do you want to delete?</h4>
-                                                        <input type=hidden id="id_categories" name="id_categories" value="">
+                                                        <input type=hidden id="id_category" name="id_category" value="">
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
@@ -85,27 +85,7 @@
                                     <!-- Modal -->
                                     <!-- End Delete Modal -->
                                     @endforeach
-                                    <?php
-                                    // include_once '../utils/MySQLUtils.php';
-                                    // $dbCon = new MySQLUtils();
-                                    // $query = "select * from danhmuc";
-                                    // $Cats = $dbCon->getALLData($query);
-                                    // foreach($Cats as $cat){
-                                    //     echo' <tr>';
-                                    //     echo'    <td>'.$cat['madanhmuc'].'</td>';
-                                    //     echo'    <td>'.$cat['catname'].'</td>';
-                                    //     echo'    <td>'.$cat['caturl'].'</td>';
-                                    //     echo'    <td> '.$cat['status'].'<td>';          
-                                    //     echo'           <span>';
-                                    //     echo' <a href="catalogyeditpage.php?id='.$cat['madanhmuc'].'"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit </button>&nbsp;&nbsp; </a>';
-                                    //     echo' <a href="../controller/DeleteCatalogyController.php?id='.$cat['madanhmuc'].'"<button type="button" class="btn btn-outline-danger" >&nbsp;<i class="fa fa-close color-danger"></i>&nbsp; Delete </button>&nbsp;&nbsp; </a>';
-                                    //     echo'            </span>';  
-                                    //     echo'        </td> ';
-                                    //     echo' </tr>';
-                                    // }
-
-                                    // $dbCon->disconnectDB();
-                                    ?>
+                                 
 
                                 </tbody>
                             </table>
@@ -121,7 +101,7 @@
 <script>
     $('[data-id]').each(function(){
             $(this).click(function(){
-                $('#id_categories').val($(this).data('id'));
+                $('#id_category').val($(this).data('id'));
             });
         });                                             
 </script>

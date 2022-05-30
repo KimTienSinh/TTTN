@@ -28,14 +28,14 @@
                     <div class="card-body">
                         <div class="basic-form">
                             @if(isset($category_edit))
-                            <form action="{{route('update-danh-muc',$category_edit->id_categories)}}" method="post">
+                            <form action="{{route('update-danh-muc',$category_edit->id_category)}}" method="post">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Category Parent</label>
                                     <div class="col-sm-10">
                                         <select class="form-control" name="cbx_parent_id">
                                             @foreach($list_dropdown as $cat)
-                                            <option @if($cat->id_categories==$category_edit->id_parent) selected @endif  value="{{$cat->id_categories}}">{{$cat->category_name}}</option>
+                                            <option @if($cat->id_category==$category_edit->id_parent) selected @endif  value="{{$cat->id_category}}">{{$cat->category_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -61,7 +61,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" name="cbx_parent_id">
                                             @foreach($list_dropdown as $parent)
-                                            <option value="{{$parent->id_categories}}">{{$parent->category_name}}</option>
+                                            <option value="{{$parent->id_category}}">{{$parent->category_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

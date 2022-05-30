@@ -18,7 +18,7 @@ class BlogController extends Controller
         );
         $b = new Blog();
         //dd($req->input());
-        $b->id_categories = $req->cbx_parent_id;
+        $b->id_category = $req->cbx_parent_id;
         $b->blog_name = $req->blog_name;
         $b->image = $req->image;
         $b->description = $req->description;
@@ -40,12 +40,12 @@ class BlogController extends Controller
 
     public function postUpdateBlog(Request $req){
         $blog = [
-            'id_categories' => $req->cbx_parent_id,
+            'id_category' => $req->cbx_parent_id,
             'blog_name' => $req->blog_name,
             'image' => $req->image,
             'description' => $req->description
         ];
-        dd($req->input());
+       // dd($req->input());
         Blog::where('id_blog', $req->id_blog)->update($blog);
         return redirect('ad_blogpage');
     }

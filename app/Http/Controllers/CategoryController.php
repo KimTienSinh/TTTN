@@ -31,7 +31,7 @@ class CategoryController extends Controller
     public function getEditCategory(Request $req){
         $list_dropdown = Category::all();
         
-        $category_edit = Category::where('id_categories', $req->id_categories)->first();
+        $category_edit = Category::where('id_category', $req->id_category)->first();
         return view('adminpage.ad_categoryeditpage', compact('category_edit','list_dropdown',));
     }
 
@@ -51,11 +51,11 @@ class CategoryController extends Controller
             $req->type = 1;
         }
        // dd($req->input());
-        Category::where('id_categories', $req->id_categories)->update($category,$req->type);
+        Category::where('id_category', $req->id_category)->update($category,$req->type);
         return redirect('ad_categorypage');
     }
     public function getDeleteCategory(Request $req){
-        $u = Category::findOrFail($req->id_categories);
+        $u = Category::findOrFail($req->id_category);
         $u->delete();
         return redirect('ad_categorypage');
     }

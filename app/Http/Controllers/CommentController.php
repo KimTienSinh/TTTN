@@ -19,10 +19,10 @@ class CommentController extends Controller
         //     ->select('order_details.*', 'products.product_name','product_details.size', 'product_details.color', 'product_details.material')
         //     ->get();
 
-        $data = DB::table('users')
-            ->join('comments', 'users.id_user' ,'=', 'comments.id_user')
-            ->join('products', 'comments.id_product', '=', 'products.id_product')
-            ->select('comments.*', 'users.user_name', 'products.product_name')
+        $data = DB::table('user')
+            ->join('comment', 'user.id_user' ,'=', 'comment.id_user')
+            ->join('product', 'comment.id_product', '=', 'product.id_product')
+            ->select('comment.*', 'user.user_name', 'product.product_name')
             ->get();
         return view('adminpage.ad_commentpage', compact('list_comment','data'));
     }
@@ -55,11 +55,11 @@ class CommentController extends Controller
             $color_size_price[$detail->color][$detail->size][$detail->price] = $detail->remaining;
         }
 
-        $data = DB::table('users')
-            ->join('comments', 'users.id_user' ,'=', 'comments.id_user')
-            ->join('products', 'comments.id_product', '=', 'products.id_product')
-            ->where('comments.id_product', $id)
-            ->select('comments.comment', 'users.user_name')
+        $data = DB::table('user')
+            ->join('comment', 'user.id_user' ,'=', 'comment.id_user')
+            ->join('product', 'comment.id_product', '=', 'product.id_product')
+            ->where('comment.id_product', $id)
+            ->select('comment.comment', 'user.user_name')
             ->get();
         
         return view('userpage.user_product', compact('product', 'color_size_price', 'data'));
@@ -76,7 +76,6 @@ class CommentController extends Controller
         //dd($req->input());
 
         $c->id_user = $req->id_user;
-        $c->rating = 4;
         $c->id_product = $req->id;
         $c->comment = $req->comment;
         $c->save();

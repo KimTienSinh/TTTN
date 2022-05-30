@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +16,7 @@ class UserController extends Controller
         $this->validate(
             $req,
             [
-                'email' => 'required|email|unique:users,email',
+                'email' => 'required|email|unique:user,email',
                 'password' => 'required',
                 'name' => 'required',
                 'address' => 'required',
@@ -137,7 +136,7 @@ class UserController extends Controller
         $this->validate(
             $req,
             [
-                'email' => 'required|email|unique:users,email',
+                'email' => 'required|email|unique:user,email',
                 'password' => 'required',
                 'name' => 'required',
                 'address' => 'required',
@@ -179,7 +178,6 @@ class UserController extends Controller
     /////////////////////////Xóa User bên admin//////////////////
     public function getDeleteUser(Request $req)
     {
-        // DB::table('users')->where('id_user', $req->id_user)->delete();
         $u = User::findOrFail($req->id_user);
         $u->delete();
         return redirect()->back()->with('ad_userpage', 'Data Deleted');

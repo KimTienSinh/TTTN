@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     use HasFactory;
-    protected $table = "blogs";
+    protected $table = "blog";
     protected $primaryKey = "id_blog";
 
     protected $fillable = [
-        'id_categories',
+        'id_category',
         'blog_name',
         'image',
         'description'

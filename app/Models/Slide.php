@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Slide extends Model
 {
     use HasFactory;
-    protected $table = "slides";
+    protected $table = "slide";
     protected $primaryKey = "id_slide";
 
     protected $fillable = [

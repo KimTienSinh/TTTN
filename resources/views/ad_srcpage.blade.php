@@ -34,6 +34,7 @@
 <script>
     CKEDITOR.replace('description');
     CKEDITOR.config.autoParagraph = false;
+    CKEDITOR.config.entities = false;
 </script>
 <!-- <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> -->
 

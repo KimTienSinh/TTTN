@@ -42,7 +42,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" name="cbx_parent_id">
                                         @foreach($list_dropdown_e as $b)
-                                        <option @if($b->id_parent==2) selected value="{{$b->id_categories}}">{{$b->category_name}}
+                                        <option @if($b->id_parent==2) selected value="{{$b->id_category}}">{{$b->category_name}}
                                                     @else hidden
                                                 @endif
                                             </option>
@@ -82,11 +82,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Catalogy Parent</label>
+                                    <label class="col-sm-2 col-form-label">Category Parent</label>
                                     <div class="col-sm-10">
                                         <select class="form-control" name="cbx_parent_id">
                                             @foreach($list_dropdown_b as $parent)
-                                            <option @if($parent->id_parent==2) selected value="{{$parent->id_categories}}">{{$parent->category_name}}
+                                            <option @if($parent->type==1) selected value="{{$parent->id_category}}">{{$parent->category_name}}
                                                 @else hidden
                                                 @endif
                                             </option>
@@ -124,5 +124,7 @@
 
     </div>
 </div>
-
+<script>
+    $('textarea').ckeditor({language: 'de'});
+</script>
 @endsection()

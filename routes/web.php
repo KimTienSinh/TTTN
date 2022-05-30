@@ -59,7 +59,7 @@ Route::get('ad_categoryeditpage', [
     'as' => 'parent-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@getCategoryDropdown'
 ]);
-Route::get('ad_categoryeditpage/{id_categories}', [
+Route::get('ad_categoryeditpage/{id_category}', [
     'as' => 'chinh-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@getEditCategory'
 ]);
@@ -67,7 +67,7 @@ Route::post('insert_category', [
     'as' => 'them-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@postInsertCategory'
 ]);
-Route::post('update_category/{id_categories}', [
+Route::post('update_category/{id_category}', [
     'as' => 'update-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@postUpdateCategory'
 ]);
@@ -252,43 +252,12 @@ Route::post('update_voucher/{id_voucher}', [
     'uses' => 'App\Http\Controllers\VoucherController@postUpdateVoucher'
 ]);
 
-Route::get('delete_voucher/{id_voucher}', [
+Route::get('delete_voucher', [
     'as' => 'xoa-voucher',
     'uses' => 'App\Http\Controllers\VoucherController@getDeleteVoucher'
 ]);
 //-------------------------------END Voucher----------------------//
 
-//-------------------------------START Slider----------------------//
-Route::get('ad_slidepage', [
-    'as' => 'danh-sach-slide',
-    'uses' => 'App\Http\Controllers\PageController@getSlideList'
-]);
-
-Route::get('ad_slideeditpage', function () {
-    return view('adminpage.ad_slideeditpage');
-});
-
-Route::post('ad_slideeditpage', [
-    'as' => 'them-slide',
-    'uses' => 'App\Http\Controllers\SlideController@postInsertSlide'
-]);
-
-Route::get('ad_slideeditpage/{id_slide}', [
-    'as' => 'chi-trang-edit-slide',
-    'uses' => 'App\Http\Controllers\SlideController@getEditSlide'
-]);
-
-Route::post('update_slide/{id_slide}', [
-    'as' => 'sua-slide',
-    'uses' => 'App\Http\Controllers\SlideController@postUpdateSlide'
-]);
-
-Route::get('delete_slide/{id_slide}', [
-    'as' => 'xoa-slide',
-    'uses' => 'App\Http\Controllers\SlideController@getDeleteSlide'
-]);
-
-//-------------------------------END Slider----------------------//
 
 Route::get('ad_productpage', function () {
     return view('adminpage.ad_productpage');

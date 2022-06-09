@@ -35,7 +35,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" name="cbx_parent_id">
                                             @foreach($list_dropdown as $cat)
-                                            <option @if($cat->id_category==$category_edit->id_parent) selected @endif  value="{{$cat->id_category}}">{{$cat->category_name}}</option>
+                                            <option @if($cat->id_category==$category_edit->id_parent) selected @endif value="{{$cat->id_category}}">{{$cat->category_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -54,30 +54,73 @@
                                 </div>
                             </form>
                             @else
-                            <form action="{{route('them-danh-muc')}}" method="post">
-                                @csrf
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Category Parent</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" name="cbx_parent_id">
-                                            @foreach($list_dropdown as $parent)
-                                            <option value="{{$parent->id_category}}">{{$parent->category_name}}</option>
-                                            @endforeach
-                                        </select>
+
+                            <!-- Tab links -->
+
+                            <link rel="stylesheet" href="<?php echo asset('admin/css/tabs.css') ?>" type="text/css">
+
+                            <div class="tab">
+                                <button class="tablinks" onclick="openCategory(event, 'newcategory')">New Category Parent</button>
+                                <button class="tablinks" onclick="openCategory(event, 'inheritcategory')">Inherit Category Parent</button>
+                            </div>
+                            <br><br>
+                            <form action="{{route('them-danh-muc-parent')}}" method="post">
+                                <div id="newcategory" class="tabcontent">
+                                    @csrf
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Choose Type</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="cbx_type">
+                                                <option value="0">Product</option>
+                                                <option value="1">Blog</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Catalogy Name</label>
-                                    <div class="col-sm-10">
-                                        <input name="category_name" class="form-control" placeholder="Catalogy Name" required="true">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Catalogy Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" hidden name="id_parent" value="0">
+                                            <input name="category_name" class="form-control" placeholder="Catalogy Name" required="true">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-10">
-                                        <button type="submit" name="cat_action" value="cat_create" class="btn btn-primary">Create</button>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <button type="submit" name="cat_action" value="cat_create" class="btn btn-primary">Create</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
+
+                            <form action="{{route('them-danh-muc')}}" method="post">
+                                <div id="inheritcategory" class="tabcontent">
+                                    @csrf
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Category Parent</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="cbx_parent_id">
+                                                @foreach($list_dropdown as $parent)
+                                                <option value="{{$parent->id_category}}">{{$parent->category_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Catalogy Name</label>
+                                        <div class="col-sm-10">
+                                            <input name="category_name" class="form-control" placeholder="Catalogy Name" required="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <button type="submit" name="cat_action" value="cat_create" class="btn btn-primary">Create</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+
                             @endif
                         </div>
                     </div>
@@ -106,4 +149,19 @@
                    Support ticket button end
                 ***********************************-->
 </div>
+<script>
+    function openCategory(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
 @endsection()

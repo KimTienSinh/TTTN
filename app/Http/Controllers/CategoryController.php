@@ -25,6 +25,25 @@ class CategoryController extends Controller
             $c->type = 1;
         }
         $c->status = 1;
+        //dd($req->input());
+        $c->save();
+        return redirect('ad_categorypage');
+    }
+    public function postInsertCategoryParent(Request $req){
+        $this->validate(
+            $req,
+            [
+                'category_name' => 'required',
+            ]
+        );
+        $c = new Category();
+        //dd($req->input());
+        $c->id_parent = $req->id_parent;
+        $c->category_name = $req->category_name;
+        $c->type = $req->cbx_type;
+        $c->status = 1;
+
+        //dd($req->input());
         $c->save();
         return redirect('ad_categorypage');
     }

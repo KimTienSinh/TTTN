@@ -67,6 +67,10 @@ Route::post('insert_category', [
     'as' => 'them-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@postInsertCategory'
 ]);
+Route::post('insert_category_parent', [
+    'as' => 'them-danh-muc-parent',
+    'uses' => 'App\Http\Controllers\CategoryController@postInsertCategoryParent'
+]);
 Route::post('update_category/{id_category}', [
     'as' => 'update-danh-muc',
     'uses' => 'App\Http\Controllers\CategoryController@postUpdateCategory'

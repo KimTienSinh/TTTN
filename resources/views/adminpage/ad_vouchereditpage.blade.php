@@ -25,7 +25,18 @@
                     <div class="card-header">
                         <h4 class="card-title">Voucher Information</h4>
                     </div>
+                    @if (Session::has('voucher_status'))
+                    <div class="alert alert-success" style="text-align: center">{{ Session::get('register_status') }}</div>
+                    @endif
 
+                    @if (count($errors) > 0)
+                    <div class="alert alert-danger" style="text-align: center">
+                        @foreach ($errors->all() as $err)
+                        {{ $err }}
+                        <br>
+                        @endforeach
+                    </div>
+                    @endif
                     <div class="card-body">
                         <div class="basic-form">
                             @if(isset($voucher_edit))
@@ -50,6 +61,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Begin Date</label>
+                                    <div class="col-sm-7">
+                                        <input name="begin_datepicker" value="{{$begin_date_split}}" class="datepicker-default form-control">
+                                    </div>
+                                    <div class="col-sm-3 input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
+                                        <input type="text" value="{{$begin_time_split}}" class="form-control" name="begin_timepicker"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Expiration Date</label>
+                                    <div class="col-sm-7">
+                                        <input name="expiration_datepicker" value="{{$expiration_date_split}}" class="datepicker-default form-control">
+                                    </div>
+                                    <div class="col-sm-3 input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
+                                        <input type="text" value="{{$expiration_time_split}}" class="form-control" name="expiration_timepicker"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="col-sm-10">
                                         <button type="submit" name="voucher_action" value="voucher_update" class="btn btn-primary">Update</button>
                                     </div>
@@ -61,19 +90,43 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Voucher Code</label>
                                     <div class="col-sm-10">
-                                        <input name="voucher_code" class="form-control" required="true">
+                                        <input name="voucher_code" class="form-control" placeholder="Voucher Code" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Condition Price</label>
                                     <div class="col-sm-10">
-                                        <input name="condition_price" class="form-control" required="true">
+                                        <input name="condition_price" placeholder="Condition Price" class="form-control" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Price Sale</label>
                                     <div class="col-sm-10">
-                                        <input name="price_sale" class="form-control" required="true">
+                                        <input name="price_sale" placeholder="Price Sale" class="form-control" required="true">
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Date range</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-daterange-timepicker" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">
+                                    </div>
+                                </div> -->
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Begin Date</label>
+                                    <div class="col-sm-7">
+                                        <input name="begin_datepicker" value="<?php echo date("Y-m-d"); ?>" class="datepicker-default form-control">
+                                    </div>
+                                    <div class="col-sm-3 input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
+                                        <input type="text" value="00:00" class="form-control" name="begin_timepicker"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Expiration Date</label>
+                                    <div class="col-sm-7">
+                                        <input name="expiration_datepicker" value="<?php echo (new DateTime('tomorrow'))->format('Y-m-d'); ?>" class="datepicker-default form-control">
+                                    </div>
+                                    <div class="col-sm-3 input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
+                                        <input type="text" value="00:00" class="form-control" name="expiration_timepicker"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -93,5 +146,52 @@
 
     </div>
 </div>
+
+<script src="./admin/vendor/global/global.min.js"></script>
+<script src="./admin/js/quixnav-init.js"></script>
+
+<script src="./admin/js/custom.min.js"></script>
+
+<!-- Daterangepicker -->
+<!-- momment js is must -->
+<script src="./admin/vendor/moment/moment.min.js"></script>
+<script src="./admin/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<!-- clockpicker -->
+<script src="./admin/vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+
+<!-- asColorPicker -->
+<script src="./admin/vendor/jquery-asColor/jquery-asColor.min.js"></script>
+
+<script src="./admin/vendor/jquery-asGradient/jquery-asGradient.min.js"></script>
+
+<script src="./admin/vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script>
+
+<!-- Material color picker -->
+<script src="./admin/vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+<!-- pickdate -->
+<script src="./admin/vendor/pickadate/picker.js"></script>
+<script src="./admin/vendor/pickadate/picker.time.js"></script>
+<script src="./admin/vendor/pickadate/picker.date.js"></script>
+
+
+
+<!-- Daterangepicker -->
+<script src="./admin/js/plugins-init/bs-daterange-picker-init.js"></script>
+
+<!-- Clockpicker init -->
+<script src="./admin/js/plugins-init/clock-picker-init.js"></script>
+
+<!-- asColorPicker init -->
+<script src="./admin/js/plugins-init/jquery-asColorPicker.init.js"></script>
+
+<!-- Material color picker init -->
+<script src="./admin/js/plugins-init/material-date-picker-init.js"></script>
+
+<!-- Pickdate -->
+<script src="./admin/js/plugins-init/pickadate-init.js"></script>
+
+
 
 @endsection()

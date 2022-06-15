@@ -32,6 +32,8 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">VOUCHER CODE</th>
                                         <th scope="col">PRICE SALE</th>
+                                        <th scope="col">BEGIN DATE</th>
+                                        <th scope="col">EXPIRATION DATE</th>
                                         <th scope="col">ACTION</th>
                                 </thead>
                                 <tbody>
@@ -40,6 +42,8 @@
                                         <td>{{$voucher->id_voucher}}</td>
                                         <td>{{$voucher->voucher_code}}</td>
                                         <td>{{$voucher->price_sale}}</td>
+                                        <td>{{$voucher->begin_date}}</td>
+                                        <td>{{$voucher->expiration_date}}</td>
                                         <td>
                                             <span>
                                                 <a href="{{url('ad_vouchereditpage', $voucher->id_voucher)}}"><button type="button" class="btn btn-outline-primary">&nbsp;<i class="fa fa-pencil color-muted"></i>&nbsp; Edit

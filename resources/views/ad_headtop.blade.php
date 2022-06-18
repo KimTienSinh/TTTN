@@ -13,10 +13,28 @@
 <link rel="stylesheet" href="./admin/vendor/owl-carousel/css/owl.carousel.min.css">
 <link rel="stylesheet" href="./admin/vendor/owl-carousel/css/owl.theme.default.min.css">
 <link href="./admin/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+
+<!-- Daterange picker --> 
+<link href="./admin/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"> 
+<!-- Clockpicker --> 
+<link href="./admin/vendor/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet"> 
+<!-- asColorpicker --> 
+<link href="./admin/vendor/jquery-asColorPicker/css/asColorPicker.min.css" rel="stylesheet"> 
+<!-- Material color picker --> 
+<link href="./admin/vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet"> 
+
+<!-- Pick date --> 
+<link rel="stylesheet" href="./admin/vendor/pickadate/themes/default.css"> 
+
+<link rel="stylesheet" href="./admin/vendor/pickadate/themes/default.date.css"> 
+
+
 <link href="./admin/css/style.css" rel="stylesheet">
 <link href="./admin/css/lbs.css" rel="stylesheet">
 
-
+<!-- Daterangepicker -->
+<script src="./admin/js/plugins-init/bs-daterange-picker-init.js"></script>
+<script src="./admin/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 

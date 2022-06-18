@@ -18,8 +18,8 @@ class UserController extends Controller
             $req,
             [
                 'email' => 'required|email|unique:user,email',
-                'password' => 'required',
-                'name' => 'required',
+                'password' => 'required|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
+                'name' => 'required|max:100',
                 'address' => 'required',
                 'phone' => 'required',
                 're_password' => 'required|same:password'
@@ -31,6 +31,7 @@ class UserController extends Controller
                 'email.email' => 'Incorrect email format !',
                 'email.unique' => 'Email already in use !',
                 'password.required' => 'Please type your password !',
+                'password.regex' => 'Password must have at least 8 characters, uppercase, lowercase and special characters !',
                 're_password.same' => 'Re Password not match !'
             ]
         );

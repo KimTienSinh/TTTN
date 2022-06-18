@@ -38,6 +38,7 @@ class CheckoutController extends Controller
     {
         if (Auth::check()) {
             $total = 0;
+            $id_voucher = 1;
             $id_user = Auth::user()->id_user;
             $cart_list = json_decode(User::find($id_user)->cart);
             foreach ($cart_list as $cart_item) {
@@ -45,9 +46,13 @@ class CheckoutController extends Controller
             }
             if ($request->voucher != '') {
                 $total = $total - $this->checkDiscount($request->voucher, $total);
+                if ($total != 0) {
+                    $id_voucher = Voucher::where('voucher_code', $request->voucher)->first()->getId();
+                }
             }
             $order = [
                 'id_user' => $id_user,
+                'id_voucher' => $id_voucher,
                 'user_name' => $request->user_name,
                 'address' => $request->address,
                 'phone' => $request->phone,

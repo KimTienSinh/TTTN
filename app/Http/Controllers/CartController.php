@@ -114,13 +114,13 @@ class CartController extends Controller
         $cart = session()->get('cart');
         unset($cart[$id]);
         session()->put('cart', $cart);
+        $cart_list = session()->get('cart');
 
         $cart_list_item = $this->getCartList($cart);
-
         return response()->json([
-            'html' => view('userpage.cart_item', compact('cart_list_item'))->render(),
+            'html' => view('userpage.cart_item', compact('cart_list_item','cart_list'))->render(),
             'cartItem' => count($cart)
-        ], 200);
+        ]);
     }
 
     private function getCartList($cart)
@@ -133,7 +133,7 @@ class CartController extends Controller
                     [
                         'id_product_detail' => $id_detail,
                     ]
-                )->join('products', 'products.id_product', 'product_details.id_product')->first();
+                )->join('product', 'product.id_product', 'product_detail.id_product')->first();
             }
         }
         return $cart_list_item;
@@ -179,10 +179,10 @@ class CartController extends Controller
             //->join('cart', 'users.id_user', '=', 'cart.id_user')
 
             $data = DB::table('cart')
-                ->join('product_details', 'cart.id_product_detail', '=', 'product_details.id_product_detail')
-                ->join('products', 'product_details.id_product', '=', 'products.id_product')
+                ->join('product_detail', 'cart.id_product_detail', '=', 'product_detail.id_product_detail')
+                ->join('product', 'product_detail.id_product', '=', 'product.id_product')
                 ->where('id_user', '=', Auth::user()->id_user)
-                ->select('products.product_name', 'cart.quantity', 'product_details.price', 'product_details.size', 'product_details.color')
+                ->select('product.product_name', 'cart.quantity', 'product_detail.price', 'product_detail.size', 'product_detail.color')
                 ->get();
             return view('userpage.user_checkout', compact('data'));
         } else {

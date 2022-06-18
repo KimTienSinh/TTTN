@@ -58,6 +58,7 @@
             type: 'POST',
             data: {"_token": "{{ csrf_token() }}"},
             success: function(data){
+                console.log(data.html);
                 $("span#cartItem").html(data.cartItem);
                 $('#cart_list').html(data.html);
             }

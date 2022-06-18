@@ -57,7 +57,7 @@
                                         <th scope="col">PRODUCT</th>
                                         <th scope="col">SIZE</th>
                                         <th scope="col">COLOR</th>
-                                        <th scope="col">MATERIAl</th>
+                                        {{-- <th scope="col">MATERIAl</th> --}}
                                         <th scope="col">PRICE SALE</th>
                                         <th scope="col">QUANTITY</th>
                                     </tr>
@@ -70,7 +70,7 @@
                                         <td>{{$order_detail->product_name}}</td>
                                         <td>{{$order_detail->size}}</td>
                                         <td>{{$order_detail->color}}</td>
-                                        <td>{{$order_detail->material}}</td>
+                                        {{-- <td>{{$order_detail->material}}</td> --}}
                                         <td>{{$order_detail->price_sale}}</td>
                                         <td>{{$order_detail->quantity}}</td>
                                     </tr>

@@ -25,12 +25,12 @@ class Category extends Model
     // 1 Category có nhiều blog dùng hasMany( class, 'khoa ngoai', 'khoa chinh')
     public function blogs()
     {
-        return $this->hasMany('App\Models\Blog', 'id_categories', 'id_categories');
+        return $this->hasMany('App\Models\Blog', 'id_category', 'id_category');
     }
 
     public function product()
     {
-        return $this->hasMany('App\Models\Blog', 'id_categories', 'id_categories');
+        return $this->hasMany('App\Models\Blog', 'id_category', 'id_category');
     }
 
     public function categories()

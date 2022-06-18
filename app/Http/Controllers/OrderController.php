@@ -29,15 +29,12 @@ class OrderController extends Controller
         //$data = Product::with('productdetails')->get();
         //$data = Product::with('productdetails')->get();
 
-        $data = DB::table('order_details')
-            ->join('product_details', 'order_details.id_product_detail', '=', 'product_details.id_product_detail',)
-            ->join('products', 'product_details.id_product', '=', 'products.id_product')
+        $data = DB::table('order_detail')
+            ->join('product_detail', 'order_detail.id_product_detail', '=', 'product_detail.id_product_detail',)
+            ->join('product', 'product_detail.id_product', '=', 'product.id_product')
             ->where('id_order', '=', $id_order)
-            ->select('order_details.*', 'products.product_name','product_details.size', 'product_details.color', 'product_details.material')
+            ->select('order_detail.*', 'product.product_name','product_detail.size', 'product_detail.color')
             ->get();
-
-        
-        
 
         $order_info = Order::where('id_order', $id_order)->first();
         return view('adminpage.ad_orderdetailpage', compact('order_view_detail', 'order_info', 'data'));

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ImageUpload;
 use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,16 @@ class ProductController extends Controller
     public function insertProduct(Request $request)
     {
         $img = 'none';
-        if ($request->img[0]) {
-            $image = new ImageUploadController();
-            $img = $image->imageUploadPost($request->img[0]);
-        }
+        // if ($request->img[0]) {
+        //     $image = new ImageUploadController();
+        //     $img = $image->imageUploadPost($request->img[0]);
+        // }
+            
         $product = [
-            'id_categories' => $request->category,
+            'id_category' => $request->category,
             'product_name' => $request->name,
             'description' => $request->descrip,
-            'image' => $img,
+          //  'image' => $img,
             'status' => 1
         ];
         $prd_id = Product::insertGetId($product);
@@ -39,7 +41,6 @@ class ProductController extends Controller
                     'price' => $request->price[$key],
                     'remaining' => $request->remaining[$key],
                     'status' => '1',
-                    'voucher_code' => 'none',
                 ];
                 ProductDetail::insert($productDetail);
             }
@@ -55,8 +56,7 @@ class ProductController extends Controller
     {
         //$color_key là id_product_detail
         if ($request->img[0]) {
-            $image = new ImageUploadController();
-            $img = $image->imageUploadPost($request->img[0]);
+            $img = ImageUpload::imageUploadPost($request->img[0]);
         }
         foreach ($request->color as  $color) {
             foreach ($request->size as $size) {

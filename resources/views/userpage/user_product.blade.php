@@ -149,7 +149,7 @@
                     <div class="tab-item">
                         <ul class="nav" role="tablist">
                             <li>
-                                <a data-toggle="tab" href="#tab-1" role="tab">Customer Reviews (02)</a>
+                                <a data-toggle="tab" href="#tab-1" role="tab">Customer Reviews</a>
                             </li>
                         </ul>
                     </div>
@@ -157,7 +157,7 @@
                         <div class="tab-content">
                             <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
                                 <div class="customer-review-option">
-                                    <h4>2 Comments</h4>
+                                    <h4>Comments</h4>
                                     <div class="comment-option">
                                         <div class="co-item">
                                             @foreach($data as $comment)

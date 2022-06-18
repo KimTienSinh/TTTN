@@ -25,7 +25,7 @@ class Blog extends Model
     
     // nhiều blog thì thuộc 1 category dùng belongsTo( class, 'khoa ngoai', 'khoa chinh')
     public function categories(){
-        return $this->belongsTo('App\Models\Category', 'id_categories', 'id_blog');
+        return $this->belongsTo('App\Models\Category', 'id_category', 'id_blog');
     }
     
 }

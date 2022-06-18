@@ -106,7 +106,7 @@
                                     <h4>{{$blog->blog_name}}</h4>
                                 </a>
                                 <!-- @foreach($category as $cat)
-                                            @if($cat->id_parent == $blog->id_categories)
+                                            @if($cat->id_parent == $blog->id_category)
                                                 <p>{{$cat->category_name}} <span>- May 19, 2019</span></p>
                                             @endif
                                         @endforeach -->

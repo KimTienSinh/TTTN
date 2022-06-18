@@ -82,7 +82,7 @@ class PageController extends Controller
 
     public function getShop()
     {
-        $list_product = Product::all();
+        $list_product = Product::where('status','<>',0)->get();
         return view('userpage.user_shop', compact('list_product'));
     }
 

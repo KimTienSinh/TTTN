@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ImageUpload;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,8 +42,12 @@ class UserController extends Controller
         $u->phone = $req->phone;
         $u->email = $req->email;
         $u->password = Hash::make($req->password);
-        $u->avatar = 'UNDONE';
         $u->gender = $req->rd_gioitinh;
+        if ($u->gender == 'male') {
+            $u->avatar = 'male-default.jpg';
+        } else {
+            $u->avatar = 'female-default.jpg';
+        }
         $u->role = 'user';
         $u->status = 1;
         $u->save();
@@ -214,9 +219,8 @@ class UserController extends Controller
         if ($image == '') {
             $image = 'UNDONE';
         } else {
-            $img = new ImageUploadController();
             // dd(gettype($avatar));
-            $image = $img->imageUploadPost($image);
+            $image = ImageUpload::imageUploadPost($image);
         }
         $this->validate(
             $req,

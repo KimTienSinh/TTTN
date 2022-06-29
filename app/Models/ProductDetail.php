@@ -46,6 +46,17 @@ class ProductDetail extends Model
 
     public function cart()
     {
-       // return $this->belongsToMany(User::class, 'cart', 'id_prodcut_detail', 'id_user');
+        // return $this->belongsToMany(User::class, 'cart', 'id_prodcut_detail', 'id_user');
+    }
+
+    static public function getRule()
+    {
+        return [
+            'size'      =>   'required',
+            'color'     =>   'required',
+            // 'image'     =>   'required',
+            // 'price'     =>   'required',
+            // 'remaining' =>   'required',
+        ];
     }
 }

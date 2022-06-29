@@ -47,7 +47,8 @@ class CheckoutController extends Controller
             if ($request->voucher != '') {
                 $total = $total - $this->checkDiscount($request->voucher, $total);
                 if ($total != 0) {
-                    $id_voucher = Voucher::where('voucher_code', $request->voucher)->first()->getId();
+                    $voucher = Voucher::where('voucher_code', $request->voucher)->first();
+                    $id_voucher = $voucher->id_voucher;
                 }
             }
             $order = [

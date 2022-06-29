@@ -11,8 +11,8 @@
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">User create</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">DashBoard</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Product</a></li>
                     </ol>
                 </div>
             </div>
@@ -25,6 +25,15 @@
                         <div class="card-header">
                             <h4 class="card-title">Product Information</h4>
                         </div>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         @if (isset($product))
                             <div class="card-body">
                                 <div class="basic-form">
@@ -50,6 +59,27 @@
                                                             {{ $cat->category_name }} </option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Manufacturer</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" name="id_manufacturer">
+                                                    @foreach ($manufacturers as $manufacturer)
+                                                        <option value="{{ $manufacturer->id_manufacturer }}"
+                                                            @if ($product->id_manufacturer == $manufacturer->id_manufacturer) selected @endif>
+                                                            {{ $manufacturer->manufacturer }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Material</label>
+                                            <div class="col-sm-5">
+                                                <input name="material" class="form-control"
+                                                    value="{{ $product->material }}" required="true">
                                             </div>
                                         </div>
 
@@ -132,28 +162,30 @@
                                                         <input class="form-check-input"
                                                             @if (in_array('L', $list_size)) checked
                                                     disabled @endif
-                                                            type="checkbox" name="size[L]" value="L" id="L">
+                                                            type="checkbox" name="size[L]" value="L"
+                                                            id="L">
                                                         <label class="form-check-label" for="L">L</label>
                                                     </div>
                                                     <div class="col">
                                                         <input class="form-check-input"
                                                             @if (in_array('XL', $list_size)) checked
                                                     disabled @endif
-                                                            type="checkbox" name="size[XL]" value="XL" id="XL">
+                                                            type="checkbox" name="size[XL]" value="XL"
+                                                            id="XL">
                                                         <label class="form-check-label" for="XL">XL</label>
                                                     </div>
                                                     <div class="col">
                                                         <input class="form-check-input"
-                                                            @if (in_array('XXL', $list_size)) checked
-                                                    disabled @endif
-                                                            type="checkbox" name="size[XXL]" value="XXL" id="XXL">
+                                                            @if (in_array('XXL', $list_size)) checked disabled @endif
+                                                            type="checkbox" name="size[XXL]" value="XXL"
+                                                            id="XXL">
                                                         <label class="form-check-label" for="XXL">XXL</label>
                                                     </div>
                                                     <div class="col">
                                                         <input class="form-check-input"
-                                                            @if (in_array('3XL', $list_size)) checked
-                                                    disabled @endif
-                                                            type="checkbox" name="size[3XL]" value="3XL" id="3XL">
+                                                            @if (in_array('3XL', $list_size)) checked disabled @endif
+                                                            type="checkbox" name="size[3XL]" value="3XL"
+                                                            id="3XL">
                                                         <label class="form-check-label" for="3XL">3XL</label>
                                                     </div>
 
@@ -187,7 +219,8 @@
                                                                                     name="price[{{ $id_detail . $size }}]"
                                                                                     placeholder="Price"
                                                                                     value="{{ $prd->price }}" required
-                                                                                    min="0" class="form-control"></td>
+                                                                                    min="0" class="form-control">
+                                                                            </td>
                                                                             <td id="{{ $size }}"><input
                                                                                     placeholder="Remaining"
                                                                                     name="remaining[{{ $id_detail . $size }}]"
@@ -237,7 +270,8 @@
                         @else
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form action="{{ url('insertProduct') }}" enctype="multipart/form-data" method="post">
+                                    <form action="{{ url('insertProduct') }}" enctype="multipart/form-data"
+                                        method="post">
                                         @csrf
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Product Name</label>
@@ -252,10 +286,31 @@
                                             <div class="col-sm-5">
                                                 <select class="form-control" name="category">
                                                     @foreach ($list_dropdown as $cat)
-                                                        <option value="{{ $cat->id_category }}">{{ $cat->category_name }}
+                                                        <option value="{{ $cat->id_category }}">
+                                                            {{ $cat->category_name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Manufacturer</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" name="id_manufacturer">
+                                                    @foreach ($manufacturers as $manufacturer)
+                                                        <option value="{{ $manufacturer->id_manufacturer }}">
+                                                            {{ $manufacturer->manufacturer }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Material</label>
+                                            <div class="col-sm-5">
+                                                <input name="material" class="form-control" required="true">
                                             </div>
                                         </div>
 
@@ -355,21 +410,70 @@
                                         </div>
 
 
-                                        <div class="row form-group">
+                                        <div class="row form-group d-flex">
                                             <div class="col col-md-3 fileinputpadding">
-                                                <label for="file-input" class="form-control-label ">Image</label>
+                                                Image
                                             </div>
-                                            <div class="col-12 col-md-9">
-                                                <div class="row" id="imgList">
-                                                    <div class="col-sm-10">
-                                                        <label for="img[0]" class="btn btn-outline-primary"><i
-                                                                class="fa fa-picture-o" data-color="color[0]"></i></label>
-                                                        <input hidden type="file" id="img[0]" name="img[0]"
-                                                            class="form-control-file">
-                                                    </div>
+                                            {{-- <div class="col-12 col-md-9">
+                                        <div class="row" id="imgList">
+                                            <div class="col-sm-10">
+                                                <label for="img[0]" class="btn btn-outline-primary"><i
+                                                        class="fa fa-picture-o" data-color="color[0]"></i></label>
+                                                <input hidden type="file" id="img[0]" name="img[0]"
+                                                    class="form-control-file">
+                                            </div>
 
+                                        </div>
+                                    </div> --}}
+                                            <style>
+                                                .center-cropped {
+                                                    width: 100px;
+                                                    height: 100px;
+                                                    object-fit: cover;
+                                                }
+                                            </style>
+
+                                            <div>
+                                                <label for="avatar" class="btn btn-outline-info btn-sm text-center m-1">
+                                                    <img src="images/upload-default.png"
+                                                        class="center-cropped img-fluid img-thumbnail"
+                                                        id="previewImgavatar" alt="Avatar image">
+                                                    <input type="file" onchange="previewFile(this)" name="image[0]"
+                                                        id="avatar" style="display: none">
+                                                </label>
+                                                <div class="row">
+                                                    <button class="btn btn-outline-danger mx-auto"><i
+                                                            class="fa fa-times"></i></button>
                                                 </div>
                                             </div>
+                                            {{-- <div>
+                                                <label for="avatar1" class="btn btn-outline-info btn-sm text-center m-1">
+                                                    <img src="images/upload-default.png"
+                                                        class="center-cropped img-fluid img-thumbnail"
+                                                        id="previewImgavatar1" alt="Avatar image">
+                                                    <input type="file" onchange="previewFile(this)" name="image[1]"
+                                                        id="avatar1" style="display: none">
+                                                </label>
+                                                <div class="row">
+                                                    <button class="btn btn-outline-danger mx-auto"><i
+                                                            class="fa fa-times"></i></button>
+                                                </div>
+                                            </div> --}}
+                                            <script>
+                                                function previewFile(input) {
+                                                    var data = (input);
+                                                    var file = data.files[0];
+                                                    var id = input.id;
+                                                    if (file) {
+                                                        var reader = new FileReader();
+                                                        reader.onload = function() {
+                                                            $("#previewImg" + id).attr("src", reader.result);
+                                                        }
+                                                        reader.readAsDataURL(file);
+                                                    }
+                                                }
+                                            </script>
+
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-10">
@@ -391,15 +495,15 @@
             </div>
         </div>
         <!--**********************************
-                            Content body end
-                        ***********************************-->
+                                                                                                                                        Content body end
+                                                                                                                                    ***********************************-->
         <!--**********************************
-                            Footer start
-                        ***********************************-->
+                                                                                                                                        Footer start
+                                                                                                                                    ***********************************-->
 
         <!--**********************************
-                            Footer end
-                        ***********************************-->
+                                                                                                                                        Footer end
+                                                                                                                                    ***********************************-->
         <script>
             var id =
                 @if (isset($list_color))

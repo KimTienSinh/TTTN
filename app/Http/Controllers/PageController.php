@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Manufacturer;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
@@ -31,12 +32,14 @@ class PageController extends Controller
         return view('adminpage.ad_blogpage', compact('list_blog'));
     }
 
-    public function getVoucherList(){
+    public function getVoucherList()
+    {
         $list_voucher = Voucher::all();
         return view('adminpage.ad_voucherpage', compact('list_voucher'));
     }
 
-    public function getSlideList(){
+    public function getSlideList()
+    {
         $list_slide = Slide::all();
         return view('adminpage.ad_slidepage', compact('list_slide'));
     }
@@ -57,12 +60,13 @@ class PageController extends Controller
     public function getProductEditPage(Request $request)
     {
         $list_dropdown = Category::where(['type' => 0])->get();
+        $manufacturers = Manufacturer::all();
         if ($request->isMethod('post')) {
             $product = Product::find($request->id_product);
             $product_detail = Product::find($request->id_product)->product_detail;
-            return view('adminpage.ad_producteditpage', compact('list_dropdown', 'product', 'product_detail'));
+            return view('adminpage.ad_producteditpage', compact('list_dropdown', 'product', 'product_detail', 'manufacturers'));
         }
-        return view('adminpage.ad_producteditpage', compact('list_dropdown'));
+        return view('adminpage.ad_producteditpage', compact('list_dropdown', 'manufacturers'));
     }
 
     //----------------USERPAGE--------------------------------------------
@@ -82,8 +86,7 @@ class PageController extends Controller
 
     public function getShop()
     {
-        $list_product = Product::where('status','<>',0)->get();
+        $list_product = Product::where('status', '<>', 0)->get();
         return view('userpage.user_shop', compact('list_product'));
     }
-
 }

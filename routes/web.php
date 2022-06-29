@@ -306,6 +306,36 @@ Route::get('delete-comment', [
 
 //-------------------------------END COMMENT----------------------//
 
+//-------------------------------START MANUFACTURE----------------------//
+Route::get('ad_Manufacturer', [
+    'as' => 'get-ad_Manufacturer',
+    'uses' => 'App\Http\Controllers\ManufacturerController@getAll'
+]);
+
+Route::get('ad_manufacturereditpage', function () {
+    return view('adminpage.ad_manufactureeditpage');
+});
+
+Route::post('ad_manufacturer', [
+    'as' => 'them-Manufacturer',
+    'uses' => 'App\Http\Controllers\ManufacturerController@postInsert'
+]);
+
+Route::post('ad_manufacturer/{id}', [
+    'as' => 'update-Manufacturer',
+    'uses' => 'App\Http\Controllers\ManufacturerController@postUpdate'
+]);
+
+Route::get('ad_manufacturer', [
+    'as' => 'del-Manufacturer',
+    'uses' => 'App\Http\Controllers\ManufacturerController@postDelete'
+]);
+
+Route::get('ad_manufacturer/{id}', [
+    'as' => 'edit-manufacturer',
+    'uses' => 'App\Http\Controllers\ManufacturerController@getEdit'
+]);
+//-------------------------------END MANUFACTURE----------------------//
 
 
 // ============================ User page ===========================
@@ -322,7 +352,7 @@ Route::get('index', [
 
 
 Route::get('login', function () {
-   // session()->flush();
+    // session()->flush();
     return view('userpage.user_login');
 });
 
@@ -417,6 +447,14 @@ Route::post(
 );
 
 Route::post(
+    'delFromCart/{id}',
+    [
+        'as' => 'xoa-gio-hang',
+        'uses' => 'App\Http\Controllers\CartController@delFromCart',
+    ]
+);
+
+Route::get(
     'delFromCart/{id}',
     [
         'as' => 'xoa-gio-hang',

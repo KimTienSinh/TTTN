@@ -24,6 +24,10 @@
                         <a href="{{url('ad_Product')}}"><i class="fa fa-product-hunt"></i></i>
                             <span class="nav-text">Product</span></a>
                     </li>
+                    <li>
+                        <a href="{{url('ad_Manufacturer')}}"><i class="fa fa-truck"></i></i>
+                            <span class="nav-text">Manufacture</span></a>
+                    </li>
                 </ul>
             </li>
 

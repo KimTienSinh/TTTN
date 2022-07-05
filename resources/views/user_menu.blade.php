@@ -16,6 +16,7 @@
                     <i class=" fa fa-phone"></i>
                     +65 11.188.888
                 </div>
+
             </div>
             <div class="ht-right">
                 @if (Auth::check())
@@ -105,21 +106,46 @@
                                 </div>
                                 <div class="select-button">
                                     <form action="{{url('checkout')}}" method="POST">
-                                        @csrf
-                                        <a href="#" class="primary-btn view-card">VIEW CART</a>
-                                        <input type="text" hidden name="id_user"
-                                            value="@if(Auth::check()) {{Auth::user()->id_user}} @endif">
-                                        <input type="submit" class="primary-btn checkout-btn btn-block"
-                                            value="CHECK OUT">
-                                        <!-- <a href="{{url('checkout')}}" class="primary-btn checkout-btn">CHECK OUT</a> -->
-                                    </form>
-                                </div>
-                            </div> --}}
-                        </li>
-                    </ul>
+                            @csrf
+                            <a href="#" class="primary-btn view-card">VIEW CART</a>
+                            <input type="text" hidden name="id_user" value="@if(Auth::check()) {{Auth::user()->id_user}} @endif">
+                            <input type="submit" class="primary-btn checkout-btn btn-block" value="CHECK OUT">
+                            <!-- <a href="{{url('checkout')}}" class="primary-btn checkout-btn">CHECK OUT</a> -->
+                            </form>
                 </div>
-            </div>
+            </div> --}}
+            </li>
+            <li class="cart-icon"><a href="#">
+                    <i class="fa fa-qrcode" aria-hidden="true"></i>
+                </a>
+                <div class="cart-hover">
+                    <!-- <div class="select-items">
+                                    <table>
+                                        <tbody>
+                                            <div class="qrcode">
+                                               <p> {!! QrCode::size(100)->generate('https://gearvn.com/') !!} </p>
+                                            </div>
+                                                
+                                        </tbody>
+                                    </table>
+                                </div> -->
+                    <div class="qrcode1">
+                        <p> {!! QrCode::size(290)->generate('https://gearvn.com/') !!} </p>
+                    </div>
+                    <!-- <div class="select-total">
+                                    <span>total:</span>
+                                    <h5>$120.00</h5>
+                                </div>
+                                <div class="select-button">
+                                    <a href="#" class="primary-btn view-card">VIEW CARD</a>
+                                    <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                </div> -->
+                </div>
+            </li>
+            </ul>
         </div>
+    </div>
+    </div>
     </div>
     <div class="nav-item">
         <div class="container">

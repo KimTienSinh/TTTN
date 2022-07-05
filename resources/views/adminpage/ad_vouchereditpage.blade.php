@@ -88,6 +88,15 @@
                             <form action="{{route('them-voucher')}}" method="post">
                                 @csrf
                                 <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Type Condition</label>
+                                    <div class="col-sm-10">
+                                        <select onchange="myFunction(event)" class="form-control" name="cbx_parent_id">
+                                            <option value="0.0">Percent</option>
+                                            <option value="0">Total</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Voucher Code</label>
                                     <div class="col-sm-10">
                                         <input name="voucher_code" class="form-control" placeholder="Voucher Code" required="true">
@@ -96,7 +105,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Condition Price</label>
                                     <div class="col-sm-10">
-                                        <input name="condition_price" placeholder="Condition Price" class="form-control" required="true">
+                                        <input name="condition_price" id="Change_Type" placeholder="Condition Price" class="form-control" required="true">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -146,7 +155,12 @@
 
     </div>
 </div>
+<script>
+    function myFunction(e) {
+        document.getElementById("Change_Type").value = e.target.value
+    }
 
+</script>
 <script src="./admin/vendor/global/global.min.js"></script>
 <script src="./admin/js/quixnav-init.js"></script>
 

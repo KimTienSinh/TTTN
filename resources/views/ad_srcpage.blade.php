@@ -31,6 +31,11 @@
 <script src="./admin/js/dashboard/dashboard-1.js"></script>
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 
+<!-- Datatable -->
+<script src="./admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="./admin/js/plugins-init/datatables.init.js"></script>
+
+
 <script>
     CKEDITOR.replace('description');
     CKEDITOR.config.autoParagraph = false;

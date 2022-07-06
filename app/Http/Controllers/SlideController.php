@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ImageUpload;
 use App\Models\Slide;
 use Illuminate\Http\Request;
 
@@ -19,10 +20,19 @@ class SlideController extends Controller
         $s = new Slide();
         //dd($req->input());
         $s->slide_name = $req->slide_name;
-        $s->image = $req->image;
+        // $s->image = $req->image;
+
+
+       // $image = ImageUpload::imageUploadPost();
+       // $s->image = $req->image;
+
+       $image1 = $req->image;
+       $image = ImageUpload::imageUploadPost($image1);
+        
+        $s->image = $image;
 
         $s->save();
-        return redirect('ad_slidepage');
+       // return redirect('ad_slidepage');
     }
     public function getEditSlide(Request $req){
         $slide_edit = Slide::where('id_slide', $req->id_slide)->first();

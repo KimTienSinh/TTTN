@@ -412,7 +412,7 @@
 
                                         <div class="row form-group d-flex">
                                             <div class="col col-md-3 fileinputpadding">
-                                                Image
+                                                Image product
                                             </div>
                                             {{-- <div class="col-12 col-md-9">
                                         <div class="row" id="imgList">
@@ -433,24 +433,64 @@
                                                 }
                                             </style>
 
-                                            <div>
-                                                <label for="avatar" class="btn btn-outline-info btn-sm text-center m-1">
+                                            <div id="product-image" class="row">
+                                                <label for="avatar0" class="btn btn-outline-info btn-sm text-center m-1">
                                                     <img src="images/upload-default.png"
                                                         class="center-cropped img-fluid img-thumbnail"
-                                                        id="previewImgavatar" alt="Avatar image">
+                                                        id="previewImgavatar0" alt="product-image">
                                                     <input type="file" onchange="previewFile(this)" name="image[0]"
-                                                        id="avatar" style="display: none">
+                                                        id="avatar0" style="display: none">
                                                 </label>
-                                                <div class="row">
+                                                <label for="avatar1" class="btn btn-outline-info btn-sm text-center m-1">
+                                                    <img src="images/upload-default.png"
+                                                        class="center-cropped img-fluid img-thumbnail"
+                                                        id="previewImgavatar1" alt="product-image">
+                                                    <input type="file" onchange="previewFile(this)" name="image[1]"
+                                                        id="avatar1" style="display: none">
+                                                </label>
+                                                <label for="avatar2" class="btn btn-outline-info btn-sm text-center m-1">
+                                                    <img src="images/upload-default.png"
+                                                        class="center-cropped img-fluid img-thumbnail"
+                                                        id="previewImgavatar2" alt="product-image">
+                                                    <input type="file" onchange="previewFile(this)" name="image[2]"
+                                                        id="avatar2" style="display: none">
+                                                </label>
+                                                <label for="avatar3" class="btn btn-outline-info btn-sm text-center m-1">
+                                                    <img src="images/upload-default.png"
+                                                        class="center-cropped img-fluid img-thumbnail"
+                                                        id="previewImgavatar3" alt="product-image">
+                                                    <input type="file" onchange="previewFile(this)" name="image[3]"
+                                                        id="avatar3" style="display: none">
+                                                </label>
+                                                {{-- <div class="row">
                                                     <button class="btn btn-outline-danger mx-auto"><i
                                                             class="fa fa-times"></i></button>
-                                                </div>
+                                                </div> --}}
+                                                {{-- <div>
+                                                    <button id="img-add" class="btn btn-outline-success"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div> --}}
                                             </div>
+
+                                            {{-- <script>
+                                                idImage = 1;
+                                                $('#img-add').click(function() {
+                                                    idImage++;
+                                                    productImageHTML =
+                                                        ' <label for="avatar' + idImage +
+                                                        '" class="btn btn-outline-info btn-sm text-center m-1"> <img src="images/upload-default.png" class="center-cropped img-fluid img-thumbnail" id="previewImgavatar' +
+                                                        idImage +
+                                                        '" alt="product-image"> <input type="file" onchange="previewFile(this)" name="image[' + idImage +
+                                                        ']" id="avatar' + idImage +
+                                                        '" style="display: none"> </label> <div class="row"> <button class="btn btn-outline-danger"><i class="fa fa-times"></i></button> </div>';
+                                                    $('#product-image').append(productImageHTML);
+                                                });
+                                            </script> --}}
                                             {{-- <div>
                                                 <label for="avatar1" class="btn btn-outline-info btn-sm text-center m-1">
                                                     <img src="images/upload-default.png"
                                                         class="center-cropped img-fluid img-thumbnail"
-                                                        id="previewImgavatar1" alt="Avatar image">
+                                                        id="previewImgavatar1" alt="product-image">
                                                     <input type="file" onchange="previewFile(this)" name="image[1]"
                                                         id="avatar1" style="display: none">
                                                 </label>
@@ -459,21 +499,23 @@
                                                             class="fa fa-times"></i></button>
                                                 </div>
                                             </div> --}}
-                                            <script>
-                                                function previewFile(input) {
-                                                    var data = (input);
-                                                    var file = data.files[0];
-                                                    var id = input.id;
-                                                    if (file) {
-                                                        var reader = new FileReader();
-                                                        reader.onload = function() {
-                                                            $("#previewImg" + id).attr("src", reader.result);
-                                                        }
-                                                        reader.readAsDataURL(file);
-                                                    }
-                                                }
-                                            </script>
-
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col col-md-3 fileinputpadding">
+                                                Image product detail
+                                            </div>
+                                            <div id="imgList">
+                                                <div class="col-sm-10">
+                                                    <label for="img[0]" class="btn btn-outline-primary">
+                                                        <img src="images/upload-default.png"
+                                                            class="center-cropped img-fluid img-thumbnail"
+                                                            id="previewImgimg0" alt="product-image">
+                                                        <i class="fa fa-picture-o" data-color="color[0]"></i>
+                                                    </label>
+                                                    <input hidden type="file" id="img[0]" name="img[0]"
+                                                        class="form-control-file" onchange="previewFile(this)" required>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-10">
@@ -481,9 +523,7 @@
                                                     class="btn btn-primary">Create</button>
 
                                             </div>
-
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
@@ -495,19 +535,19 @@
             </div>
         </div>
         <!--**********************************
-                                                                                                                                        Content body end
-                                                                                                                                    ***********************************-->
+                                                                                                                                                                                                                                                                                        Content body end
+                                                                                                                                                                                                                                                                                    ***********************************-->
         <!--**********************************
-                                                                                                                                        Footer start
-                                                                                                                                    ***********************************-->
+                                                                                                                                                                                                                                                                                        Footer start
+                                                                                                                                                                                                                                                                                    ***********************************-->
 
         <!--**********************************
-                                                                                                                                        Footer end
-                                                                                                                                    ***********************************-->
+                                                                                                                                                                                                                                                                                        Footer end
+                                                                                                                                                                                                                                                                                    ***********************************-->
         <script>
             var id =
                 @if (isset($list_color))
-                    {{ array_key_last($list_color) + 20 }}
+                    {{ array_key_last($list_color) + 200 }}
                 @else
                     1
                 @endif ;
@@ -532,8 +572,12 @@
                 })
                 $('.table.table-bordered').parent().append(tableHtml);
 
-                // var imgHtml =  '<div class="col-sm-10" ><label for="img['+id+']" class="btn btn-outline-primary" ><i class="fa fa-picture-o" data-color="color['+id+']"></i></label><input hidden type="file" id="img['+id+']" name="img['+id+']" class="form-control-file"></div>'
-                // $('#imgList').append(imgHtml);
+                var imgHtml = '<div class="col-sm-10" ><label for="img[' + id +
+                    ']" class="btn btn-outline-primary" > <img src="images/upload-default.png" class="center-cropped img-fluid img-thumbnail" id="previewImgimg' +
+                    id + '" alt="product-image"><i class="fa fa-picture-o" data-color="color[' + id +
+                    ']"></i></label><input hidden type="file" id="img[' + id + ']" name="img[' + id +
+                    ']" class="form-control-file" onchange="previewFile(this)" required></div>'
+                $('#imgList').append(imgHtml);
 
                 var del = '#1trash' + id;
                 var tableId = id;
@@ -595,6 +639,20 @@
                         $(this).html('&ensp;' + value);
                 })
             })
+
+            function previewFile(input) {
+                var data = (input);
+                var file = data.files[0];
+                var id = input.id;
+                id = id.replace(/[.*+?^${}()|[\]\\]/g, '');
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        $("#previewImg" + id).attr("src", reader.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
         </script>
     </div>
 @endsection()

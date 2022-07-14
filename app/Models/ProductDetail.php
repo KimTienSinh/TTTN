@@ -54,7 +54,7 @@ class ProductDetail extends Model
         return [
             'size'      =>   'required',
             'color'     =>   'required',
-            // 'image'     =>   'required',
+            'image'     =>   'required',
             // 'price'     =>   'required',
             // 'remaining' =>   'required',
         ];

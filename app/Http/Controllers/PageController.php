@@ -52,8 +52,8 @@ class PageController extends Controller
 
     public function ad_getAllProduct()
     {
-        $product_list = Product::all();
-        //dd($product_list);
+        $product_list = Product::with('image_product')->get();
+       // dd($product_list);
         return view('adminpage.ad_productpage', compact('product_list'));
     }
 

@@ -29,13 +29,19 @@
 
 
 <script src="./admin/js/dashboard/dashboard-1.js"></script>
-<script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> -->
 
+<!-- Datatable -->
+<script src="./admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="./admin/js/plugins-init/datatables.init.js"></script>
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-    CKEDITOR.replace('description');
-    CKEDITOR.config.autoParagraph = false;
-    CKEDITOR.config.entities = false;
-</script>
-<!-- <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> -->
+        CKEDITOR.replace('description', {
+            filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+            filebrowserUploadMethod: 'form'
+        });
+    </script>
+<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
 

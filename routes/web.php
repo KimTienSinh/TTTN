@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\UserController;
 use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /* ======================== Admin page ==========================*/
-
+Route::post('ad_blogeditpage/image_upload', [CkeditorController::class, 'upload'])->name('upload');
 Route::get('ad_home', function () {
     return view('adminpage.ad_home');
 });

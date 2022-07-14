@@ -23,10 +23,10 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered verticle-middle table-responsive-sm basic-form">
+                        <table id="example" class="display basic-form" style="min-width: 845px" >
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID ORDER</th>
+                                        <th scope="col">ID</th>
                                         <th scope="col">USERNAME</th>
                                         <!-- <th scope="col">ADDRESS</th>
                                         <th scope="col">PHONE</th> -->
@@ -46,7 +46,7 @@
                                         <!-- <td>{{$order->address}}</td>
                                         <td>{{$order->phone}}</td> -->
                                         <td>{{$order->price_total}}</td>
-                                        <td>{{$order->created_at}}</td>
+                                        <td>{{date('d-m-Y', strtotime($order->create_at));}}</td>
                                         <td>@if($order->status == 0)
                                                 Chờ xác nhận
                                             @elseif($order->status == 1)

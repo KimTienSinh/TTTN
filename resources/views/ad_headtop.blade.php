@@ -28,6 +28,8 @@
 
 <link rel="stylesheet" href="./admin/vendor/pickadate/themes/default.date.css"> 
 
+<!-- Datatable -->
+<link href="./admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 
 <link href="./admin/css/style.css" rel="stylesheet">
 <link href="./admin/css/lbs.css" rel="stylesheet">
@@ -40,6 +42,10 @@
 
 <link href="./admin/css/style1.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- ckeditorfix -->
+
+
 
 <div id="preloader">
     <div class="sk-three-bounce">

@@ -102,7 +102,8 @@
                                         <input type="file" id="image" name="image" class="form-control-file">
                                     </div>
                                 </div>
-                                <textarea name="description" id="description">Description</textarea>
+                                <!-- <textarea name="description" id="description">Description</textarea> -->
+                                <textarea class="form-control" id="description" name="description"></textarea>
                                 <div class="form-group row">
                                     <div class="col-sm-10">
                                     </div>
@@ -124,7 +125,5 @@
 
     </div>
 </div>
-<script>
-    $('textarea').ckeditor({language: 'de'});
-</script>
+<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
 @endsection()

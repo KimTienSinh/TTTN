@@ -24,7 +24,8 @@
                             </p>
                         </div>
                         <div class="blog-quote">
-                            <p>“ {{ $blog_detail->description }} ” <span>- Steven Jobs</span></p>
+                            <!-- <p>“ {{ $blog_detail->description }} ” <span>- Steven Jobs</span></p> -->
+                            {!! $blog_detail->description !!}
                         </div>
                         <div class="blog-more">
                             <div class="row">

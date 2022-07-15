@@ -166,43 +166,53 @@
                                 <div class="col-lg-4 col-sm-6">
                                     <div class="product-item">
                                         <div class="pi-pic">
-                                            <img src="images/{{ $prd->image }}" height="300" width="300" alt="">
-                                            <div class="sale pp-sale">Sale</div>
-                                            <div class="icon">
-                                                <i class="icon_heart_alt"></i>
-                                            </div>
-                                            <ul>
-                                                <li class="quick-view"><a href="{{ url('product', $prd->id_product) }}">+
-                                                        Quick View</a>
-                                                </li>
-                                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a>
-                                                </li>
-                                            </ul>
+                                            @if (!$prd->image_product->isEmpty())
+                                                @foreach ($prd->image_product as $image_product => $image)
+                                                    <img src="images/{{ $image->image }}" height="300" width="300"
+                                                        alt="product" style="object-fit: cover">
+                                                @break
+                                            @endforeach
+                                        @else
+                                            <img src="images/clothes-default.png" height="300" width="300"
+                                                alt="product" style="object-fit: cover">
+                                        @endif
+                                        {{-- <div class="sale pp-sale">Sale</div> --}}
+                                        <div class="icon">
+                                            <i class="icon_heart_alt"></i>
                                         </div>
-                                        <div class="pi-text">
-                                            {{-- <div class="catagory-name">Towel</div> --}}
-                                            <a href="#">
-                                                <h5>{{ $prd->product_name }}</h5>
-                                            </a>
-                                            <div class="product-price">
-                                                $10.00
-                                                {{-- <span>$35.00</span> --}}
-                                            </div>
+                                        <ul>
+                                            <li class="quick-view"><a
+                                                    href="{{ url('product', $prd->id_product) }}">+
+                                                    Quick View</a>
+                                            </li>
+                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="pi-text">
+                                        {{-- <div class="catagory-name">Towel</div> --}}
+                                        <a href="#">
+                                            <h5>{{ $prd->product_name }}</h5>
+                                        </a>
+                                        <div class="product-price">
+                                            {{-- $10.00 --}}
+                                            {{-- <span>$35.00</span> --}}
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="loading-more">
-                        <i class="icon_loading"></i>
-                        <a href="#">
-                            Loading More
-                        </a>
-                    </div>
+                </div>
+                <div class="loading-more">
+                    <i class="icon_loading"></i>
+                    <a href="#">
+                        Loading More
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Product Shop Section End -->
+    </div>
+</section>
+<!-- Product Shop Section End -->
 @endsection

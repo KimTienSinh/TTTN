@@ -54,7 +54,7 @@
                                                         @if ($product->image_product)
                                                             @foreach ($product->image_product as $image_product => $image)
                                                                  <img src="images/{{ $image->image }}"
-                                                                class="center-cropped img-fluid img-thumbnail"
+                                                                class="center-cropped img-thumbnail"
                                                                 id="previewImgavatar0" alt="product-image"> 
                                                             @break
                                                         @endforeach

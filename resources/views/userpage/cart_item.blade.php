@@ -18,7 +18,7 @@
                     @foreach ($cart_list_item as $item)
                         <tr>
                             <td class="cart-pic first-row"><img src="images/{{ $item->image }}" width="150" height="150"
-                                    alt=""></td>
+                                    alt="imgProduct" style="object-fit: cover" class="img-thumbnail"></td>
                             <td class="cart-title first-row">
                                 <h5>{{ $item->product_name }}</h5>
                             </td>

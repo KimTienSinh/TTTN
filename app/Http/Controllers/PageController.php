@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\ImageProduct;
 use App\Models\Manufacturer;
 use App\Models\Product;
 use App\Models\Slide;
@@ -53,7 +54,7 @@ class PageController extends Controller
     public function ad_getAllProduct()
     {
         $product_list = Product::with('image_product')->get();
-       // dd($product_list);
+        // dd($product_list);
         return view('adminpage.ad_productpage', compact('product_list'));
     }
 
@@ -62,9 +63,10 @@ class PageController extends Controller
         $list_dropdown = Category::where(['type' => 0])->get();
         $manufacturers = Manufacturer::all();
         if ($request->isMethod('post')) {
+            $imageProducts = ImageProduct::where(['id_product' => $request->id_product])->get();
             $product = Product::find($request->id_product);
             $product_detail = Product::find($request->id_product)->product_detail;
-            return view('adminpage.ad_producteditpage', compact('list_dropdown', 'product', 'product_detail', 'manufacturers'));
+            return view('adminpage.ad_producteditpage', compact('list_dropdown', 'product', 'product_detail', 'manufacturers', 'imageProducts'));
         }
         return view('adminpage.ad_producteditpage', compact('list_dropdown', 'manufacturers'));
     }
@@ -86,7 +88,7 @@ class PageController extends Controller
 
     public function getShop()
     {
-        $list_product = Product::where('status', '<>', 0)->get();
+        $list_product = Product::with('image_product')->where('status', '<>', 0)->get();
         return view('userpage.user_shop', compact('list_product'));
     }
 }

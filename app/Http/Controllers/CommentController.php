@@ -48,7 +48,7 @@ class CommentController extends Controller
 
     public function getProductDetailAndComment($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('image_product')->find($id);
         $product_detail = Product::find($id)->product_detail;
         $color_size_price = []; //Tạo ra mảng 3 chiều với các tham số $varName[color][size][price]=remaing;
         foreach ($product_detail as $detail) {
@@ -62,7 +62,7 @@ class CommentController extends Controller
             ->select('comment.comment', 'user.user_name')
             ->get();
         
-        return view('userpage.user_product', compact('product', 'color_size_price', 'data'));
+        return view('userpage.user_product', compact('product','product_detail', 'color_size_price', 'data'));
     }
 
     public function postInsertComment(Request $req){

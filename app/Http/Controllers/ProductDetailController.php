@@ -16,6 +16,7 @@ class ProductDetailController extends Controller
             'size' => $request->size
         ])->first();
         $data = $product->price;
-        return response(number_format($data));
+        $img = $product->image;
+        return response(['data' => number_format($data), 'img' => $img]);
     }
 }

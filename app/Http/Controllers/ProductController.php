@@ -87,6 +87,17 @@ class ProductController extends Controller
 
         Product::find($id)->update($product);
 
+        if ($request->image) {
+            foreach ($request->image as $index => $image) {
+                $imageName = ImageUpload::imageUploadPost($image);
+                $imgProduct = ImageProduct::firstOrNew([
+                    'id_image_product' => $index,
+                    'id_product' => $id,
+                ]);
+                $imgProduct->image = $imageName;
+                $imgProduct->save();
+            }
+        }
 
         foreach ($request->color as  $color) {
             foreach ($request->size as $size) {
@@ -105,7 +116,25 @@ class ProductController extends Controller
                 //     $prd->image = $img;
                 //     $prd->save();
                 // }
-                $product_detail->image = $img;
+                if ($request->img) {
+                    $id_color_key = (string)$color_key;
+                    if (isset($request->img[$id_color_key])) {
+                        $imageName = ImageUpload::imageUploadPost($request->img[$id_color_key]);
+                        $product_detail->image = $imageName;
+                    }
+                } else {
+                    if (!$product_detail->image) {
+                        $product_detail_image = ProductDetail::find([
+                            'id_product' => $request->id,
+                            'color' => $color
+                        ])->first();
+                        if ($product_detail_image) {
+                            $product_detail->image = $product_detail_image->image;
+                        } else {
+                            $product_detail->image = "clothes-default.png";
+                        }
+                    }
+                }
                 $product_detail->price = $request->price[$key];
                 $product_detail->remaining = $request->remaining[$key];
                 $product_detail->status = '1';

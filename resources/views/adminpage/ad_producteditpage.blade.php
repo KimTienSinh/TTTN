@@ -239,31 +239,131 @@
                                         </div>
 
 
-                                        <div class="row form-group">
+                                        <div class="row form-group d-flex">
                                             <div class="col col-md-3 fileinputpadding">
-                                                <label for="file-input" class="form-control-label ">Image</label>
+                                                Image product
                                             </div>
-                                            <div class="col-12 col-md-9">
-                                                <div class="row" id="imgList">
-                                                    <div class="col-sm-10">
-                                                        <label for="img[0]" class="btn btn-outline-primary"><i
-                                                                class="fa fa-picture-o" data-color="color[0]"></i></label>
-                                                        <input hidden type="file" id="img[0]" name="img[0]"
-                                                            class="form-control-file">
-                                                    </div>
+                                            {{-- <div class="col-12 col-md-9">
+                                        <div class="row" id="imgList">
+                                            <div class="col-sm-10">
+                                                <label for="img[0]" class="btn btn-outline-primary"><i
+                                                        class="fa fa-picture-o" data-color="color[0]"></i></label>
+                                                <input hidden type="file" id="img[0]" name="img[0]"
+                                                    class="form-control-file">
+                                            </div>
 
-                                                </div>
+                                        </div>
+                                    </div> --}}
+                                            <style>
+                                                .center-cropped {
+                                                    width: 100px;
+                                                    height: 100px;
+                                                    object-fit: cover;
+                                                }
+                                            </style>
+
+                                            <div id="product-image" class="row">
+                                                @php
+                                                    $i = 0;
+                                                @endphp
+                                                @foreach ($imageProducts as $imgProduct)
+                                                    <label for="avatar{{ $imgProduct->id_image_product }}"
+                                                        class="btn btn-outline-info btn-sm text-center m-1">
+                                                        <img src="images/{{ $imgProduct->image }}"
+                                                            class="center-cropped img-fluid img-thumbnail"
+                                                            id="previewImgavatar{{ $imgProduct->id_image_product }}"
+                                                            alt="product-image">
+                                                        <input type="file" onchange="previewFile(this)"
+                                                            name="image[{{ $imgProduct->id_image_product }}]"
+                                                            id="avatar{{ $imgProduct->id_image_product }}"
+                                                            style="display: none">
+                                                    </label>
+                                                    @php
+                                                        $i++;
+                                                        $id_last_img_product = $imgProduct->id_image_product;
+                                                    @endphp
+                                                @endforeach
+                                                @for ($i; $i < 4; $i++)
+                                                    <label for="avatar{{ $id_last_img_product + 200 + $i }}"
+                                                        class="btn btn-outline-info btn-sm text-center m-1">
+                                                        <img src="images/upload-default.png"
+                                                            class="center-cropped img-fluid img-thumbnail"
+                                                            id="previewImgavatar{{ $id_last_img_product + 200 + $i }}"
+                                                            alt="product-image">
+                                                        <input type="file" onchange="previewFile(this)"
+                                                            name="image[{{ $id_last_img_product + 200 + $i }}]"
+                                                            id="avatar{{ $id_last_img_product + 200 + $i }}"
+                                                            style="display: none">
+                                                    </label>
+                                                @endfor
+                                                {{-- <div class="row">
+                                                    <button class="btn btn-outline-danger mx-auto"><i
+                                                            class="fa fa-times"></i></button>
+                                                </div> --}}
+                                                {{-- <div>
+                                                    <button id="img-add" class="btn btn-outline-success"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div> --}}
                                             </div>
+
+                                            {{-- <script>
+                                                idImage = 1;
+                                                $('#img-add').click(function() {
+                                                    idImage++;
+                                                    productImageHTML =
+                                                        ' <label for="avatar' + idImage +
+                                                        '" class="btn btn-outline-info btn-sm text-center m-1"> <img src="images/upload-default.png" class="center-cropped img-fluid img-thumbnail" id="previewImgavatar' +
+                                                        idImage +
+                                                        '" alt="product-image"> <input type="file" onchange="previewFile(this)" name="image[' + idImage +
+                                                        ']" id="avatar' + idImage +
+                                                        '" style="display: none"> </label> <div class="row"> <button class="btn btn-outline-danger"><i class="fa fa-times"></i></button> </div>';
+                                                    $('#product-image').append(productImageHTML);
+                                                });
+                                            </script> --}}
+                                            {{-- <div>
+                                                <label for="avatar1" class="btn btn-outline-info btn-sm text-center m-1">
+                                                    <img src="images/upload-default.png"
+                                                        class="center-cropped img-fluid img-thumbnail"
+                                                        id="previewImgavatar1" alt="product-image">
+                                                    <input type="file" onchange="previewFile(this)" name="image[1]"
+                                                        id="avatar1" style="display: none">
+                                                </label>
+                                                <div class="row">
+                                                    <button class="btn btn-outline-danger mx-auto"><i
+                                                            class="fa fa-times"></i></button>
+                                                </div>
+                                            </div> --}}
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col col-md-3 fileinputpadding">
+                                                Image product detail
+                                            </div>
+                                            @foreach ($product_detail as $product)
+                                                <div id="imgList">
+                                                    <div class="col-sm-10">
+                                                        <label for="img[{{ $product->id_product_detail }}]"
+                                                            class="btn btn-outline-primary">
+                                                            <img src="images/{{ $product->image }}"
+                                                                class="center-cropped img-fluid img-thumbnail"
+                                                                id="previewImgimg{{ $product->id_product_detail }}"
+                                                                alt="product-image">
+                                                            <i class="fa fa-picture-o"
+                                                                data-color="color[{{ $product->id_product_detail }}]">&ensp;{{ $product->color }}</i>
+                                                        </label>
+                                                        <input hidden type="file"
+                                                            id="img[{{ $product->id_product_detail }}]"
+                                                            name="img[{{ $product->id_product_detail }}]"
+                                                            class="form-control-file" onchange="previewFile(this)">
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-10">
                                                 <button type="submit" name="product_action" value="product_create"
                                                     class="btn btn-primary">Edit</button>
-
                                             </div>
-
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
@@ -535,15 +635,15 @@
             </div>
         </div>
         <!--**********************************
-                                                                                                                                                                                                                                                                                        Content body end
-                                                                                                                                                                                                                                                                                    ***********************************-->
+                                                                                                                                                                                                                                                                                                                            Content body end
+                                                                                                                                                                                                                                                                                                                        ***********************************-->
         <!--**********************************
-                                                                                                                                                                                                                                                                                        Footer start
-                                                                                                                                                                                                                                                                                    ***********************************-->
+                                                                                                                                                                                                                                                                                                                            Footer start
+                                                                                                                                                                                                                                                                                                                        ***********************************-->
 
         <!--**********************************
-                                                                                                                                                                                                                                                                                        Footer end
-                                                                                                                                                                                                                                                                                    ***********************************-->
+                                                                                                                                                                                                                                                                                                                            Footer end
+                                                                                                                                                                                                                                                                                                                        ***********************************-->
         <script>
             var id =
                 @if (isset($list_color))

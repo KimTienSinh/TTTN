@@ -48,19 +48,19 @@
                                         <td>{{$order->price_total}}</td>
                                         <td>{{date('d-m-Y', strtotime($order->create_at));}}</td>
                                         <td>@if($order->status == 0)
-                                                Chờ xác nhận
+                                                Wait for confirmation
                                             @elseif($order->status == 1)
-                                                Đang xác nhận
+                                                Confirming
                                             @elseif($order->status == 2)
-                                                Đã xác nhận
+                                                Confirmed
                                             @elseif($order->status == 3)
-                                                Đang đóng gói
+                                                Packing
                                             @elseif($order->status == 4)
-                                                Thành công
+                                                Successful
                                             @elseif($order->status == 5)
-                                                Hủy đơn hàng
+                                                Cancel order
                                             @elseif($order->status == 6)
-                                                Hết hàng
+                                                Out of stock
                                             @endif</td>
                                         <form method="POST" action="{{url('change_status',$order->id_order)}}">
                                         @csrf
@@ -81,14 +81,14 @@
                                                     @else
                                                     <option selected value="6">Hủy đơn hàng</option>
                                                     @endif -->
-                                                    <option selected>Chọn trạng thái</option>
-                                                    <option value="0">Chờ xác nhận</option>
-                                                    <option value="1">Đang xác nhận</option>
-                                                    <option value="2">Đã xác nhận</option>
-                                                    <option value="3">Đang đóng gói</option>
-                                                    <option value="4">Thành công</option>
-                                                    <option value="5">Hủy đơn hàng</option>
-                                                    <option value="6">Hết hàng</option>
+
+                                                    <option value="0" @if($order->status == 0)selected @endif>Wait for confirmation</option>
+                                                    <option value="1" @if($order->status == 1)selected @endif>Confirming</option>
+                                                    <option value="2" @if($order->status == 2)selected @endif>Confirmed</option>
+                                                    <option value="3" @if($order->status == 3)selected @endif>Packing</option>
+                                                    <option value="4" @if($order->status == 4)selected @endif>Successful</option>
+                                                    <option value="5" @if($order->status == 5)selected @endif>Cancel order</option>
+                                                    <option value="6" @if($order->status == 6)selected @endif>Out of stock</option>
                                                 </select>
                                             </td>
                                             <td>

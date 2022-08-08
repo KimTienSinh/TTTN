@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./home.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="./shop.html">Shop</a>
+                        <a href="./home"><i class="fa fa-home"></i> Home</a>
+                        <a href="./shop">Shop</a>
                         <span>Detail</span>
                     </div>
                 </div>
@@ -38,9 +38,6 @@
                                     <img class="product-big-img" id="previewProduct" src="images/clothes-default.png"
                                         alt="product">
                                 @endif
-                                <div class="zoom-icon">
-                                    <i class="fa fa-search-plus"></i>
-                                </div>
                             </div>
                             <div class="product-thumbs">
                                 <div class="product-thumbs-track ps-slider owl-carousel">
@@ -51,9 +48,11 @@
                                             </div>
                                         @endforeach
                                     @endif
-                                    @foreach ($product_detail as $product)
-                                        <div class="pt active" data-imgbigurl="images/{{ $product->image }}"><img
-                                                src="images/{{ $product->image }}" alt=""></div>
+                                    @foreach ($product_detail as $prd)
+
+                                        <div class="pt active" id="img{{ $prd->id_product_detail }}"
+                                            data-imgbigurl="images/{{ $prd->image }}"><img
+                                                src="images/{{ $prd->image }}" alt=""></div>
                                     @endforeach
                                 </div>
                             </div>
@@ -111,6 +110,16 @@
                                         @endforeach
                                     </div>
                                 </div>
+
+                                <ul class="pd-tags">
+                                    <li>Remaining:&ensp;<span id="remaining">
+                                            @foreach ($product_detail as $prd)
+                                            {{ $prd->remaining }}
+                                            @break
+                                            @endforeach
+                                        </span>
+                                    </li>
+                                </ul>
                                 <div class="product-details">
                                     <div class="pd-desc p-3 pl-5 d-flex">
                                         <div>
@@ -126,17 +135,17 @@
                                     <div class="pro-qty">
                                         <input type="text" value="1" id="product_quantity">
                                     </div>
-                                    <button id="add2cart" class="btn btn-outline-info" data-toggle="modal"
-                                        data-target="#add2Carrt">Add To Cart</button>
+                                    <button id="add2cart" class="btn btn-outline-info"
+                                        @if (Auth::check()) data-toggle="modal"  data-target="#add2Carrt" @endif>Add
+                                        To Cart</button>
                                     <div class="modal fade" id="add2Carrt" tabindex="-1" role="dialog"
                                         aria-labelledby="add2Carrt" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
                                                     <div class="row">
-                                                        <div class="col-m-5 mx-auto"><i class="fa fa-check-circle-o"
-                                                                aria-hidden="true"></i>
-                                                            Add To Cart Success</div>
+                                                        <div id="msg" class="col-m-5 mx-auto">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -144,11 +153,9 @@
                                     </div>
                                 </div>
                                 <ul class="pd-tags">
-                                    <li><span>CATEGORIES</span>: More Accessories, Wallets & Cases</li>
-                                    <li><span>TAGS</span>: Clothing, T-shirt, Woman</li>
+                                    <li><span>MANUFACTURER</span>: {{ $product->manufacturer->manufacturer }}</li>
                                 </ul>
                                 <div class="pd-share">
-                                    <div class="p-code">Sku : 00012</div>
                                     <div class="pd-social">
                                         <a href="#"><i class="ti-facebook"></i></a>
                                         <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -191,21 +198,21 @@
                                                 @endforeach
                                             </div>
                                             <!-- <div class="co-item">
-                                                                <div class="avatar-pic">
-                                                                    <img src="user/img/product-single/avatar-2.png" alt="">
-                                                                </div>
-                                                                <div class="avatar-text">
-                                                                    <div class="at-rating">
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star-o"></i>
-                                                                    </div>
-                                                                    <h5>Roy Banks <span>27 Aug 2019</span></h5>
-                                                                    <div class="at-reply">Nice !</div>
-                                                                </div>
-                                                            </div> -->
+                                                                                                                                                                        <div class="avatar-pic">
+                                                                                                                                                                            <img src="user/img/product-single/avatar-2.png" alt="">
+                                                                                                                                                                        </div>
+                                                                                                                                                                        <div class="avatar-text">
+                                                                                                                                                                            <div class="at-rating">
+                                                                                                                                                                                <i class="fa fa-star"></i>
+                                                                                                                                                                                <i class="fa fa-star"></i>
+                                                                                                                                                                                <i class="fa fa-star"></i>
+                                                                                                                                                                                <i class="fa fa-star"></i>
+                                                                                                                                                                                <i class="fa fa-star-o"></i>
+                                                                                                                                                                            </div>
+                                                                                                                                                                            <h5>Roy Banks <span>27 Aug 2019</span></h5>
+                                                                                                                                                                            <div class="at-reply">Nice !</div>
+                                                                                                                                                                        </div>
+                                                                                                                                                                    </div> -->
                                         </div>
                                         <div class="personal-rating">
                                             <h6>Your Ratind</h6>
@@ -224,11 +231,11 @@
                                                 @csrf
                                                 <div class="row">
                                                     <!-- <div class="col-lg-6">
-                                                                        <input type="text" placeholder="Name">
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                        <input type="text" placeholder="Email">
-                                                                    </div> -->
+                                                                                                                                                                                <input type="text" placeholder="Name">
+                                                                                                                                                                            </div>
+                                                                                                                                                                            <div class="col-lg-6">
+                                                                                                                                                                                <input type="text" placeholder="Email">
+                                                                                                                                                                            </div> -->
 
                                                     <input type="text" hidden name="id_user"
                                                         value="@if (Auth::check()) {{ Auth::user()->id_user }} @endif">
@@ -387,6 +394,8 @@
                 success: function(data) {
                     $("#price_detail").html(data.data);
                     $("#previewProduct").attr("src", "images/" + data.img);
+                    $(".zoomImg").attr("src", "images/" + data.img);
+                    $('#remaining').html(data.remaining);
                 }
             })
         });
@@ -409,29 +418,36 @@
                 success: function(data) {
                     $("#price_detail").html(data.data);
                     $("#previewProduct").attr("src", "images/" + data.img);
+                    $(".zoomImg").attr("src", "images/" + data.img);
+                    $('#remaining').html(data.remaining);
                 }
             })
         });
 
         $('#add2cart').click(function() {
-            quantity = $('#product_quantity').val();
-            color = $('[name="color"]:checked').val();
-            size = $('[name="size"]:checked').val();
-            id_product = '{{ $product->id_product }}';
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('them-gio-hang') }}',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    id_product,
-                    color,
-                    size,
-                    quantity
-                },
-                success: function(data) {
-                    $("span#cartItem").html(data);
-                }
-            })
+            @if (!Auth::check())
+                window.location = "login";
+            @else
+                quantity = $('#product_quantity').val();
+                color = $('[name="color"]:checked').val();
+                size = $('[name="size"]:checked').val();
+                id_product = '{{ $product->id_product }}';
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('them-gio-hang') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        id_product,
+                        color,
+                        size,
+                        quantity
+                    },
+                    success: function(data) {
+                        $("span#cartItem").html(data.data);
+                        $('#msg').html(data.msg)
+                    }
+                })
+            @endif
         });
     </script>
 @endsection

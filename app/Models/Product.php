@@ -31,7 +31,7 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->belongsTo('App\Models\Category', 'id_category', 'id_blog');
+        return $this->belongsTo('App\Models\Category', 'id_category', 'id_category');
     }
 
     public function product_detail()
@@ -42,5 +42,10 @@ class Product extends Model
     public function image_product()
     {
         return $this->hasMany(ImageProduct::class, 'id_product', 'id_product');
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class, 'id_manufacturer', 'id_manufacturer');
     }
 }

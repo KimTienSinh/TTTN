@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /* ======================== Admin page ==========================*/
+
 Route::post('ad_blogeditpage/image_upload', [CkeditorController::class, 'upload'])->name('upload');
 Route::get('ad_home', function () {
     return view('adminpage.ad_home');
@@ -160,6 +161,14 @@ Route::post(
     [
         'as' => 'xoa-product',
         'uses' => 'App\Http\Controllers\ProductController@deletedProduct'
+    ]
+);
+
+Route::post(
+    'searchProduct',
+    [
+        'as' => 'tim-kiem-product',
+        'uses' => 'App\Http\Controllers\ProductController@searchProduct'
     ]
 );
 
@@ -384,6 +393,16 @@ Route::post('register', [
 Route::get('shop',  [
     'as' => 'shop',
     'uses' => 'App\Http\Controllers\PageController@getShop'
+]);
+
+Route::get('shop/category/{category}',  [
+    'as' => 'shop-category',
+    'uses' => 'App\Http\Controllers\ProductController@findByCategory'
+]);
+
+Route::get('shop/manufacturer/{manufacturer}',  [
+    'as' => 'shop-manufacturer',
+    'uses' => 'App\Http\Controllers\ProductController@findByManufacturer'
 ]);
 
 //-------------------------------START Blog----------------------//

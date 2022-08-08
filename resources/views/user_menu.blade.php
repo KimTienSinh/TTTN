@@ -38,19 +38,19 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
-                        <a href="{{url('/')}}">
+                        <a href="{{url('/index')}}">
                             <img src="user/img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-7">
-                    <div class="advanced-search">
+                    {{-- <div class="advanced-search">
                         <button type="button" class="category-btn">All Categories</button>
                         <div class="input-group">
                             <input type="text" placeholder="What do you need?">
                             <button type="button"><i class="ti-search"></i></button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
@@ -154,13 +154,13 @@
                     <ul id="user-menu">
                         <li><a href="./index">Home</a></li>
                         <li><a href="./shop">Shop</a></li>
-                        <li><a href="#">Collection</a>
+                        {{-- <li><a href="#">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>
                                 <li><a href="#">Women's</a></li>
                                 <li><a href="#">Kid's</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li><a href="./blog">Blog</a></li>
                         <li><a href="./contact">Contact</a></li>
                         @if (Auth::check())

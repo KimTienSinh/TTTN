@@ -78,8 +78,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Material</label>
                                             <div class="col-sm-5">
-                                                <input name="material" class="form-control"
-                                                    value="{{ $product->material }}" required="true">
+                                                <input name="material" class="form-control" value="{{ $product->material }}"
+                                                    required="true">
                                             </div>
                                         </div>
 
@@ -338,24 +338,33 @@
                                             <div class="col col-md-3 fileinputpadding">
                                                 Image product detail
                                             </div>
+                                            @php
+                                                $preColor = [];
+                                            @endphp
                                             @foreach ($product_detail as $product)
-                                                <div id="imgList">
-                                                    <div class="col-sm-10">
-                                                        <label for="img[{{ $product->id_product_detail }}]"
-                                                            class="btn btn-outline-primary">
-                                                            <img src="images/{{ $product->image }}"
-                                                                class="center-cropped img-fluid img-thumbnail"
-                                                                id="previewImgimg{{ $product->id_product_detail }}"
-                                                                alt="product-image">
-                                                            <i class="fa fa-picture-o"
-                                                                data-color="color[{{ $product->id_product_detail }}]">&ensp;{{ $product->color }}</i>
-                                                        </label>
-                                                        <input hidden type="file"
-                                                            id="img[{{ $product->id_product_detail }}]"
-                                                            name="img[{{ $product->id_product_detail }}]"
-                                                            class="form-control-file" onchange="previewFile(this)">
+                                                @if (!in_array($product->color, $preColor))
+                                                    <div id="imgList">
+                                                        <div class="col-sm-10">
+                                                            <label for="img[{{ $product->id_product_detail }}]"
+                                                                class="btn btn-outline-primary">
+                                                                <img src="images/{{ $product->image }}"
+                                                                    class="center-cropped img-fluid img-thumbnail"
+                                                                    id="previewImgimg{{ $product->id_product_detail }}"
+                                                                    alt="product-image">
+                                                                <i class="fa fa-picture-o"
+                                                                    data-color="color[{{ $product->id_product_detail }}]">&ensp;{{ $product->color }}</i>
+                                                            </label>
+                                                            <input hidden type="file"
+                                                                id="img[{{ $product->id_product_detail }}]"
+                                                                name="img[{{ $product->id_product_detail }}]"
+                                                                class="form-control-file" onchange="previewFile(this)">
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    @php
+                                                       // var_dump($preColor);
+                                                        $preColor[] = $product->color;
+                                                    @endphp
+                                                @endif
                                             @endforeach
                                         </div>
                                         <div class="form-group row">
@@ -635,15 +644,15 @@
             </div>
         </div>
         <!--**********************************
-                                                                                                                                                                                                                                                                                                                            Content body end
-                                                                                                                                                                                                                                                                                                                        ***********************************-->
+                                                                                                                                                                                                                                                                                                                                                            Content body end
+                                                                                                                                                                                                                                                                                                                                                        ***********************************-->
         <!--**********************************
-                                                                                                                                                                                                                                                                                                                            Footer start
-                                                                                                                                                                                                                                                                                                                        ***********************************-->
+                                                                                                                                                                                                                                                                                                                                                            Footer start
+                                                                                                                                                                                                                                                                                                                                                        ***********************************-->
 
         <!--**********************************
-                                                                                                                                                                                                                                                                                                                            Footer end
-                                                                                                                                                                                                                                                                                                                        ***********************************-->
+                                                                                                                                                                                                                                                                                                                                                            Footer end
+                                                                                                                                                                                                                                                                                                                                                        ***********************************-->
         <script>
             var id =
                 @if (isset($list_color))
@@ -676,7 +685,7 @@
                     ']" class="btn btn-outline-primary" > <img src="images/upload-default.png" class="center-cropped img-fluid img-thumbnail" id="previewImgimg' +
                     id + '" alt="product-image"><i class="fa fa-picture-o" data-color="color[' + id +
                     ']"></i></label><input hidden type="file" id="img[' + id + ']" name="img[' + id +
-                    ']" class="form-control-file" onchange="previewFile(this)" required></div>'
+                    ']" class="form-control-file" onchange="previewFile(this)"></div>'
                 $('#imgList').append(imgHtml);
 
                 var del = '#1trash' + id;

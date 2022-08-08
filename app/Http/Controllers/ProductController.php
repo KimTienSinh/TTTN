@@ -6,8 +6,11 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\ImageProduct;
 use App\Models\ImageUpload;
+use App\Models\Manufacturer;
 use App\Models\ProductDetail;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isEmpty;
 
 class ProductController extends Controller
 {
@@ -42,8 +45,12 @@ class ProductController extends Controller
                 $color_key = array_search($color, $request->color);
                 $size_key = array_search($size, $request->size);
                 $key = $color_key . $size_key;
-                $img =  $request->img[$color_key];
-                $imageName = ImageUpload::imageUploadPost($img);
+                if ($request->img[$color_key]) {
+                    $img =  $request->img[$color_key];
+                    $imageName = ImageUpload::imageUploadPost($img);
+                } else {
+                    $imageName = "clothes-default.png";
+                }
                 $productDetail = [
                     'id_product' => $prd_id,
                     'size' => $size,
@@ -59,8 +66,14 @@ class ProductController extends Controller
         return redirect('ad_Product');
     }
 
-    public function getProductEditPage()
+    public function searchProduct(Request $request)
     {
+        if ($request->search) {
+            $product_list = Product::where('id_product', 'LIKE', '%' . $request->search . '%')->orWhere('product_name', 'LIKE', '%' . $request->search . '%')->get();
+            return view('adminpage.ad_productpage', compact('product_list'));
+        }
+        $product_list = Product::with('image_product')->get();
+        return view('adminpage.ad_productpage', compact('product_list'));
     }
 
     public function editProduct(Request $request, $id)
@@ -100,15 +113,30 @@ class ProductController extends Controller
         }
 
         foreach ($request->color as  $color) {
+            $oldColor = '';
             foreach ($request->size as $size) {
                 $color_key = array_search($color, $request->color);
                 $size_key = array_search($size, $request->size);
                 $key = $color_key . $size_key;
-                $product_detail = ProductDetail::firstOrNew([
-                    'id_product' => $request->id,
-                    'size' => $size,
-                    'color' => $color
-                ]);
+                $product_detail = ProductDetail::find($color_key);
+                if ($product_detail) {
+                    if (!$oldColor) {
+                        $oldColor = $product_detail->color;
+                    }
+                    if ($product_detail->size != $size_key) {
+                        $product_detail = ProductDetail::where([
+                            'id_product' => $request->id,
+                            'size' => $size,
+                            'color' => $oldColor,
+                        ])->first();
+                    }
+                }
+                if (!$product_detail) {
+                    $product_detail = new ProductDetail();
+                }
+                $product_detail->id_product = $request->id;
+                $product_detail->size = $size;
+                $product_detail->color = $color;
 
                 // if ($request->img[0]) {
                 //     $product_detail->image = $img;
@@ -116,15 +144,21 @@ class ProductController extends Controller
                 //     $prd->image = $img;
                 //     $prd->save();
                 // }
+                $flag = false;
                 if ($request->img) {
                     $id_color_key = (string)$color_key;
-                    if (isset($request->img[$id_color_key])) {
-                        $imageName = ImageUpload::imageUploadPost($request->img[$id_color_key]);
-                        $product_detail->image = $imageName;
+                    foreach ($request->img as $keyImg => $img) {
+                        if ($keyImg == $id_color_key) {
+                            $imageName = ImageUpload::imageUploadPost($request->img[$id_color_key]);
+                            $product_detail->image = $imageName;
+                            $flag = true;
+                            break;
+                        }
                     }
-                } else {
+                }
+                if (!$flag) {
                     if (!$product_detail->image) {
-                        $product_detail_image = ProductDetail::find([
+                        $product_detail_image = ProductDetail::where([
                             'id_product' => $request->id,
                             'color' => $color
                         ])->first();
@@ -135,10 +169,10 @@ class ProductController extends Controller
                         }
                     }
                 }
+
                 $product_detail->price = $request->price[$key];
                 $product_detail->remaining = $request->remaining[$key];
                 $product_detail->status = '1';
-
                 $product_detail->save();
             }
         }
@@ -148,5 +182,23 @@ class ProductController extends Controller
     {
         Product::find($request->id_product)->update(['status' => '0']);
         return redirect('ad_Product');
+    }
+
+    public function findByCategory($category)
+    {
+        $category = Category::where('category_name', $category)->first();
+        $list_product = Product::with('image_product')->where('status', '<>', 0)->where('id_category', $category->id_category)->get();
+        $categories = Category::where(['type' => 0])->get();
+        $manufacturers = Manufacturer::all();
+        return view('userpage.user_shop', compact('list_product', 'categories', 'manufacturers'));
+    }
+
+    public function findByManufacturer($manufacturer)
+    {
+        $manufacturer = Manufacturer::where('manufacturer', $manufacturer)->first();
+        $list_product = Product::with('image_product')->where('status', '<>', 0)->Where('id_manufacturer', $manufacturer->id_manufacturer)->get();
+        $categories = Category::where(['type' => 0])->get();
+        $manufacturers = Manufacturer::all();
+        return view('userpage.user_shop', compact('list_product', 'categories', 'manufacturers'));
     }
 }

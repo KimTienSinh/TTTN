@@ -42,6 +42,9 @@ class CheckoutController extends Controller
             $id_user = Auth::user()->id_user;
             $cart_list = json_decode(User::find($id_user)->cart);
             foreach ($cart_list as $cart_item) {
+                if ($cart_item->remaining < $cart_item->pivot->quantity) {
+                    return redirect()->back()->with('error_remaining', 'Out of stock');
+                }
                 $total += $cart_item->pivot->quantity * $cart_item->price;
             }
             if ($request->voucher != '') {
@@ -70,6 +73,8 @@ class CheckoutController extends Controller
                     'quantity' => $cart_item->pivot->quantity,
                 ];
                 OrderDetail::insert($order_detail);
+                $product_detail->remaining -= $cart_item->pivot->quantity;
+                $product_detail->save();
             }
             Cart::where('id_user', $id_user)->delete();
             session()->remove('cart');

@@ -134,13 +134,13 @@
                                     </div>
                                 </div> -->
                                 <div class="row form-group">
-                                    <div class="col col-md-3 fileinputpadding">
+                                    {{-- <div class="col col-md-3 fileinputpadding">
                                         <label for="file-input" class=" form-control-label ">Avatar</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="file" id="file_avatar" name="file_avatar"
                                             class="form-control-file">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-10">

@@ -38,30 +38,34 @@ class CartController extends Controller
 
     public function add2Cart(Request $request)
     {
+        $msg = 'Out of stock';
         if (!session()->exists('cart')) {
             session(['cart']);
         }
+        $cart = session()->get('cart');
         if (Auth::check()) { //Nếu đăng nhập
             $id_user = Auth::user()->id_user;
-            $cart = [];
-            $id_detail = $this->get_id_detail($request->id_product, $request->color, $request->size);
-            $cart_list = json_decode(User::find($id_user)->cart);
-            if ($cart_list != null) {
-                foreach ($cart_list as $cart_item) {
-                    $cart[$cart_item->id_product_detail] = $cart_item->pivot->quantity;
+            $id_detail = $this->get_id_detail($request->id_product, $request->color, $request->size, $request->quantity);
+            if ($id_detail) {
+                $cart_list = json_decode(User::find($id_user)->cart);
+                if ($cart_list != null) {
+                    foreach ($cart_list as $cart_item) {
+                        $cart[$cart_item->id_product_detail] = $cart_item->pivot->quantity;
+                    }
                 }
+                $cart = $this->checkCart($cart, $id_detail, $request->quantity);
+                Cart::updateOrInsert(
+                    [
+                        'id_user' => Auth::user()->id_user,
+                        'id_product_detail' => $id_detail,
+                    ],
+                    [
+                        'quantity' => $cart[$id_detail]
+                    ]
+                );
+                session()->put('cart', $cart);
+                $msg = 'Add to cart success';
             }
-            $cart = $this->checkCart($cart, $id_detail, $request->quantity);
-            Cart::updateOrInsert(
-                [
-                    'id_user' => Auth::user()->id_user,
-                    'id_product_detail' => $id_detail,
-                ],
-                [
-                    'quantity' => $cart[$id_detail]
-                ]
-            );
-            session()->put('cart', $cart);
         } else { //Nếu k đăng nhập
             $id_detail = $this->get_id_detail($request->id_product, $request->color, $request->size);
 
@@ -75,7 +79,10 @@ class CartController extends Controller
             //var_dump($cart);
         }
         $data = count($cart);
-        return response($data);
+        return response()->json([
+            'data' => $data,
+            'msg' => $msg,
+        ]);
     }
 
     public function updateCart(Request $request, $id)
@@ -118,7 +125,7 @@ class CartController extends Controller
 
         $cart_list_item = $this->getCartList($cart);
         return response()->json([
-            'html' => view('userpage.cart_item', compact('cart_list_item','cart_list'))->render(),
+            'html' => view('userpage.cart_item', compact('cart_list_item', 'cart_list'))->render(),
             'cartItem' => count($cart)
         ]);
     }
@@ -154,14 +161,16 @@ class CartController extends Controller
         return $cart;
     }
 
-    private function get_id_detail($id_prd, $color, $size)
+    private function get_id_detail($id_prd, $color, $size, $quantity)
     {
         $product_detail = ProductDetail::where([
             'id_product' => $id_prd,
             'color' => $color,
             'size' => $size,
         ])->first();
-        return  $product_detail->id_product_detail;
+        if ($product_detail->remaining < $quantity)
+            return null;
+        return $product_detail->id_product_detail;
     }
 
 
@@ -182,8 +191,13 @@ class CartController extends Controller
                 ->join('product_detail', 'cart.id_product_detail', '=', 'product_detail.id_product_detail')
                 ->join('product', 'product_detail.id_product', '=', 'product.id_product')
                 ->where('id_user', '=', Auth::user()->id_user)
-                ->select('product.product_name', 'cart.quantity', 'product_detail.price', 'product_detail.size', 'product_detail.color')
+                ->select('product.product_name', 'cart.quantity', 'product_detail.remaining', 'product_detail.price', 'product_detail.size', 'product_detail.color')
                 ->get();
+            foreach ($data as $dt) {
+                if ($dt->quantity > $dt->remaining) {
+                    return redirect()->back()->with(['err'=>'Product "'.$dt->product_name.'" color "'.$dt->color.'" size "'.$dt->size.'" remaining not enough']);
+                }
+            }
             return view('userpage.user_checkout', compact('data'));
         } else {
             return redirect('login');

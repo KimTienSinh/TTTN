@@ -24,6 +24,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Product Infomation</h4>
+                            <form method="POST" action="{{ route('tim-kiem-product') }}" class="d-flex">
+                                @csrf
+                                <input class="form-control" name="search" type="search" placeholder="Search" aria-label="Search">
+                                <button type="submit" class="btn btn-outline-primary col-2 px-1 mx-1">
+                                    <i class="mdi mdi-magnify"></i>
+                                </button>
+                            </form>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -53,9 +60,9 @@
                                                     <td>
                                                         @if ($product->image_product)
                                                             @foreach ($product->image_product as $image_product => $image)
-                                                                 <img src="images/{{ $image->image }}"
-                                                                class="center-cropped img-thumbnail"
-                                                                id="previewImgavatar0" alt="product-image"> 
+                                                                <img src="images/{{ $image->image }}"
+                                                                    class="center-cropped img-thumbnail"
+                                                                    id="previewImgavatar0" alt="product-image">
                                                             @break
                                                         @endforeach
                                                     @endif
@@ -74,9 +81,8 @@
                                                                 Edit</button>
                                                         </form>
                                                         &emsp;<button id="product_id" data-toggle="modal"
-                                                            data-id='{{ $product->id_product }}'
-                                                            data-target="#myModal" type="button"
-                                                            class="btn btn-outline-danger">&nbsp;<i
+                                                            data-id='{{ $product->id_product }}' data-target="#myModal"
+                                                            type="button" class="btn btn-outline-danger">&nbsp;<i
                                                                 class="fa fa-close color-danger"></i>&nbsp; Delete
                                                         </button>
                                                     </span>

@@ -17,6 +17,11 @@ class ProductDetailController extends Controller
         ])->first();
         $data = $product->price;
         $img = $product->image;
-        return response(['data' => number_format($data), 'img' => $img]);
+        $remaining = $product->remaining;
+        return response([
+            'data' => number_format($data),
+            'img' => $img,
+            'remaining' => $remaining,
+        ]);
     }
 }

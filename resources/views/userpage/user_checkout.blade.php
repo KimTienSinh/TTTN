@@ -20,6 +20,17 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
+        @if (Session::has('error_remaining'))
+                <div class="alert alert-danger" style="text-align: center">{{ Session::get('error_remaining') }}</div>
+                @endif
+                @if (count($errors) > 0)
+                <div class="alert alert-danger" style="text-align: center">
+                    @foreach ($errors->all() as $err)
+                    {{ $err }}
+                    <br>
+                    @endforeach
+                </div>
+                @endif
         @if(Auth::check())
         <form action="{{url('order')}}" class="checkout-form" method="POST">
             @csrf

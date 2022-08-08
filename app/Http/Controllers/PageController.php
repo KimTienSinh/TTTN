@@ -54,7 +54,6 @@ class PageController extends Controller
     public function ad_getAllProduct()
     {
         $product_list = Product::with('image_product')->get();
-        // dd($product_list);
         return view('adminpage.ad_productpage', compact('product_list'));
     }
 
@@ -89,6 +88,8 @@ class PageController extends Controller
     public function getShop()
     {
         $list_product = Product::with('image_product')->where('status', '<>', 0)->get();
-        return view('userpage.user_shop', compact('list_product'));
+        $categories = Category::where(['type' => 0])->get();
+        $manufacturers = Manufacturer::all();
+        return view('userpage.user_shop', compact('list_product', 'categories','manufacturers'));
     }
 }
